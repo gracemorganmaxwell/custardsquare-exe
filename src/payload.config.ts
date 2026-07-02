@@ -9,12 +9,17 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles'
+import { getServerURL, getTrustedOrigins } from './lib/site-url'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const trustedOrigins = getTrustedOrigins()
+
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  serverURL: getServerURL(),
+  csrf: trustedOrigins,
+  cors: trustedOrigins,
   admin: {
     user: Users.slug,
     importMap: {

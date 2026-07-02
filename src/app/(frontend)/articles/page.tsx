@@ -5,6 +5,8 @@ import { getPayload } from 'payload'
 
 import './articles.css'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Articles | custardsquare.exe',
   description: 'Learnings, notes, and write-ups from Grace.',

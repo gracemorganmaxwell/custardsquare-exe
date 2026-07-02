@@ -8,6 +8,8 @@ import { ArticleBody } from '@/components/article/ArticleBody'
 
 import '../articles.css'
 
+export const dynamic = 'force-dynamic'
+
 type ArticlePageProps = {
   params: Promise<{
     slug: string
