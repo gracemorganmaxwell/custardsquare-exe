@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 
 import { ArticleBody } from '@/components/article/ArticleBody'
+import { ArticleTableOfContents } from '@/components/article/ArticleTableOfContents'
+import { extractArticleHeadings } from '@/lib/lexical-headings'
 
 import '../articles.css'
 
@@ -76,9 +78,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound()
   }
 
+  const headings = article.content ? extractArticleHeadings(article.content) : []
+  const hasToc = headings.length >= 2
+
   return (
     <div className="article-page">
-      <article className="article-shell">
+      <article className={`article-shell${hasToc ? ' article-shell-wide' : ''}`}>
         <Link className="article-back" href="/articles">
           ← All articles
         </Link>
@@ -89,7 +94,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <p className="article-meta">{formatDate(article.publishedAt)}</p>
         </header>
 
-        {article.content ? <ArticleBody content={article.content} /> : null}
+        <div className={hasToc ? 'article-layout article-layout--with-toc' : 'article-layout'}>
+          {hasToc ? <ArticleTableOfContents headings={headings} /> : null}
+          {article.content ? <ArticleBody content={article.content} headings={headings} /> : null}
+        </div>
       </article>
     </div>
   )
