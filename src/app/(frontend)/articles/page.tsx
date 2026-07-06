@@ -1,16 +1,13 @@
-import configPromise from '@payload-config'
-import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getPayload } from 'payload'
+
+import { getPublishedArticles } from '@/lib/articles'
+import { buildArticlesIndexMetadata } from '@/lib/seo'
 
 import './articles.css'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-  title: 'Articles | custardsquare.exe',
-  description: 'Learnings, notes, and write-ups from Grace.',
-}
+export const metadata = buildArticlesIndexMetadata()
 
 function formatDate(value: string | null | undefined): string {
   if (!value) {
@@ -23,18 +20,7 @@ function formatDate(value: string | null | undefined): string {
 }
 
 export default async function ArticlesPage() {
-  const payload = await getPayload({ config: configPromise })
-
-  const { docs: articles } = await payload.find({
-    collection: 'articles',
-    where: {
-      status: {
-        equals: 'published',
-      },
-    },
-    sort: '-publishedAt',
-    limit: 100,
-  })
+  const articles = await getPublishedArticles()
 
   return (
     <div className="article-page">

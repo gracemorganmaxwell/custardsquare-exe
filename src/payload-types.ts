@@ -203,6 +203,22 @@ export interface Article {
    * Set automatically on first publish if left empty
    */
   publishedAt?: string | null;
+  /**
+   * Optional override for browser tab and social titles
+   */
+  seoTitle?: string | null;
+  /**
+   * Optional override for search and social descriptions
+   */
+  seoDescription?: string | null;
+  /**
+   * Hero or card image for this article
+   */
+  coverImage?: (number | null) | Media;
+  /**
+   * Social share image. Falls back to cover image if empty.
+   */
+  ogImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -338,6 +354,10 @@ export interface ArticlesSelect<T extends boolean = true> {
   content?: T;
   status?: T;
   publishedAt?: T;
+  seoTitle?: T;
+  seoDescription?: T;
+  coverImage?: T;
+  ogImage?: T;
   updatedAt?: T;
   createdAt?: T;
 }

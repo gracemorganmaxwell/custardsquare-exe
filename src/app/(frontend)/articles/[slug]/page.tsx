@@ -1,12 +1,12 @@
-import configPromise from '@payload-config'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getPayload } from 'payload'
 
 import { ArticleBody } from '@/components/article/ArticleBody'
 import { ArticleTableOfContents } from '@/components/article/ArticleTableOfContents'
+import { getPublishedArticleBySlug } from '@/lib/articles'
 import { extractArticleHeadings } from '@/lib/lexical-headings'
+import { buildArticleMetadata, SITE_NAME } from '@/lib/seo'
 
 import '../articles.css'
 
@@ -30,49 +30,20 @@ function formatDate(value: string | null | undefined): string {
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params
-  const payload = await getPayload({ config: configPromise })
-
-  const { docs } = await payload.find({
-    collection: 'articles',
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { status: { equals: 'published' } },
-      ],
-    },
-    limit: 1,
-  })
-
-  const article = docs[0]
+  const article = await getPublishedArticleBySlug(slug)
 
   if (!article) {
     return {
-      title: 'Article not found | custardsquare.exe',
+      title: `Article not found | ${SITE_NAME}`,
     }
   }
 
-  return {
-    title: `${article.title} | custardsquare.exe`,
-    description: article.excerpt,
-  }
+  return buildArticleMetadata(article)
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params
-  const payload = await getPayload({ config: configPromise })
-
-  const { docs } = await payload.find({
-    collection: 'articles',
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { status: { equals: 'published' } },
-      ],
-    },
-    limit: 1,
-  })
-
-  const article = docs[0]
+  const article = await getPublishedArticleBySlug(slug)
 
   if (!article) {
     notFound()

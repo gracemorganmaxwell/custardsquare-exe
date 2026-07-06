@@ -85,6 +85,45 @@ export const Articles: CollectionConfig = {
         description: 'Set automatically on first publish if left empty',
       },
     },
+    {
+      type: 'collapsible',
+      label: 'SEO',
+      admin: {
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'seoTitle',
+          type: 'text',
+          admin: {
+            description: 'Optional override for browser tab and social titles',
+          },
+        },
+        {
+          name: 'seoDescription',
+          type: 'textarea',
+          admin: {
+            description: 'Optional override for search and social descriptions',
+          },
+        },
+        {
+          name: 'coverImage',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'Hero or card image for this article',
+          },
+        },
+        {
+          name: 'ogImage',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'Social share image. Falls back to cover image if empty.',
+          },
+        },
+      ],
+    },
   ],
   hooks: {
     beforeChange: [
