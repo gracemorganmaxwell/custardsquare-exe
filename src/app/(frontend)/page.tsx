@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { BootScreen } from '@/components/desktop/BootScreen'
 import { getSiteSettings } from '@/lib/site-settings'
 
 import './styles.css'
@@ -19,26 +20,27 @@ export default async function HomePage() {
     settings.socialLinks.length > 0 ? settings.socialLinks : FALLBACK_SOCIAL_LINKS
 
   return (
-    <main className="home">
-      <div className="content">
-        <p className="boot-line">Starting {settings.siteTitle}...</p>
-        <h1>{settings.siteTitle}</h1>
-        <p className="tagline">{settings.siteDescription}</p>
-        <p className="status">Loading thoughts... Indexing crumbs... Desktop shell coming in M4.</p>
-        <div className="links">
-          <Link className="admin" href="/admin">
-            Admin CMS
-          </Link>
-          <Link className="docs" href="/articles">
-            Articles
-          </Link>
-          {socialLinks.map((link) => (
-            <a className="docs" href={link.url} key={link.url} rel="noopener noreferrer">
-              {link.label}
-            </a>
-          ))}
+    <BootScreen siteTitle={settings.siteTitle}>
+      <main className="home">
+        <div className="content">
+          <h1>{settings.siteTitle}</h1>
+          <p className="tagline">{settings.siteDescription}</p>
+          <p className="status">Loading thoughts... Indexing crumbs... Desktop shell coming in M4.</p>
+          <div className="links">
+            <Link className="admin" href="/admin">
+              Admin CMS
+            </Link>
+            <Link className="docs" href="/articles">
+              Articles
+            </Link>
+            {socialLinks.map((link) => (
+              <a className="docs" href={link.url} key={link.url} rel="noopener noreferrer">
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </BootScreen>
   )
 }

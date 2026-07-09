@@ -1,0 +1,36 @@
+.boot-screen {
+  min-height: 100vh;
+  background: var(--win95-black, #000000);
+  color: var(--dream-purple-soft, #b69cff);
+  font-family: var(--win95-font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  padding: 2rem 1.5rem;
+}
+
+.boot-screen__inner {
+  max-width: 40rem;
+}
+
+.boot-screen__line {
+  margin: 0 0 0.35rem;
+}
+
+.boot-screen__cursor {
+  display: inline-block;
+  margin: 0;
+  animation: boot-cursor-blink 1s step-end infinite;
+}
+
+@keyframes boot-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-screen__cursor {
+    animation: none;
+    opacity: 0;
+  }
+}

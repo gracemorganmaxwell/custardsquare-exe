@@ -5,6 +5,7 @@ import { buildRootMetadata } from '@/lib/seo'
 import { getSiteSettings } from '@/lib/site-settings'
 
 import '@/styles/win95.css'
+import '@/styles/boot.css'
 import './styles.css'
 
 export const dynamic = 'force-dynamic'
