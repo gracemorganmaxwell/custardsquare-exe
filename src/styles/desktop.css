@@ -1,0 +1,104 @@
+.desktop-shell {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--win95-font);
+}
+
+.desktop-shell__wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgb(255 214 245 / 45%) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgb(109 75 195 / 50%) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgb(182 156 255 / 35%) 0%, transparent 45%),
+    linear-gradient(165deg, #2a1f4e 0%, #6d4bc3 38%, #ffd6f5 72%, #9b6dff 100%);
+}
+
+.desktop-shell__icons {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 1.5rem;
+  width: 5.5rem;
+  min-height: 4rem;
+}
+
+.desktop-shell__windows {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 3rem;
+  pointer-events: none;
+}
+
+.desktop-shell__windows > * {
+  pointer-events: auto;
+}
+
+/* Welcome window on the desktop (until icon grid in #25) */
+.home.desktop-window {
+  width: min(100%, 30rem);
+  overflow: hidden;
+}
+
+.home.desktop-window .home__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1rem;
+  background: var(--win95-grey);
+  color: var(--win95-black);
+}
+
+.home.desktop-window h1 {
+  margin: 0;
+  font-family: var(--win95-font);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.home.desktop-window .tagline,
+.home.desktop-window .status {
+  margin: 0;
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.home.desktop-window .status {
+  color: var(--win95-grey-darker);
+}
+
+.home.desktop-window .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.home.desktop-window .links a {
+  text-decoration: none;
+}
+
+.home.desktop-window .links .win95-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: auto;
+  text-decoration: none;
+}
+
+.home.desktop-window .links a.win95-button:focus-visible {
+  outline: 1px dotted var(--win95-black);
+  outline-offset: -4px;
+}
