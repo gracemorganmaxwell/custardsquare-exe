@@ -45,52 +45,44 @@
 }
 
 /* Welcome window on the desktop (until icon grid in #25) */
-.home.desktop-window {
+.desktop-window {
   width: min(100%, 30rem);
-  overflow: hidden;
 }
 
-.home.desktop-window .home__body {
+.desktop-window .win95-titlebar {
+  width: 100%;
+  border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0;
+}
+
+.desktop-window .home__body {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-  padding: 1rem;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem 0.75rem;
   background: var(--win95-grey);
   color: var(--win95-black);
+  text-align: left;
 }
 
-.home.desktop-window h1 {
-  margin: 0;
-  font-family: var(--win95-font);
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.home.desktop-window .tagline,
-.home.desktop-window .status {
+.desktop-window .tagline {
   margin: 0;
   font-family: var(--win95-font);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
 
-.home.desktop-window .status {
-  color: var(--win95-grey-darker);
-}
-
-.home.desktop-window .links {
+.desktop-window .links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding-top: 0.25rem;
 }
 
-.home.desktop-window .links a {
+.desktop-window .links a {
   text-decoration: none;
 }
 
-.home.desktop-window .links .win95-button {
+.desktop-window .links .win95-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +90,39 @@
   text-decoration: none;
 }
 
-.home.desktop-window .links a.win95-button:focus-visible {
+.desktop-window .links a.win95-button:focus-visible {
   outline: 1px dotted var(--win95-black);
   outline-offset: -4px;
+}
+
+.site-admin-footer {
+  position: fixed;
+  right: 0;
+  bottom: 1rem;
+  left: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 0 1.5rem;
+  font-family: var(--win95-font);
+  font-size: 0.75rem;
+  color: var(--win95-grey-dark);
+  text-align: left;
+  opacity: 0;
+  filter: grayscale(1);
+  transition: opacity 0.15s ease;
+}
+
+.site-admin-footer:hover,
+.site-admin-footer:focus-within {
+  opacity: 0.45;
+}
+
+.site-admin-footer a {
+  color: var(--win95-grey-dark);
+  text-decoration: none;
+}
+
+.site-admin-footer a:focus-visible {
+  outline: 1px dotted var(--win95-grey-darker);
+  outline-offset: 2px;
 }

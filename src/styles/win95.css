@@ -38,6 +38,11 @@
   /* Spacing */
   --win95-border-width: 2px;
   --win95-titlebar-height: 1.75rem;
+
+  /* Soft corners — dreamy twist on classic Win95 (site-wide branding) */
+  --cs-radius-sm: 4px;
+  --cs-radius-md: 8px;
+  --cs-radius-lg: 10px;
 }
 
 /* Raised panel — buttons, outer window frame */
@@ -47,6 +52,8 @@
   border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
     var(--win95-bevel-light);
   box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+  border-radius: var(--cs-radius-lg);
+  overflow: hidden;
 }
 
 /* Inset panel — text fields, client area */
@@ -55,21 +62,99 @@
   border: var(--win95-border-width) solid;
   border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
     var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
 }
 
 /* Active title bar (dream purple gradient) */
 .win95-titlebar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   min-height: var(--win95-titlebar-height);
-  padding: 0 0.25rem 0 0.375rem;
+  margin: 0;
+  padding: 0.125rem 0.125rem 0.125rem 0.375rem;
   background: var(--win95-title-active-bg);
   color: var(--win95-title-active-fg);
   font-family: var(--win95-font);
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.01em;
+  text-align: left;
   user-select: none;
+  border-radius: var(--cs-radius-md) var(--cs-radius-md) var(--cs-radius-sm) var(--cs-radius-sm);
+}
+
+.win95-titlebar__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.win95-titlebar__controls {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.win95-titlebar__control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 0.875rem;
+  background: var(--win95-grey);
+  border: 1px solid;
+  border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+    var(--win95-bevel-light);
+  box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+  opacity: 0.45;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.win95-titlebar__glyph {
+  display: block;
+  position: relative;
+}
+
+.win95-titlebar__control--minimize .win95-titlebar__glyph {
+  width: 0.5rem;
+  height: 2px;
+  background: var(--win95-grey-darker);
+}
+
+.win95-titlebar__control--maximize .win95-titlebar__glyph {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--win95-grey-darker);
+  background: transparent;
+}
+
+.win95-titlebar__control--close .win95-titlebar__glyph {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.win95-titlebar__control--close .win95-titlebar__glyph::before,
+.win95-titlebar__control--close .win95-titlebar__glyph::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5625rem;
+  height: 1px;
+  background: var(--win95-grey-darker);
+}
+
+.win95-titlebar__control--close .win95-titlebar__glyph::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.win95-titlebar__control--close .win95-titlebar__glyph::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .win95-titlebar--inactive {
@@ -91,6 +176,7 @@
   min-height: 1.5rem;
   min-width: 4.75rem;
   padding: 0.125rem 0.75rem;
+  border-radius: var(--cs-radius-sm);
 }
 
 .win95-button:active {

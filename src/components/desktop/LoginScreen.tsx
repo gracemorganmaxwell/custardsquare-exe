@@ -1,7 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
+
+import { AdminFooterLink } from '@/components/desktop/AdminFooterLink'
+import { Win95Titlebar } from '@/components/desktop/Win95Titlebar'
 
 type LoginScreenProps = {
   children: React.ReactNode
@@ -9,62 +11,33 @@ type LoginScreenProps = {
 }
 
 export function LoginScreen({ children, siteTitle }: LoginScreenProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
 
-  if (isLoggedIn) {
+  if (hasStarted) {
     return children
   }
 
   return (
     <main className="login-screen">
       <div className="login-screen__window win95-raised">
-        <div className="win95-titlebar">Welcome to {siteTitle}</div>
+        <Win95Titlebar title={siteTitle} />
 
-        <form
-          className="login-screen__form"
-          onSubmit={(event) => {
-            event.preventDefault()
-            setIsLoggedIn(true)
-          }}
-        >
-          <p className="login-screen__hint">
-            Visitor login — cosmetic only. Any username and password work.
-          </p>
-
-          <label className="login-screen__field">
-            <span className="login-screen__label">User name:</span>
-            <input
-              autoComplete="username"
-              className="login-screen__input win95-inset"
-              defaultValue="visitor"
-              name="username"
-              type="text"
-            />
-          </label>
-
-          <label className="login-screen__field">
-            <span className="login-screen__label">Password:</span>
-            <input
-              autoComplete="current-password"
-              className="login-screen__input win95-inset"
-              defaultValue="password"
-              name="password"
-              type="password"
-            />
-          </label>
+        <div className="login-screen__body">
+          <p className="login-screen__hint">Enter Gracie&apos;s second brain</p>
 
           <div className="login-screen__actions">
-            <button className="win95-button" type="submit">
-              OK
+            <button
+              className="win95-button login-screen__start"
+              type="button"
+              onClick={() => setHasStarted(true)}
+            >
+              Start
             </button>
           </div>
-        </form>
+        </div>
       </div>
 
-      <p className="login-screen__admin-note">
-        CMS admin?{' '}
-        <Link href="/admin">Sign in at /admin</Link>
-      </p>
+      <AdminFooterLink />
     </main>
   )
 }
