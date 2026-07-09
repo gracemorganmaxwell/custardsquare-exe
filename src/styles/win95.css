@@ -1,0 +1,106 @@
+/**
+ * custardsquare.exe — Win95 design tokens + bevel utilities
+ * Used by the desktop shell (M4) and window chrome (M5).
+ */
+
+:root {
+  /* Classic Win95 greys */
+  --win95-grey: #c0c0c0;
+  --win95-grey-light: #dfdfdf;
+  --win95-grey-dark: #808080;
+  --win95-grey-darker: #404040;
+  --win95-white: #ffffff;
+  --win95-black: #000000;
+
+  /* Bevel edges (raised = light top-left, dark bottom-right) */
+  --win95-bevel-light: var(--win95-white);
+  --win95-bevel-mid: var(--win95-grey);
+  --win95-bevel-dark: var(--win95-grey-dark);
+  --win95-bevel-shadow: var(--win95-grey-darker);
+
+  /* Dream palette — vaporwave accent on grey chrome */
+  --dream-pink: #ffd6f5;
+  --dream-purple: #6d4bc3;
+  --dream-purple-soft: #b69cff;
+  --dream-lavender: #e0d4f0;
+  --dream-bg: #faf8fc;
+
+  /* Title bar */
+  --win95-title-active-bg: linear-gradient(90deg, #6d4bc3 0%, #9b6dff 100%);
+  --win95-title-active-fg: #ffffff;
+  --win95-title-inactive-bg: var(--win95-grey-dark);
+  --win95-title-inactive-fg: var(--win95-grey-light);
+
+  /* Typography */
+  --win95-font: 'Tahoma', 'MS Sans Serif', 'Segoe UI', system-ui, sans-serif;
+  --win95-font-mono: 'Courier New', 'Roboto Mono', ui-monospace, monospace;
+
+  /* Spacing */
+  --win95-border-width: 2px;
+  --win95-titlebar-height: 1.75rem;
+}
+
+/* Raised panel — buttons, outer window frame */
+.win95-raised {
+  background: var(--win95-bevel-mid);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+    var(--win95-bevel-light);
+  box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+}
+
+/* Inset panel — text fields, client area */
+.win95-inset {
+  background: var(--win95-white);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+}
+
+/* Active title bar (dream purple gradient) */
+.win95-titlebar {
+  display: flex;
+  align-items: center;
+  min-height: var(--win95-titlebar-height);
+  padding: 0 0.25rem 0 0.375rem;
+  background: var(--win95-title-active-bg);
+  color: var(--win95-title-active-fg);
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+.win95-titlebar--inactive {
+  background: var(--win95-title-inactive-bg);
+  color: var(--win95-title-inactive-fg);
+}
+
+/* Classic Win95 button */
+.win95-button {
+  background: var(--win95-bevel-mid);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+    var(--win95-bevel-light);
+  box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+  color: var(--win95-black);
+  cursor: default;
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+  min-height: 1.5rem;
+  min-width: 4.75rem;
+  padding: 0.125rem 0.75rem;
+}
+
+.win95-button:active {
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  box-shadow: none;
+  padding: calc(0.125rem + 1px) calc(0.75rem - 1px) calc(0.125rem - 1px) calc(0.75rem + 1px);
+}
+
+.win95-button:focus-visible {
+  outline: 1px dotted var(--win95-black);
+  outline-offset: -4px;
+}
