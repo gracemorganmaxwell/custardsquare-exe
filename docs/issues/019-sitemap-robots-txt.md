@@ -2,16 +2,18 @@
 json: {"title":"Sitemap + robots.txt","labels":["epic:public-content","priority:mvp","type:feature"],"milestone":"M3 — Public Content"}
 ---
 
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
+
 Dynamic sitemap and robots.txt for public routes.
 
-## Acceptance criteria
+## Done when
 - [ ] Sitemap includes articles and static public routes
 - [ ] Drafts excluded
 - [ ] robots.txt allows indexing of public content
 
-## Dependencies
+## Depends on
 - #14
 
-## Key files
+## Likely files
 - `src/app/(public)/sitemap.ts`
 - `src/app/(public)/robots.ts`

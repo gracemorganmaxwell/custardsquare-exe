@@ -2,16 +2,12 @@
 json: {"title":"Soft delete fields + restore workflow","labels":["epic:cms","priority:mvp","type:feature"],"milestone":"M2 — CMS Schema"}
 ---
 
-Add softDeletedAt, deletedReason, restoredAt to Articles and filter publicly.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
-- [ ] Soft-deleted articles hidden from public queries
-- [ ] Admin can view soft-deleted articles
-- [ ] Admin can restore article to draft
+Cancelled for MVP. Solo admin can use drafts. Hard delete is fine until undo becomes a real need.
 
-## Dependencies
+## Done when
+- [ ] Use article status draft/published instead
+
+## Depends on
 - #7
-
-## Key files
-- `src/collections/Articles.ts`
-- `src/lib/access.ts`

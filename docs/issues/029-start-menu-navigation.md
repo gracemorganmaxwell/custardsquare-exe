@@ -2,12 +2,13 @@
 json: {"title":"Start menu navigation","labels":["epic:desktop-ui","priority:mvp","type:feature"],"milestone":"M4 — Desktop Shell"}
 ---
 
-Start button opens hierarchical menu linking to apps and routes.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
+Start button opens a menu of apps and links.
+
+## Done when
 - [ ] Start button toggles menu
-- [ ] Menu items open windows and close menu
-- [ ] Keyboard navigation works
+- [ ] Menu items open windows or routes
 
-## Key files
+## Likely files
 - `src/components/desktop/StartMenu.tsx`

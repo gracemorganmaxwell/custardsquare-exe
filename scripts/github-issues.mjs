@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process'
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -67,15 +67,16 @@ const issues = [
   },
   {
     id: '005',
-    title: 'Add CI: typecheck + lint + Vitest',
+    title: 'Add CI: lint + typecheck',
     milestone: 'M1 — Foundation',
     labels: ['epic:foundation', 'priority:mvp', 'type:chore'],
-    summary: 'GitHub Actions workflow for lint, typecheck, and unit tests on push/PR.',
+    summary: 'One GitHub Actions workflow to catch broken builds before deploy.',
     acceptance: [
-      'CI runs on push to main and on pull requests',
-      'pnpm lint passes',
-      'pnpm test:int passes',
+      'Workflow runs on push to main',
+      '`pnpm lint` passes',
+      '`pnpm exec tsc --noEmit` passes',
     ],
+    note: 'No test-suite theatre for MVP. Add Playwright smoke (#46) only when the desktop exists.',
     files: ['.github/workflows/ci.yml'],
   },
   // Epic 2 — CMS
@@ -109,17 +110,16 @@ const issues = [
   },
   {
     id: '008',
-    title: 'Topics + Tags collections',
-    milestone: 'M2 — CMS Schema',
-    labels: ['epic:cms', 'priority:mvp', 'type:feature'],
-    summary: 'Folder-like Topics and flexible Tags linked to Articles.',
+    title: 'V2: Tags on articles',
+    milestone: null,
+    labels: ['epic:cms', 'priority:v2', 'type:feature'],
+    summary: 'Optional tags when you have enough articles to group. Not needed for launch.',
     acceptance: [
-      'Admin can create topics and tags',
-      'Admin can assign topics/tags to articles',
-      'Public article page will display topics/tags',
+      'Admin can add tags and assign them to articles',
+      'Tags show on article pages',
     ],
     deps: ['#7'],
-    files: ['src/collections/Topics.ts', 'src/collections/Tags.ts'],
+    files: ['src/collections/Tags.ts'],
   },
   {
     id: '009',
@@ -140,12 +140,13 @@ const issues = [
     title: 'SiteSettings global',
     milestone: 'M2 — CMS Schema',
     labels: ['epic:cms', 'priority:mvp', 'type:feature'],
-    summary: 'Global settings for boot lines, about, skills, resume, social links, wallpaper.',
+    summary:
+      'One Payload global for site-wide values. Start small now; add about/skills/resume fields when those windows are built.',
     acceptance: [
-      'Admin can edit site title and description',
-      'Boot message lines configurable',
-      'About, skills, resume content editable',
-      'Contact/social links stored here',
+      'Admin can edit site title, description, default OG image, and favicon',
+      'Social links (label + URL) are editable',
+      'Frontend reads settings; only logged-in admin can update',
+      'Credits for icons/assets live here as simple text or a short list — no separate Credits collection',
     ],
     files: ['src/globals/SiteSettings.ts'],
   },
@@ -154,27 +155,19 @@ const issues = [
     title: 'Credits collection',
     milestone: 'M2 — CMS Schema',
     labels: ['epic:cms', 'priority:mvp', 'type:feature'],
-    summary: 'Asset and inspiration credits including aconfuseddragon icon packs.',
-    acceptance: [
-      'Admin can add credit entries',
-      'Credit types: icon, font, inspiration, library, image, sound',
-      'Display order supported',
-    ],
-    files: ['src/collections/Credits.ts'],
+    summary: 'Cancelled — credits live in SiteSettings (#10) instead of a separate collection.',
+    acceptance: ['Folded into #10 SiteSettings'],
+    files: ['src/globals/SiteSettings.ts'],
   },
   {
     id: '012',
     title: 'Soft delete fields + restore workflow',
     milestone: 'M2 — CMS Schema',
     labels: ['epic:cms', 'priority:mvp', 'type:feature'],
-    summary: 'Add softDeletedAt, deletedReason, restoredAt to Articles and filter publicly.',
-    acceptance: [
-      'Soft-deleted articles hidden from public queries',
-      'Admin can view soft-deleted articles',
-      'Admin can restore article to draft',
-    ],
+    summary:
+      'Cancelled for MVP. Solo admin can use drafts. Hard delete is fine until undo becomes a real need.',
+    acceptance: ['Use article status draft/published instead'],
     deps: ['#7'],
-    files: ['src/collections/Articles.ts', 'src/lib/access.ts'],
   },
   {
     id: '013',
@@ -249,16 +242,16 @@ const issues = [
   },
   {
     id: '018',
-    title: 'RSS feed',
-    milestone: 'M3 — Public Content',
-    labels: ['epic:public-content', 'priority:mvp', 'type:feature'],
-    summary: 'RSS feed at /rss.xml with latest published articles.',
+    title: 'V2: RSS feed',
+    milestone: null,
+    labels: ['epic:public-content', 'priority:v2', 'type:feature'],
+    summary: 'Optional `/rss.xml` for RSS readers. The site works fine without it.',
     acceptance: [
-      'RSS includes title, excerpt, date, canonical link',
-      'Drafts and soft-deleted excluded',
+      'Feed lists published articles with title, excerpt, date, and link',
+      'Drafts excluded',
     ],
     deps: ['#14'],
-    files: ['src/app/(public)/rss.xml/route.ts'],
+    files: ['src/app/(frontend)/rss.xml/route.ts'],
   },
   {
     id: '019',
@@ -276,17 +269,18 @@ const issues = [
   },
   {
     id: '020',
-    title: 'Draft preview route (admin-gated)',
-    milestone: 'M3 — Public Content',
-    labels: ['epic:public-content', 'priority:mvp', 'type:feature'],
-    summary: 'Protected /preview/[slug] route for admin draft preview.',
+    title: 'V2: Preview drafts in browser',
+    milestone: null,
+    labels: ['epic:public-content', 'priority:v2', 'type:feature'],
+    summary:
+      'Only if previewing outside `/admin` matters. For solo publishing, the admin editor is enough.',
     acceptance: [
-      'Unauthenticated visitors cannot view drafts',
-      'Admin can preview draft article',
-      'Preview not indexed (noindex)',
+      'Logged-in admin can view a draft at a preview URL',
+      'Preview is noindex',
+      'Visitors cannot see drafts',
     ],
     deps: ['#15'],
-    files: ['src/app/preview/[slug]/page.tsx'],
+    files: ['src/app/(frontend)/preview/[slug]/page.tsx'],
   },
   // Epic 4 — Desktop UI
   {
@@ -294,23 +288,23 @@ const issues = [
     title: 'Design tokens + win95.css',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Win95 bevel tokens, dream pink/purple palette, global CSS utilities.',
+    summary: 'Win95 colours and bevel CSS — the visual foundation for the desktop.',
     acceptance: [
-      'CSS custom properties for win-grey, dream-pink, title-active colours',
-      'Bevel border utilities for raised/inset panels',
+      'CSS variables for grey, pink/purple accent, title bar colours',
+      'Raised/inset border utilities work',
     ],
-    files: ['src/styles/win95.css', 'src/styles/globals.css'],
+    files: ['src/styles/win95.css'],
   },
   {
     id: '022',
     title: 'Boot screen + reduced motion',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Boot sequence with typing animation; skip when prefers-reduced-motion.',
+    summary: 'Short boot when entering the site. Skip animation if prefers-reduced-motion.',
     acceptance: [
-      'Displays Starting custardsquare.exe... lines',
-      'Transitions to desktop/login',
-      'Reduced motion skips animation',
+      'Shows custardsquare.exe startup lines',
+      'Continues to desktop/login',
+      'Reduced motion skips typing animation',
     ],
     files: ['src/components/desktop/BootScreen.tsx'],
   },
@@ -319,11 +313,10 @@ const issues = [
     title: 'Decorative login screen',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Fake public login (visitor/password) — not real auth.',
+    summary: 'Fake visitor login — cosmetic only. Click through to the desktop. Not real auth.',
     acceptance: [
-      'Login form is decorative only',
-      'Submit enters desktop',
-      'Separate from /admin Payload login',
+      'Submitting the form enters the desktop',
+      'Separate from `/admin` Payload login',
     ],
     files: ['src/components/desktop/LoginScreen.tsx'],
   },
@@ -332,37 +325,34 @@ const issues = [
     title: 'Desktop shell + wallpaper',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Full-screen desktop with hazy pink/purple vaporwave wallpaper.',
+    summary: 'Full-screen desktop with dream vaporwave wallpaper. CSS gradient is fine for MVP.',
     acceptance: [
-      'Desktop fills viewport',
-      'Wallpaper from CSS gradient or SiteSettings image',
-      'Icon grid area ready',
+      'Desktop fills the viewport',
+      'Area ready for icons and windows',
     ],
-    files: ['src/components/desktop/DesktopShell.tsx', 'src/styles/desktop.css'],
+    files: ['src/components/desktop/DesktopShell.tsx'],
   },
   {
     id: '025',
     title: 'Desktop icons + keyboard nav',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Clickable desktop icons with select, double-click open, Enter key, focus ring.',
+    summary: 'Desktop icons that open apps. Click and Enter both work.',
     acceptance: [
-      'Icons render with aconfuseddragon assets',
-      'Keyboard focus and Enter opens app',
-      'Double-click opens window',
+      'Icons use assets from `public/icons/`',
+      'Click or Enter opens the app window',
     ],
     files: ['src/components/desktop/DesktopIcon.tsx'],
   },
   {
     id: '026',
-    title: 'Zustand desktop store + persistence',
+    title: 'Desktop UI state (Zustand)',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Window state store with localStorage for safe UI prefs only.',
+    summary: 'In-memory state for open windows and focus. Saving layout to localStorage is V2 (#55).',
     acceptance: [
-      'openWindows, activeWindowId, minimized/maximized tracked',
-      'theme, soundEnabled, windowPositions persist',
-      'No CMS/session data in localStorage',
+      'Track which windows are open',
+      'Active window focus works',
     ],
     files: ['src/lib/desktopStore.ts'],
   },
@@ -371,50 +361,47 @@ const issues = [
     title: 'Window manager + WinWindow',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Draggable, resizable windows with title bar, focus, z-index.',
+    summary: 'Basic draggable windows with title bar. Open, close, minimize. Good enough beats perfect.',
     acceptance: [
-      'Windows open, close, minimize, maximize',
-      'Active/inactive title bar states',
-      'Draggable title bar on desktop',
+      'Windows open and close',
+      'Active/inactive title bar styles',
+      'Draggable on desktop',
     ],
     files: ['src/components/desktop/WindowManager.tsx', 'src/components/ui95/WinWindow.tsx'],
   },
   {
     id: '028',
-    title: 'Taskbar + clock + system tray',
+    title: 'Taskbar + clock',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Win95 taskbar with open window buttons and live local clock.',
+    summary: 'Win95 taskbar with open-window buttons and a clock.',
     acceptance: [
-      'Clock updates every minute',
-      'Open windows appear in taskbar',
-      'Minimized windows restore from taskbar',
+      'Clock shows local time',
+      'Open windows appear in the taskbar',
+      'Clicking taskbar button focuses/restores window',
     ],
-    files: ['src/components/desktop/Taskbar.tsx', 'src/components/desktop/Clock.tsx'],
+    files: ['src/components/desktop/Taskbar.tsx'],
   },
   {
     id: '029',
     title: 'Start menu navigation',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Start button opens hierarchical menu linking to apps and routes.',
+    summary: 'Start button opens a menu of apps and links.',
     acceptance: [
       'Start button toggles menu',
-      'Menu items open windows and close menu',
-      'Keyboard navigation works',
+      'Menu items open windows or routes',
     ],
     files: ['src/components/desktop/StartMenu.tsx'],
   },
   {
     id: '030',
-    title: 'Shutdown dialog flow',
+    title: 'Shutdown dialog',
     milestone: 'M4 — Desktop Shell',
     labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
-    summary: 'Shut Down modal with log off, restart, go outside, cancel options.',
+    summary: 'Fun Shut Down dialog — log off, restart, go outside, cancel.',
     acceptance: [
-      'Log off returns to boot/login',
-      'Restart replays boot sequence',
-      'Go outside shows wholesome message',
+      'Log off returns to login/boot',
       'Cancel closes dialog',
     ],
     files: ['src/components/desktop/ShutdownDialog.tsx'],
@@ -422,14 +409,13 @@ const issues = [
   // Epic 5 — Desktop Apps
   {
     id: '031',
-    title: 'Articles window + preview pane',
+    title: 'Articles window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Desktop app to browse articles with preview and link to full page.',
+    summary: 'Desktop app listing published articles with a link to the full page.',
     acceptance: [
-      'Published articles appear in list',
-      'Preview opens in window',
-      'Link to /articles/[slug] for full reading',
+      'Published articles appear in a list',
+      'Click opens `/articles/[slug]` or shows preview',
     ],
     deps: ['#14', '#27'],
     files: ['src/components/windows/ArticlesWindow.tsx'],
@@ -439,143 +425,134 @@ const issues = [
     title: 'About window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'About Grace content from SiteSettings global.',
-    acceptance: ['About content renders', 'Links work', 'Mobile fallback to /about route'],
+    summary: 'About Grace — content from SiteSettings. Add the field to SiteSettings when you build this.',
+    acceptance: ['About text renders in a window', 'Links work'],
     deps: ['#10'],
     files: ['src/components/windows/AboutWindow.tsx'],
   },
   {
     id: '033',
-    title: 'Skills window (System Properties tabs)',
+    title: 'Skills window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Skills displayed as Control Panel > System Properties with tabs.',
-    acceptance: ['Skills grouped by category tabs', 'Keyboard accessible tabs'],
+    summary: 'Skills as a simple System Properties-style panel. Plain grouped text is fine.',
+    acceptance: ['Skills content from SiteSettings renders', 'Readable on desktop and mobile'],
     deps: ['#10'],
     files: ['src/components/windows/SkillsWindow.tsx'],
   },
   {
     id: '034',
-    title: 'Resume.txt Notepad window',
+    title: 'Resume window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Monospace Notepad-style resume from SiteSettings.',
-    acceptance: ['Resume text renders', 'Last updated date shown'],
+    summary: 'Notepad-style resume from SiteSettings. Monospace text is enough.',
+    acceptance: ['Resume text renders', 'Link to download or plain text view'],
     deps: ['#10'],
     files: ['src/components/windows/ResumeWindow.tsx'],
   },
   {
     id: '035',
-    title: 'Credits window + /credits page',
+    title: 'Credits window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Credits for aconfuseddragon icons with license note and Microsoft disclaimer.',
+    summary: 'Show credits from SiteSettings (aconfuseddragon icons + Microsoft disclaimer).',
     acceptance: [
-      'aconfuseddragon credited with itch.io links',
-      'Not affiliated with Microsoft note included',
-      'Credits page at /credits',
+      'Credits display in a window',
+      'Optional plain `/credits` page for mobile',
     ],
-    deps: ['#11'],
-    files: ['src/components/windows/CreditsWindow.tsx', 'src/app/(public)/credits/page.tsx'],
+    deps: ['#10'],
+    files: ['src/components/windows/CreditsWindow.tsx'],
   },
   {
     id: '036',
-    title: 'Search window (DB search MVP)',
+    title: 'Search window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Site search by title, excerpt, tags, topics via Postgres query.',
+    summary: 'Filter published articles by title/excerpt. Client-side filter is fine for MVP.',
     acceptance: [
-      'Search returns matching published articles',
+      'Typing filters the article list',
       'Results link to article pages',
-      'Empty state exists',
     ],
     deps: ['#14'],
-    files: ['src/components/windows/SearchWindow.tsx', 'src/lib/search.ts'],
+    files: ['src/components/windows/SearchWindow.tsx'],
   },
   {
     id: '037',
-    title: 'Terminal window (command palette)',
+    title: 'Terminal window (fun)',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Fun but useful terminal with help, open, search, theme, shutdown commands.',
+    summary: 'Cosmetic terminal with a handful of commands (`help`, `open`, `articles`). Flavour, not a real shell.',
     acceptance: [
-      'help lists available commands',
-      'open articles/notes/about work',
-      'search query opens search results',
-      'shutdown/restart trigger dialog flow',
+      '`help` lists commands',
+      '`open articles` opens Articles window',
     ],
     files: ['src/components/windows/TerminalWindow.tsx'],
   },
   {
     id: '038',
-    title: 'Notes + Projects windows (placeholder)',
+    title: 'Notes + Projects placeholders',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Placeholder windows until V2 Notes and Projects collections exist.',
+    summary: '"Coming soon" windows until V2 collections exist. Icons can still appear on desktop.',
     acceptance: [
-      'Windows open from desktop icons',
-      'Coming soon message shown',
-      'No broken data fetching',
+      'Windows open without errors',
+      'Friendly coming-soon message shown',
     ],
     files: ['src/components/windows/NotesWindow.tsx', 'src/components/windows/ProjectsWindow.tsx'],
   },
   // Epic 6 — Responsive & A11y
   {
     id: '039',
-    title: 'Mobile app-grid layout',
+    title: 'Mobile app grid',
     milestone: 'M6 — Responsive & A11y',
     labels: ['epic:a11y-responsive', 'priority:mvp', 'type:feature'],
-    summary: 'Replace draggable desktop with app grid on small screens.',
+    summary: 'On small screens, show an app grid instead of a tiny draggable desktop.',
     acceptance: [
-      'Mobile shows custardsquare.exe app grid',
-      'No tiny dragged desktop on phone',
-      'Apps open as full-screen panels',
+      'Mobile layout is usable',
+      'Tapping an app opens it full-screen',
     ],
     files: ['src/components/desktop/DesktopShell.tsx'],
   },
   {
     id: '040',
-    title: 'Full-screen mobile panels (no drag)',
+    title: 'Mobile full-screen panels',
     milestone: 'M6 — Responsive & A11y',
     labels: ['epic:a11y-responsive', 'priority:mvp', 'type:feature'],
-    summary: 'Windows become full-screen panels on mobile; dragging disabled.',
-    acceptance: ['Drag disabled below tablet breakpoint', 'Close button always visible'],
+    summary: 'Windows become full-screen panels on mobile. No dragging.',
+    acceptance: ['Close button always visible', 'Drag disabled on small screens'],
     deps: ['#39'],
   },
   {
     id: '041',
-    title: 'Keyboard navigation + focus management',
+    title: 'Keyboard basics',
     milestone: 'M6 — Responsive & A11y',
     labels: ['epic:a11y-responsive', 'priority:mvp', 'type:feature'],
-    summary: 'Tab order, Enter to open, Escape to close, focus trap in modals.',
+    summary: 'Tab, Enter, Escape — build this into M4 as you go, not as a separate rewrite.',
     acceptance: [
-      'Tab order is logical across desktop',
-      'Escape closes dialog/window where appropriate',
-      'Focus visible on all interactive elements',
+      'Interactive elements are keyboard reachable',
+      'Escape closes menus and dialogs',
     ],
   },
   {
     id: '042',
-    title: 'Skip link + ARIA on windows',
+    title: 'Skip link + window labels',
     milestone: 'M6 — Responsive & A11y',
     labels: ['epic:a11y-responsive', 'priority:mvp', 'type:feature'],
-    summary: 'Skip to content link and dialog landmarks on windows.',
+    summary: 'Skip to content link and sensible labels on windows/dialogs.',
     acceptance: [
-      'Skip link bypasses desktop chrome',
-      'Windows use role=dialog and aria-labelledby',
-      'Focus moves into window on open',
+      'Skip link bypasses decorative chrome',
+      'Windows have accessible names',
     ],
   },
   {
     id: '043',
-    title: 'prefers-reduced-motion across boot/windows',
+    title: 'Reduced motion',
     milestone: 'M6 — Responsive & A11y',
     labels: ['epic:a11y-responsive', 'priority:mvp', 'type:feature'],
-    summary: 'Respect reduced motion for boot, window open, and transitions.',
+    summary: 'Respect prefers-reduced-motion for boot and window animations.',
     acceptance: [
-      'Boot animation simplifies',
-      'Window bounce/transitions reduced',
-      'No essential content depends on animation',
+      'Boot animation simplifies or skips',
+      'No essential content hidden behind animation',
     ],
     deps: ['#22'],
   },
@@ -585,46 +562,44 @@ const issues = [
     title: 'Win95-themed 404 page',
     milestone: 'M7 — Launch Polish',
     labels: ['epic:launch', 'priority:mvp', 'type:feature'],
-    summary: 'Fake system error 404 with clear path back to desktop.',
-    acceptance: ['404 matches Win95 theme', 'Accessible error text', 'Link home works'],
-    files: ['src/app/(public)/not-found.tsx'],
+    summary: 'On-brand 404 with a clear way back home.',
+    acceptance: ['404 matches Win95 vibe', 'Link home works'],
+    files: ['src/app/(frontend)/not-found.tsx'],
   },
   {
     id: '045',
-    title: 'Performance pass (icons, images, LCP)',
+    title: 'Performance sanity check',
     milestone: 'M7 — Launch Polish',
     labels: ['epic:launch', 'priority:mvp', 'type:chore'],
-    summary: 'Optimise icon sizes, image loading, and layout shift.',
+    summary: 'Quick pass on images and icons before launch. Fix obvious problems only.',
     acceptance: [
-      'Icons appropriately sized',
-      'Lighthouse performance acceptable',
-      'No major CLS on homepage and articles',
+      'Article images use reasonable sizes',
+      'No major layout shift on homepage or articles',
     ],
   },
   {
     id: '046',
-    title: 'Playwright E2E smoke tests',
+    title: 'Smoke test: site loads',
     milestone: 'M7 — Launch Polish',
     labels: ['epic:launch', 'priority:mvp', 'type:chore'],
-    summary: 'E2E tests for desktop boot, articles, admin gate, mobile layout.',
+    summary: 'One Playwright test proving `/` and `/articles` load. Not full E2E coverage.',
     acceptance: [
-      'Visitor can open desktop and Articles window',
-      'Draft article not public',
-      'Mobile layout smoke test passes',
+      'Test passes: homepage loads',
+      'Test passes: articles index loads',
     ],
-    files: ['tests/e2e/'],
+    files: ['tests/e2e/smoke.spec.ts'],
   },
   {
     id: '047',
     title: 'Launch content checklist',
     milestone: 'M8 — Launch',
     labels: ['epic:launch', 'priority:mvp', 'type:chore'],
-    summary: 'Pre-launch content: 3-5 articles, about, skills, resume, credits, OG, favicon.',
+    summary: 'Content task, not code. Publish enough that the site feels alive.',
     acceptance: [
-      '3-5 published articles live',
-      'About and skills content complete',
-      'OG image and favicon set',
-      'All credits attributed',
+      '3+ published articles',
+      'About copy written in SiteSettings',
+      'Favicon and default OG image set',
+      'Icon credits noted',
     ],
   },
   {
@@ -638,108 +613,179 @@ const issues = [
   },
   {
     id: '049',
-    title: 'Archive learning-journey-os with redirect note',
+    title: 'Archive learning-journey-os',
     milestone: 'M8 — Launch',
     labels: ['epic:launch', 'priority:mvp', 'type:chore'],
-    summary: 'Archive old repo and add README pointer to custardsquare-exe.',
+    summary: 'Archive the old repo and point its README at custardsquare.exe.',
     acceptance: [
       'learning-journey-os archived on GitHub',
-      'README points to custardsquare-exe',
+      'README links to custardsquare-exe',
     ],
   },
-  // V2
+  // V2 — only if the MVP is live and you want more
   {
     id: '050',
-    title: 'V2: Notes collection + Notes window',
+    title: 'V2: Notes collection + window',
     milestone: null,
     labels: ['epic:cms', 'priority:v2', 'type:feature'],
-    summary: 'Shorter learning notes collection with public/private/unlisted visibility.',
-    acceptance: [
-      'Notes collection in Payload',
-      'Notes window shows real published notes',
-      'Less formal than articles',
-    ],
+    summary: 'Shorter informal notes — separate from long-form articles.',
+    acceptance: ['Notes in Payload', 'Notes window shows published notes'],
   },
   {
     id: '051',
-    title: 'V2: Projects collection + Projects window',
+    title: 'V2: Projects collection + window',
     milestone: null,
     labels: ['epic:desktop-apps', 'priority:v2', 'type:feature'],
-    summary: 'Project case studies and build logs with tech stack and links.',
-    acceptance: [
-      'Projects collection in Payload',
-      'Projects window shows published projects',
-      'GitHub and live demo links work',
-    ],
+    summary: 'Project case studies with links. When you have projects worth showcasing.',
+    acceptance: ['Projects in Payload', 'Projects window lists them'],
   },
   {
     id: '052',
-    title: 'V2: Series collection',
+    title: 'V2: Article series',
     milestone: null,
     labels: ['epic:cms', 'priority:v2', 'type:feature'],
-    summary: 'Grouped writing series linking multiple articles.',
-    acceptance: ['Series collection with ordered articles', 'Series displayed on article pages'],
+    summary: 'Group related articles into a series. Only when you have multi-part writing.',
+    acceptance: ['Series links multiple articles', 'Shown on article pages'],
   },
   {
     id: '053',
-    title: 'V2: Pagefind or Meilisearch search upgrade',
+    title: 'V2: Better search',
     milestone: null,
     labels: ['epic:desktop-apps', 'priority:v2', 'type:feature'],
-    summary: 'Upgrade from DB search to static index or dedicated search service.',
-    acceptance: ['Faster search', 'Covers notes and projects when collections exist'],
+    summary: 'Upgrade search when client-side filter feels too limited (Pagefind or similar).',
+    acceptance: ['Search covers all public content types'],
   },
   {
     id: '054',
-    title: 'V2: Guestbook with moderation + Turnstile',
+    title: 'V2: Guestbook',
     milestone: null,
     labels: ['epic:launch', 'priority:v2', 'type:feature'],
-    summary: 'Public guestbook with spam protection and admin moderation.',
-    acceptance: [
-      'Guestbook collection with moderationStatus',
-      'Turnstile on submit form',
-      'Rate limiting on public endpoint',
-    ],
+    summary: 'Public guestbook with moderation. Only if you want visitor messages.',
+    acceptance: ['Submissions held for moderation', 'Spam protection'],
   },
   {
     id: '055',
-    title: 'V2: Desktop layout persistence',
+    title: 'V2: Save desktop layout',
     milestone: null,
     labels: ['epic:desktop-ui', 'priority:v2', 'type:feature'],
-    summary: 'Persist icon positions and window layout in localStorage.',
-    acceptance: ['Icon positions saved', 'Reset desktop option in Start menu'],
+    summary: 'Remember icon positions and window layout in localStorage.',
+    acceptance: ['Layout persists across visits', 'Reset option in Start menu'],
   },
   {
     id: '056',
-    title: 'V2: Theme switcher (dreamy/classic)',
+    title: 'V2: Theme switcher',
     milestone: null,
     labels: ['epic:desktop-ui', 'priority:v2', 'type:feature'],
-    summary: 'Toggle between dreamy vaporwave and classic grey Win95 theme.',
-    acceptance: ['Theme toggle in Start menu Settings', 'Preference persists'],
+    summary: 'Toggle dreamy vs classic grey Win95. Fun, not required.',
+    acceptance: ['Theme toggle works', 'Preference persists'],
   },
   {
     id: '057',
-    title: 'V2: Sketchpad gallery from Media',
+    title: 'V2: Sketchpad gallery',
     milestone: null,
     labels: ['epic:desktop-apps', 'priority:v2', 'type:feature'],
-    summary: 'Paint-style gallery window for sketches and UI doodles from Media uploads.',
-    acceptance: ['Sketchpad window shows media gallery', 'Captions and alt text displayed'],
+    summary: 'Gallery window for sketches/doodles from Media.',
+    acceptance: ['Gallery shows uploaded images with alt text'],
   },
 ]
 
+const GUIDING_PRINCIPLE =
+  'Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.'
+
 function formatBody(issue) {
-  const lines = [
-    issue.summary,
-    '',
-    '## Acceptance criteria',
-    ...issue.acceptance.map((item) => `- [ ] ${item}`),
-  ]
+  const lines = [`> ${issue.principle || GUIDING_PRINCIPLE}`, '', issue.summary, '', '## Done when']
+  lines.push(...issue.acceptance.map((item) => `- [ ] ${item}`))
+  if (issue.note) {
+    lines.push('', '## Note', issue.note)
+  }
   if (issue.deps?.length) {
-    lines.push('', '## Dependencies', ...issue.deps.map((d) => `- ${d}`))
+    lines.push('', '## Depends on', ...issue.deps.map((d) => `- ${d}`))
   }
   if (issue.files?.length) {
-    lines.push('', '## Key files', ...issue.files.map((f) => `- \`${f}\``))
+    lines.push('', '## Likely files', ...issue.files.map((f) => `- \`${f}\``))
   }
   return lines.join('\n')
+}
+
+function syncOpenIssues() {
+  const toClose = [
+    {
+      number: 11,
+      reason:
+        'Merged into #10. Credits belong in SiteSettings (a simple list or rich text), not a separate collection.',
+    },
+    {
+      number: 12,
+      reason:
+        'Deferred — solo admin can use drafts and hard delete. Reopen as V2 only if delete-without-undo becomes a real problem.',
+    },
+    {
+      number: 18,
+      reason:
+        'Deferred to V2. Articles work fine on the web; RSS is optional nicety, not launch-critical.',
+    },
+  ]
+
+  for (const { number, reason } of toClose) {
+    execSync(
+      `gh issue close ${number} --repo ${REPO} --comment "${reason.replace(/"/g, '\\"')}"`,
+      { stdio: 'inherit' },
+    )
+  }
+
+  const skip = new Set([11, 12, 18])
+  const openOnGithub = new Set(
+    JSON.parse(
+      execSync(`gh issue list --repo ${REPO} --state open --limit 100 --json number`, {
+        encoding: 'utf8',
+      }),
+    ).map((i) => i.number),
+  )
+
+  for (const issue of issues) {
+    const number = parseInt(issue.id, 10)
+    if (skip.has(number) || !openOnGithub.has(number)) {
+      continue
+    }
+
+    const bodyPath = path.join(DOCS_DIR, `_sync-body-${issue.id}.md`)
+    writeFileSync(bodyPath, formatBody(issue))
+
+    const args = [
+      'gh',
+      'issue',
+      'edit',
+      String(number),
+      '--repo',
+      REPO,
+      '--title',
+      issue.title,
+      '--body-file',
+      bodyPath,
+    ]
+
+    for (const label of issue.labels) {
+      args.push('--add-label', label)
+    }
+
+    if (issue.labels.includes('priority:v2')) {
+      args.push('--remove-label', 'priority:mvp')
+    }
+
+    if (issue.milestone) {
+      args.push('--milestone', issue.milestone)
+    } else {
+      args.push('--remove-milestone')
+    }
+
+    execSync(args.map((a) => (a.includes(' ') ? `"${a.replace(/"/g, '\\"')}"` : a)).join(' '), {
+      stdio: 'inherit',
+    })
+
+    unlinkSync(bodyPath)
+
+    console.log(`Updated #${number}: ${issue.title}`)
+  }
 }
 
 function writeDocs() {
@@ -757,6 +803,14 @@ function writeDocs() {
     }
     const content = `---\njson: ${JSON.stringify(meta)}\n---\n\n${formatBody(issue)}\n`
     writeFileSync(path.join(DOCS_DIR, filename), content)
+
+    // Remove stale docs when an issue title (and slug) changes.
+    const prefix = `${issue.id}-`
+    for (const existing of readdirSync(DOCS_DIR)) {
+      if (existing.startsWith(prefix) && existing !== filename && existing.endsWith('.md')) {
+        unlinkSync(path.join(DOCS_DIR, existing))
+      }
+    }
   }
   writeFileSync(
     path.join(DOCS_DIR, 'README.md'),
@@ -764,13 +818,16 @@ function writeDocs() {
 
 This folder contains one markdown file per GitHub issue for **custardsquare.exe**.
 
+## Guiding principle
+
+Solo-admin site. **Content first → desktop second → magic third.** Ship the simplest version that works.
+
 ## Usage
 
-Generate/update docs and create GitHub issues:
-
 \`\`\`bash
-node scripts/github-issues.mjs --docs
-node scripts/github-issues.mjs --create
+node scripts/github-issues.mjs --docs   # regenerate docs/issues/*.md
+node scripts/github-issues.mjs --sync   # push open issue text to GitHub
+node scripts/github-issues.mjs --create # create missing GitHub issues
 \`\`\`
 
 Each file is named \`NNN-slug.md\` and includes YAML frontmatter with title, labels, and milestone.
@@ -778,7 +835,7 @@ Each file is named \`NNN-slug.md\` and includes YAML frontmatter with title, lab
 ## Issue count
 
 - **MVP issues:** 001–049 (${issues.filter((i) => i.labels.includes('priority:mvp')).length})
-- **V2 issues:** 050–057 (${issues.filter((i) => i.labels.includes('priority:v2')).length})
+- **V2 issues:** 050–057+ (${issues.filter((i) => i.labels.includes('priority:v2')).length})
 `,
   )
 }
@@ -827,8 +884,12 @@ function createIssues() {
 
 const args = process.argv.slice(2)
 writeDocs()
-if (args.includes('--create')) {
+if (args.includes('--sync')) {
+  syncOpenIssues()
+} else if (args.includes('--create')) {
   createIssues()
 } else if (!args.includes('--docs')) {
-  console.log('Wrote docs/issues/*.md — run with --create to create GitHub issues')
+  console.log('Wrote docs/issues/*.md')
+  console.log('  --sync   update open GitHub issues from manifest')
+  console.log('  --create create missing GitHub issues')
 }

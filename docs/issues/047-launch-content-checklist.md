@@ -2,10 +2,12 @@
 json: {"title":"Launch content checklist","labels":["epic:launch","priority:mvp","type:chore"],"milestone":"M8 — Launch"}
 ---
 
-Pre-launch content: 3-5 articles, about, skills, resume, credits, OG, favicon.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
-- [ ] 3-5 published articles live
-- [ ] About and skills content complete
-- [ ] OG image and favicon set
-- [ ] All credits attributed
+Content task, not code. Publish enough that the site feels alive.
+
+## Done when
+- [ ] 3+ published articles
+- [ ] About copy written in SiteSettings
+- [ ] Favicon and default OG image set
+- [ ] Icon credits noted

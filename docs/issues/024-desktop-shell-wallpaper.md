@@ -2,13 +2,13 @@
 json: {"title":"Desktop shell + wallpaper","labels":["epic:desktop-ui","priority:mvp","type:feature"],"milestone":"M4 — Desktop Shell"}
 ---
 
-Full-screen desktop with hazy pink/purple vaporwave wallpaper.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
-- [ ] Desktop fills viewport
-- [ ] Wallpaper from CSS gradient or SiteSettings image
-- [ ] Icon grid area ready
+Full-screen desktop with dream vaporwave wallpaper. CSS gradient is fine for MVP.
 
-## Key files
+## Done when
+- [ ] Desktop fills the viewport
+- [ ] Area ready for icons and windows
+
+## Likely files
 - `src/components/desktop/DesktopShell.tsx`
-- `src/styles/desktop.css`

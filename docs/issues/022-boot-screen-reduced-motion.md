@@ -2,12 +2,14 @@
 json: {"title":"Boot screen + reduced motion","labels":["epic:desktop-ui","priority:mvp","type:feature"],"milestone":"M4 — Desktop Shell"}
 ---
 
-Boot sequence with typing animation; skip when prefers-reduced-motion.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
-- [ ] Displays Starting custardsquare.exe... lines
-- [ ] Transitions to desktop/login
-- [ ] Reduced motion skips animation
+Short boot when entering the site. Skip animation if prefers-reduced-motion.
 
-## Key files
+## Done when
+- [ ] Shows custardsquare.exe startup lines
+- [ ] Continues to desktop/login
+- [ ] Reduced motion skips typing animation
+
+## Likely files
 - `src/components/desktop/BootScreen.tsx`

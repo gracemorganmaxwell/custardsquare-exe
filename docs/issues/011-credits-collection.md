@@ -2,12 +2,12 @@
 json: {"title":"Credits collection","labels":["epic:cms","priority:mvp","type:feature"],"milestone":"M2 — CMS Schema"}
 ---
 
-Asset and inspiration credits including aconfuseddragon icon packs.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
-- [ ] Admin can add credit entries
-- [ ] Credit types: icon, font, inspiration, library, image, sound
-- [ ] Display order supported
+Cancelled — credits live in SiteSettings (#10) instead of a separate collection.
 
-## Key files
-- `src/collections/Credits.ts`
+## Done when
+- [ ] Folded into #10 SiteSettings
+
+## Likely files
+- `src/globals/SiteSettings.ts`

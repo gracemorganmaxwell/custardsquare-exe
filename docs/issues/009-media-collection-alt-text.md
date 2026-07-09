@@ -2,15 +2,17 @@
 json: {"title":"Media collection + alt text","labels":["epic:cms","priority:mvp","type:feature"],"milestone":"M2 — CMS Schema"}
 ---
 
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
+
 Extend Media with altText, caption, credit, and sourceUrl fields.
 
-## Acceptance criteria
+## Done when
 - [ ] Admin can upload image
 - [ ] Alt text is required
 - [ ] Image URL served from Blob in production
 
-## Dependencies
+## Depends on
 - #3
 
-## Key files
+## Likely files
 - `src/collections/Media.ts`

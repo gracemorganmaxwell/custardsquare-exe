@@ -2,13 +2,15 @@
 json: {"title":"Window manager + WinWindow","labels":["epic:desktop-ui","priority:mvp","type:feature"],"milestone":"M4 — Desktop Shell"}
 ---
 
-Draggable, resizable windows with title bar, focus, z-index.
+> Solo-admin site (Grace publishes everything). Content first → desktop second → magic third. Ship the simplest version that works.
 
-## Acceptance criteria
-- [ ] Windows open, close, minimize, maximize
-- [ ] Active/inactive title bar states
-- [ ] Draggable title bar on desktop
+Basic draggable windows with title bar. Open, close, minimize. Good enough beats perfect.
 
-## Key files
+## Done when
+- [ ] Windows open and close
+- [ ] Active/inactive title bar styles
+- [ ] Draggable on desktop
+
+## Likely files
 - `src/components/desktop/WindowManager.tsx`
 - `src/components/ui95/WinWindow.tsx`
