@@ -26,12 +26,12 @@ export default async function HomePage() {
         <p className="tagline">{settings.siteDescription}</p>
         <p className="status">Loading thoughts... Indexing crumbs... Desktop shell coming in M4.</p>
         <div className="links">
-          <a className="admin" href="/admin">
+          <Link className="admin" href="/admin">
             Admin CMS
-          </a>
-          <a className="docs" href="/articles">
+          </Link>
+          <Link className="docs" href="/articles">
             Articles
-          </a>
+          </Link>
           {socialLinks.map((link) => (
             <a className="docs" href={link.url} key={link.url} rel="noopener noreferrer">
               {link.label}
