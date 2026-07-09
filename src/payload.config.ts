@@ -14,6 +14,7 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles'
+import { SiteSettings } from './globals/SiteSettings'
 import { getServerURL, getTrustedOrigins } from './lib/site-url'
 
 const filename = fileURLToPath(import.meta.url)
@@ -32,6 +33,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Articles],
+  globals: [SiteSettings],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,

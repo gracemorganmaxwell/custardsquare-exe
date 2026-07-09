@@ -6,7 +6,8 @@ import { ArticleBody } from '@/components/article/ArticleBody'
 import { ArticleTableOfContents } from '@/components/article/ArticleTableOfContents'
 import { getPublishedArticleBySlug } from '@/lib/articles'
 import { extractArticleHeadings } from '@/lib/lexical-headings'
-import { buildArticleMetadata, SITE_NAME } from '@/lib/seo'
+import { buildArticleMetadata } from '@/lib/seo'
+import { getSiteSettings } from '@/lib/site-settings'
 
 import '../articles.css'
 
@@ -30,15 +31,18 @@ function formatDate(value: string | null | undefined): string {
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params
-  const article = await getPublishedArticleBySlug(slug)
+  const [article, settings] = await Promise.all([
+    getPublishedArticleBySlug(slug),
+    getSiteSettings(),
+  ])
 
   if (!article) {
     return {
-      title: `Article not found | ${SITE_NAME}`,
+      title: `Article not found | ${settings.siteTitle}`,
     }
   }
 
-  return buildArticleMetadata(article)
+  return buildArticleMetadata(article, settings)
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {

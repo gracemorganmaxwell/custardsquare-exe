@@ -2,9 +2,14 @@ import type { Metadata } from 'next'
 
 import type { Article, Media } from '@/payload-types'
 
+import {
+  DEFAULT_SITE_DESCRIPTION,
+  DEFAULT_SITE_TITLE,
+  type ResolvedSiteSettings,
+} from './site-settings'
 import { getServerURL } from './site-url'
 
-export const SITE_NAME = 'custardsquare.exe'
+export const SITE_NAME = DEFAULT_SITE_TITLE
 
 type MediaRef = number | Media | null | undefined
 
@@ -55,6 +60,7 @@ type PageMetadataInput = {
   pageTitle: Metadata['title']
   publishedAt?: string | null
   shareTitle: string
+  siteName?: string
   type?: 'article' | 'website'
 }
 
@@ -65,6 +71,7 @@ export function buildPageMetadata({
   pageTitle,
   publishedAt,
   shareTitle,
+  siteName = SITE_NAME,
   type = 'website',
 }: PageMetadataInput): Metadata {
   const canonical = getAbsoluteUrl(canonicalPath)
@@ -89,7 +96,7 @@ export function buildPageMetadata({
       description,
       images,
       locale: 'en_NZ',
-      siteName: SITE_NAME,
+      siteName,
       title: shareTitle,
       type,
       url: canonical,
@@ -105,11 +112,36 @@ export function buildPageMetadata({
   }
 }
 
-export function buildArticleMetadata(article: Article): Metadata {
+export function buildRootMetadata(settings: ResolvedSiteSettings): Metadata {
+  const faviconUrl = getMediaUrl(settings.favicon)
+
+  return {
+    description: settings.siteDescription,
+    icons: faviconUrl ? { icon: faviconUrl } : undefined,
+    metadataBase: new URL(getServerURL()),
+    ...buildPageMetadata({
+      canonicalPath: '/',
+      description: settings.siteDescription,
+      ogImage: settings.defaultOgImage,
+      pageTitle: {
+        default: settings.siteTitle,
+        template: `%s | ${settings.siteTitle}`,
+      },
+      shareTitle: settings.siteTitle,
+      siteName: settings.siteTitle,
+    }),
+  }
+}
+
+export function buildArticleMetadata(
+  article: Article,
+  settings: ResolvedSiteSettings,
+): Metadata {
+  const siteTitle = settings.siteTitle
   const description = article.seoDescription?.trim() || article.excerpt
-  const shareImage = article.ogImage ?? article.coverImage
+  const shareImage = article.ogImage ?? article.coverImage ?? settings.defaultOgImage
   const seoTitle = article.seoTitle?.trim()
-  const shareTitle = seoTitle || `${article.title} | ${SITE_NAME}`
+  const shareTitle = seoTitle || `${article.title} | ${siteTitle}`
   const pageTitle = seoTitle ? { absolute: seoTitle } : article.title
 
   return buildPageMetadata({
@@ -119,17 +151,21 @@ export function buildArticleMetadata(article: Article): Metadata {
     pageTitle,
     publishedAt: article.publishedAt,
     shareTitle,
+    siteName: siteTitle,
     type: 'article',
   })
 }
 
-export function buildArticlesIndexMetadata(): Metadata {
-  const shareTitle = `Articles | ${SITE_NAME}`
+export function buildArticlesIndexMetadata(settings: ResolvedSiteSettings): Metadata {
+  const siteTitle = settings.siteTitle
+  const shareTitle = `Articles | ${siteTitle}`
 
   return buildPageMetadata({
     canonicalPath: '/articles',
-    description: 'Learnings, notes, and write-ups from Grace.',
+    description: settings.siteDescription || DEFAULT_SITE_DESCRIPTION,
+    ogImage: settings.defaultOgImage,
     pageTitle: 'Articles',
     shareTitle,
+    siteName: siteTitle,
   })
 }

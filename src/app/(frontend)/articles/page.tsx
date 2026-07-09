@@ -1,13 +1,19 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { getPublishedArticles } from '@/lib/articles'
 import { buildArticlesIndexMetadata } from '@/lib/seo'
+import { getSiteSettings } from '@/lib/site-settings'
 
 import './articles.css'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata = buildArticlesIndexMetadata()
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+
+  return buildArticlesIndexMetadata(settings)
+}
 
 function formatDate(value: string | null | undefined): string {
   if (!value) {
@@ -20,13 +26,13 @@ function formatDate(value: string | null | undefined): string {
 }
 
 export default async function ArticlesPage() {
-  const articles = await getPublishedArticles()
+  const [articles, settings] = await Promise.all([getPublishedArticles(), getSiteSettings()])
 
   return (
     <div className="article-page">
       <div className="article-shell article-shell-wide">
         <Link className="article-back" href="/">
-          ← custardsquare.exe
+          ← {settings.siteTitle}
         </Link>
 
         <header className="article-list-header">

@@ -1,17 +1,17 @@
+import type { Metadata } from 'next'
 import React from 'react'
 
-import { SITE_NAME } from '@/lib/seo'
-import { getServerURL } from '@/lib/site-url'
+import { buildRootMetadata } from '@/lib/seo'
+import { getSiteSettings } from '@/lib/site-settings'
 
 import './styles.css'
 
-export const metadata = {
-  description: "Gracie's public second brain disguised as a dreamy Windows 98 desktop.",
-  metadataBase: new URL(getServerURL()),
-  title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
-  },
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+
+  return buildRootMetadata(settings)
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
