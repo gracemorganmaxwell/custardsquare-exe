@@ -16,6 +16,7 @@
     "reset-admin-password": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/reset-admin-password.mjs",
     "verify-issue-002": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-002-evidence.mjs",
     "verify-issue-003": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-003-evidence.mjs",
+    "verify-issue-004": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-004-evidence.mjs",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",

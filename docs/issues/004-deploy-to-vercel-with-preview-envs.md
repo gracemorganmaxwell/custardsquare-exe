@@ -7,9 +7,9 @@ json: {"title":"Deploy to Vercel with preview envs","labels":["epic:foundation",
 Connect GitHub repo to Vercel and configure production/preview environment variables.
 
 ## Done when
-- [ ] Production deploy succeeds
-- [ ] Preview deploys work on PRs
-- [ ] DATABASE_URL, PAYLOAD_SECRET, BLOB_READ_WRITE_TOKEN, NEXT_PUBLIC_SITE_URL set
+- [x] Production deploy succeeds
+- [x] Preview deploys work on PRs
+- [x] DATABASE_URL, PAYLOAD_SECRET, BLOB_READ_WRITE_TOKEN, NEXT_PUBLIC_SITE_URL set
 
 ## Depends on
 - #2
