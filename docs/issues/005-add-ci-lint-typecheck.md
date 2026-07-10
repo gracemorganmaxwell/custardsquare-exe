@@ -7,9 +7,9 @@ json: {"title":"Add CI: lint + typecheck","labels":["epic:foundation","priority:
 One GitHub Actions workflow to catch broken builds before deploy.
 
 ## Done when
-- [ ] Workflow runs on push to main
-- [ ] `pnpm lint` passes
-- [ ] `pnpm exec tsc --noEmit` passes
+- [x] Workflow runs on push to main
+- [x] `pnpm lint` passes
+- [x] `pnpm exec tsc --noEmit` passes
 
 ## Note
 No test-suite theatre for MVP. Add Playwright smoke (#46) only when the desktop exists.
