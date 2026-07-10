@@ -7,9 +7,9 @@ json: {"title":"Article detail page","labels":["epic:public-content","priority:m
 Build /articles/[slug] with full article body and metadata.
 
 ## Done when
-- [ ] Article body renders from Lexical rich text
-- [ ] Drafts return 404
-- [ ] Soft-deleted content returns 404
+- [x] Article body renders from Lexical rich text
+- [x] Drafts return 404
+- [x] Soft-deleted content returns 404
 
 ## Depends on
 - #14
