@@ -7,7 +7,7 @@ json: {"title":"Soft delete fields + restore workflow","labels":["epic:cms","pri
 Cancelled for MVP. Solo admin can use drafts. Hard delete is fine until undo becomes a real need.
 
 ## Done when
-- [ ] Use article status draft/published instead
+- [x] Use article status draft/published instead
 
 ## Depends on
 - #7
