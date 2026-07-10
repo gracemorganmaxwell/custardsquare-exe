@@ -112,13 +112,12 @@ export function buildPageMetadata({
   }
 }
 
+const DEFAULT_FRONTEND_FAVICON = '/brand/custardsq-favicon.png'
+
 export function buildRootMetadata(settings: ResolvedSiteSettings): Metadata {
-  const faviconUrl = getMediaUrl(settings.favicon)
+  const faviconUrl = getMediaUrl(settings.favicon) ?? DEFAULT_FRONTEND_FAVICON
 
   return {
-    description: settings.siteDescription,
-    icons: faviconUrl ? { icon: faviconUrl } : undefined,
-    metadataBase: new URL(getServerURL()),
     ...buildPageMetadata({
       canonicalPath: '/',
       description: settings.siteDescription,
@@ -130,6 +129,18 @@ export function buildRootMetadata(settings: ResolvedSiteSettings): Metadata {
       shareTitle: settings.siteTitle,
       siteName: settings.siteTitle,
     }),
+    description: settings.siteDescription,
+    // Set after page metadata so icons are never overwritten; include type/sizes for browser pickup
+    icons: {
+      apple: [{ type: 'image/png', url: faviconUrl }],
+      icon: [
+        { sizes: 'any', url: '/favicon.ico' },
+        { sizes: '32x32', type: 'image/png', url: '/favicon-32.png' },
+        { sizes: '50x50', type: 'image/png', url: faviconUrl },
+      ],
+      shortcut: '/favicon.ico',
+    },
+    metadataBase: new URL(getServerURL()),
   }
 }
 

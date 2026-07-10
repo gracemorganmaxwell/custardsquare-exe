@@ -32,6 +32,18 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      icons: {
+        apple: [{ type: 'image/png', url: '/brand/cms-favicon.png' }],
+        icon: [
+          { sizes: 'any', url: '/admin-favicon.ico' },
+          { sizes: '32x32', type: 'image/png', url: '/admin-favicon-32.png' },
+          { sizes: '50x50', type: 'image/png', url: '/brand/cms-favicon.png' },
+        ],
+        shortcut: '/admin-favicon.ico',
+      },
+      titleSuffix: ' — custardsquare.exe',
+    },
   },
   collections: [Users, Media, Articles],
   globals: [SiteSettings],

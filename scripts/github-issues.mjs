@@ -367,7 +367,12 @@ const issues = [
       'Active/inactive title bar styles',
       'Draggable on desktop',
     ],
-    files: ['src/components/desktop/WindowManager.tsx', 'src/components/ui95/WinWindow.tsx'],
+    files: [
+      'src/components/desktop/WindowManager.tsx',
+      'src/components/ui95/WinWindow.tsx',
+      'src/components/desktop/WelcomeWindow.tsx',
+    ],
+    note: 'Partial: WinWindow drag + active/inactive chrome shipped via WelcomeWindow. Open/close/minimize still needs WindowManager.',
   },
   {
     id: '028',
@@ -686,6 +691,27 @@ const issues = [
     labels: ['epic:desktop-apps', 'priority:v2', 'type:feature'],
     summary: 'Gallery window for sketches/doodles from Media.',
     acceptance: ['Gallery shows uploaded images with alt text'],
+  },
+  {
+    id: '058',
+    title: 'Brand favicons + desktop wallpaper tile',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Wire brand assets: frontend favicon, Payload admin favicon, and a pixel Windows-flag tile over the existing vaporwave desktop wallpaper.',
+    acceptance: [
+      'Frontend uses `custardsq-favicon` (SiteSettings favicon still overrides when set)',
+      'Desktop wallpaper keeps the hazy vaporwave gradient with the flag layered on top (single ornament, not tiled)',
+      'Payload admin uses `cms-favicon`',
+    ],
+    files: [
+      'public/brand/custardsq-favicon.png',
+      'public/brand/cms-favicon.png',
+      'public/brand/desktop-background.png',
+      'src/lib/seo.ts',
+      'src/styles/desktop.css',
+      'src/payload.config.ts',
+    ],
   },
 ]
 

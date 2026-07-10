@@ -7,8 +7,8 @@ json: {"title":"Desktop shell + wallpaper","labels":["epic:desktop-ui","priority
 Full-screen desktop with dream vaporwave wallpaper. CSS gradient is fine for MVP.
 
 ## Done when
-- [ ] Desktop fills the viewport
-- [ ] Area ready for icons and windows
+- [x] Desktop fills the viewport
+- [x] Area ready for icons and windows
 
 ## Likely files
 - `src/components/desktop/DesktopShell.tsx`

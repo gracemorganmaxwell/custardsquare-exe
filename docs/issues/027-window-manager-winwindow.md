@@ -8,8 +8,11 @@ Basic draggable windows with title bar. Open, close, minimize. Good enough beats
 
 ## Done when
 - [ ] Windows open and close
-- [ ] Active/inactive title bar styles
-- [ ] Draggable on desktop
+- [x] Active/inactive title bar styles
+- [x] Draggable on desktop
+
+## Progress
+`WinWindow` + `WelcomeWindow` ship title-bar drag and active/inactive chrome. Open/close/minimize still pending (`WindowManager`).
 
 ## Likely files
 - `src/components/desktop/WindowManager.tsx`
