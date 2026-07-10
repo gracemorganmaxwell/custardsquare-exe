@@ -1,33 +1,32 @@
 # Desktop Icons — aconfuseddragon Win95 Plus packs
 
-Download the Windows 95 Plus-inspired icon packs from itch.io and place PNG/GIF files here.
+Win95-style desktop icons for custardsquare.exe.
 
 ## Source
 
-- Creator: [aconfuseddragon](https://aconfuseddragon.itch.io/)
-- Search for: **Windows 95 Plus icon packs**
+- Creator: [aconfuseddragon](https://aconfuseddragon.itch.io/) — Windows 95 Plus icon packs (CC BY 4.0)
+- Copied from `learning-journey-os/public/icons/` (full pack also lives there)
 
-## Before committing icons
-
-1. Confirm the itch.io license allows use in this personal portfolio project.
-2. Add credit entries in Payload **Credits** collection (issue #35).
-3. Keep the attribution in [`README.md`](../../README.md) and the public Credits window.
-
-## Suggested folder layout
+## Folder layout
 
 ```txt
 public/icons/
   desktop/
-    my-articles.png
-    learning-notes.png
-    projects.png
-    about.png
-    ...
+    articles.png        ← text_file.png
+    about.png           ← notepad.png
+    projects.png        ← folder_closed.png
+    github.png
+    this_computer.png
   ui/
-    window.png
+    search.png
     folder.png
-    ...
 ```
+
+## Before adding more icons
+
+1. Confirm the itch.io license still covers use in this project.
+2. Add credit entries in SiteSettings (Credits window in #35).
+3. Keep attribution in [`README.md`](../../README.md).
 
 ## Not affiliated with Microsoft
 

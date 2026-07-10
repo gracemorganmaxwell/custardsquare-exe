@@ -22,11 +22,60 @@
   top: 1rem;
   left: 1rem;
   z-index: 1;
+  width: 5.5rem;
+  min-height: 4rem;
+}
+
+.desktop-icon-grid {
   display: grid;
   grid-auto-flow: row;
   gap: 1.5rem;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
   width: 5.5rem;
-  min-height: 4rem;
+  padding: 0.25rem;
+  border: 1px dotted transparent;
+  background: transparent;
+  color: #fff;
+  cursor: default;
+  font-family: var(--win95-font);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgb(0 0 0 / 85%);
+}
+
+.desktop-icon:focus-visible,
+.desktop-icon--selected {
+  border-color: #fff;
+  outline: none;
+}
+
+.desktop-icon:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.desktop-icon__image-wrap {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.desktop-icon__image {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.desktop-icon__label {
+  display: block;
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .desktop-shell__windows {
@@ -44,7 +93,7 @@
   pointer-events: auto;
 }
 
-/* Welcome window on the desktop (until icon grid in #25) */
+/* Welcome window on the desktop */
 .desktop-window {
   width: min(100%, 30rem);
 }
