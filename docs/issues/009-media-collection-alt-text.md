@@ -7,9 +7,9 @@ json: {"title":"Media collection + alt text","labels":["epic:cms","priority:mvp"
 Extend Media with altText, caption, credit, and sourceUrl fields.
 
 ## Done when
-- [ ] Admin can upload image
-- [ ] Alt text is required
-- [ ] Image URL served from Blob in production
+- [x] Admin can upload image
+- [x] Alt text is required
+- [x] Image URL served from Blob in production
 
 ## Depends on
 - #3
