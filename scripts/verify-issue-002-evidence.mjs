@@ -62,10 +62,10 @@ const minimalContent = {
 
 const created = await payload.create({
   collection: 'articles',
+  draft: true,
   data: {
     title: 'Issue #2 evidence (temporary)',
     slug: testSlug,
-    status: 'draft',
     excerpt: 'Temporary row for create/read verification — deleted immediately.',
     content: minimalContent,
   },

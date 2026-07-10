@@ -4,9 +4,15 @@ import { isAdmin, publishedOnly } from '../lib/access'
 
 export const Articles: CollectionConfig = {
   slug: 'articles',
+  versions: {
+    maxPerDoc: 50,
+    drafts: {
+      autosave: true,
+    },
+  },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'status', 'publishedAt', 'updatedAt'],
+    defaultColumns: ['title', '_status', 'publishedAt', 'updatedAt'],
     description: 'Long-form articles for custardsquare.exe',
   },
   access: {
@@ -70,7 +76,9 @@ export const Articles: CollectionConfig = {
         { label: 'Published', value: 'published' },
       ],
       admin: {
-        position: 'sidebar',
+        hidden: true,
+        readOnly: true,
+        description: 'Mirrors Payload _status for public queries',
       },
     },
     {
@@ -81,7 +89,7 @@ export const Articles: CollectionConfig = {
         date: {
           pickerAppearance: 'dayAndTime',
         },
-        condition: (data) => data?.status === 'published',
+        condition: (data) => data?._status === 'published' || data?.status === 'published',
         description: 'Set automatically on first publish if left empty',
       },
     },
@@ -128,7 +136,13 @@ export const Articles: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ data, originalDoc }) => {
-        if (data?.status === 'published' && !data.publishedAt && !originalDoc?.publishedAt) {
+        const nextStatus = data?._status ?? data?.status ?? originalDoc?._status ?? originalDoc?.status
+
+        if (nextStatus === 'published' || nextStatus === 'draft') {
+          data.status = nextStatus
+        }
+
+        if (data?._status === 'published' && !data.publishedAt && !originalDoc?.publishedAt) {
           data.publishedAt = new Date().toISOString()
         }
 

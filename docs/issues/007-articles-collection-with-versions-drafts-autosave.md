@@ -7,10 +7,10 @@ json: {"title":"Articles collection with versions/drafts/autosave","labels":["ep
 Long-form Articles collection with maturity labels, slug, reading time, and versioning.
 
 ## Done when
-- [ ] Admin can create and save draft article
-- [ ] Admin can publish article
-- [ ] Versions are created on save
-- [ ] Slug auto-generated from title
+- [x] Admin can create and save draft article
+- [x] Admin can publish article
+- [x] Versions are created on save
+- [x] Slug auto-generated from title
 
 ## Depends on
 - #6
