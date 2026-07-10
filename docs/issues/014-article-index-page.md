@@ -7,12 +7,12 @@ json: {"title":"Article index page","labels":["epic:public-content","priority:mv
 Build /articles listing published articles with title, excerpt, date, tags.
 
 ## Done when
-- [ ] Only published articles show
-- [ ] Draft and soft-deleted excluded
-- [ ] Page works on mobile
+- [x] Only published articles show
+- [x] Draft and soft-deleted excluded
+- [x] Page works on mobile
 
 ## Depends on
 - #13
 
 ## Likely files
-- `src/app/(public)/articles/page.tsx`
+- `src/app/(frontend)/articles/page.tsx`

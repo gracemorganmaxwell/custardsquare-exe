@@ -25,6 +25,7 @@
     "verify-issue-011": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-011-evidence.mjs",
     "verify-issue-012": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-012-evidence.mjs",
     "verify-issue-013": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-013-evidence.mjs",
+    "verify-issue-014": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-014-evidence.mjs",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
