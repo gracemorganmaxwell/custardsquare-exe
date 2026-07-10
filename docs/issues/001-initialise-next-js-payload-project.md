@@ -7,10 +7,10 @@ json: {"title":"Initialise Next.js + Payload project","labels":["epic:foundation
 Set up custardsquare.exe on Next.js App Router with Payload CMS 3.
 
 ## Done when
-- [ ] Project runs locally with pnpm dev
-- [ ] TypeScript strict mode enabled
-- [ ] Payload admin route exists at /admin
-- [ ] Basic homepage renders
+- [x] Project runs locally with pnpm dev
+- [x] TypeScript strict mode enabled
+- [x] Payload admin route exists at /admin
+- [x] Basic homepage renders
 
 ## Likely files
 - `src/payload.config.ts`
