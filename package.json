@@ -21,6 +21,7 @@
     "verify-issue-006": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-006-evidence.mjs",
     "verify-issue-007": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-007-evidence.mjs",
     "verify-issue-009": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-009-evidence.mjs",
+    "verify-issue-010": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-010-evidence.mjs",
     "verify-issue-011": "cross-env NODE_OPTIONS=--no-deprecation node --import tsx/esm scripts/verify-issue-011-evidence.mjs",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
