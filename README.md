@@ -27,7 +27,7 @@ Notes, thoughts, bugs, learnings, and little digital crumbs — published throug
    cp .env.example .env
    ```
 
-3. Fill in `.env` with your Neon `DATABASE_URL`, `PAYLOAD_SECRET`, and optional `BLOB_READ_WRITE_TOKEN`.
+3. Fill in `.env` with your Neon `DATABASE_URL`, `PAYLOAD_SECRET`, and optional `BLOB_READ_WRITE_TOKEN` (local fallback works without it).
 
 4. Start the dev server:
 
@@ -37,6 +37,19 @@ Notes, thoughts, bugs, learnings, and little digital crumbs — published throug
 
 5. Open [http://localhost:3000](http://localhost:3000) for the public site.
 6. Open [http://localhost:3000/admin](http://localhost:3000/admin) to create your first admin user.
+
+## Vercel production — media uploads
+
+**Required for `/admin/collections/media` uploads on custardsq.app.**
+
+Without `BLOB_READ_WRITE_TOKEN`, Vercel cannot store files (the Blob adapter is disabled and serverless has no writable disk), which causes **500 errors** on upload.
+
+1. Open your [Vercel project](https://vercel.com/dashboard) → **Storage** → **Create Database** → **Blob**
+2. Name the store (e.g. `custardsquare-media`) and **connect it to this project**
+3. Vercel adds `BLOB_READ_WRITE_TOKEN` to Production (and Preview) automatically
+4. **Redeploy** (Deployments → … → Redeploy, or push to `main`)
+
+After redeploy, uploads go to `blob.vercel-storage.com` and the admin Media UI should work.
 
 ## Project philosophy
 
