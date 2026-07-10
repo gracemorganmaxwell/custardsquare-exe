@@ -7,9 +7,9 @@ json: {"title":"Configure Neon Postgres via Vercel adapter","labels":["epic:foun
 Connect Payload to Neon Postgres using @payloadcms/db-vercel-postgres.
 
 ## Done when
-- [ ] DATABASE_URL works locally
-- [ ] Payload can create and read content
-- [ ] Production env vars documented in .env.example
+- [x] DATABASE_URL works locally
+- [x] Payload can create and read content
+- [x] Production env vars documented in .env.example
 
 ## Depends on
 - #1
