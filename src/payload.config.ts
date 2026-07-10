@@ -21,6 +21,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const trustedOrigins = getTrustedOrigins()
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN?.trim() ?? ''
 
 export default buildConfig({
   serverURL: getServerURL(),
@@ -56,10 +57,13 @@ export default buildConfig({
   plugins: [
     vercelBlobStorage({
       collections: {
-        media: true,
+        media: {
+          disablePayloadAccessControl: true,
+        },
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      token: blobToken,
       clientUploads: true,
+      enabled: Boolean(blobToken),
     }),
   ],
 })

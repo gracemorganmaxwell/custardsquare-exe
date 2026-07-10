@@ -51,6 +51,8 @@ Without `BLOB_READ_WRITE_TOKEN`, Vercel cannot store files (the Blob adapter is 
 
 After redeploy, uploads go to `blob.vercel-storage.com` and the admin Media UI should work.
 
+**Verify:** open `https://custardsq.app/api/media-storage-health` — you want `"blobTokenConfigured": true`. If `false`, the token is only in local `.env`, not on Vercel.
+
 ## Project philosophy
 
 Build the content system first. Then build the desktop. Then add magic.
