@@ -7,7 +7,7 @@ json: {"title":"Credits collection","labels":["epic:cms","priority:mvp","type:fe
 Cancelled — credits live in SiteSettings (#10) instead of a separate collection.
 
 ## Done when
-- [ ] Folded into #10 SiteSettings
+- [x] Folded into #10 SiteSettings
 
 ## Likely files
 - `src/globals/SiteSettings.ts`
