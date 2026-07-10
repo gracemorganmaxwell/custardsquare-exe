@@ -7,9 +7,9 @@ json: {"title":"Public access control helpers","labels":["epic:cms","priority:mv
 Shared access helpers ensuring only published, non-deleted content is public.
 
 ## Done when
-- [ ] publishedOnly read access on Articles
-- [ ] Drafts never returned in public Local API queries
-- [ ] No draft data in frontend static bundles
+- [x] publishedOnly read access on Articles
+- [x] Drafts never returned in public Local API queries
+- [x] No draft data in frontend static bundles
 
 ## Depends on
 - #12
