@@ -7,9 +7,9 @@ json: {"title":"Users collection + admin-only access","labels":["epic:cms","prio
 Configure Users collection with admin role for MVP (Grace only).
 
 ## Done when
-- [ ] Admin can log in at /admin
-- [ ] Public registration disabled
-- [ ] Role field supports admin
+- [x] Admin can log in at /admin
+- [x] Public registration disabled
+- [x] Role field supports admin
 
 ## Likely files
 - `src/collections/Users.ts`
