@@ -7,9 +7,9 @@ json: {"title":"Rich text rendering + TOC","labels":["epic:public-content","prio
 Lexical to React renderer with table of contents for headings.
 
 ## Done when
-- [ ] Headings, lists, code blocks render correctly
-- [ ] TOC generated from h2/h3
-- [ ] Readable typography on article pages
+- [x] Headings, lists, code blocks render correctly
+- [x] TOC generated from h2/h3
+- [x] Readable typography on article pages
 
 ## Depends on
 - #15

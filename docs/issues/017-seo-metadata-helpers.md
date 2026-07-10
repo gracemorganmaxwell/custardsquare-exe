@@ -7,9 +7,9 @@ json: {"title":"SEO metadata helpers","labels":["epic:public-content","priority:
 generateMetadata for articles with OG, Twitter, and canonical URLs.
 
 ## Done when
-- [ ] title and description from seoTitle/seoDescription or fallbacks
-- [ ] Open Graph image from ogImage or coverImage
-- [ ] canonical URL supported
+- [x] title and description from seoTitle/seoDescription or fallbacks
+- [x] Open Graph image from ogImage or coverImage
+- [x] canonical URL supported
 
 ## Depends on
 - #15

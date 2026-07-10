@@ -7,9 +7,9 @@ json: {"title":"Connect custom domain + HTTPS","labels":["epic:launch","priority
 Point domain DNS to Vercel and verify HTTPS.
 
 ## Done when
-- [ ] Custom domain resolves
-- [ ] HTTPS works
-- [ ] NEXT_PUBLIC_SITE_URL updated
+- [x] Custom domain resolves
+- [x] HTTPS works
+- [x] NEXT_PUBLIC_SITE_URL updated
 
 ## Depends on
 - #4

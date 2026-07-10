@@ -7,13 +7,13 @@ json: {"title":"Sitemap + robots.txt","labels":["epic:public-content","priority:
 Dynamic sitemap and robots.txt for public routes.
 
 ## Done when
-- [ ] Sitemap includes articles and static public routes
-- [ ] Drafts excluded
-- [ ] robots.txt allows indexing of public content
+- [x] Sitemap includes articles and static public routes
+- [x] Drafts excluded
+- [x] robots.txt allows indexing of public content
 
 ## Depends on
 - #14
 
 ## Likely files
-- `src/app/(public)/sitemap.ts`
-- `src/app/(public)/robots.ts`
+- `src/app/(frontend)/sitemap.ts`
+- `src/app/robots.ts`

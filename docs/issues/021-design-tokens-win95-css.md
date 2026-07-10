@@ -7,8 +7,8 @@ json: {"title":"Design tokens + win95.css","labels":["epic:desktop-ui","priority
 Win95 colours and bevel CSS — the visual foundation for the desktop.
 
 ## Done when
-- [ ] CSS variables for grey, pink/purple accent, title bar colours
-- [ ] Raised/inset border utilities work
+- [x] CSS variables for grey, pink/purple accent, title bar colours
+- [x] Raised/inset border utilities work
 
 ## Likely files
 - `src/styles/win95.css`

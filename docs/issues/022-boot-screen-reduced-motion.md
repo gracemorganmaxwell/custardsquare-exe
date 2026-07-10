@@ -7,9 +7,9 @@ json: {"title":"Boot screen + reduced motion","labels":["epic:desktop-ui","prior
 Short boot when entering the site. Skip animation if prefers-reduced-motion.
 
 ## Done when
-- [ ] Shows custardsquare.exe startup lines
-- [ ] Continues to desktop/login
-- [ ] Reduced motion skips typing animation
+- [x] Shows custardsquare.exe startup lines
+- [x] Continues to desktop/login
+- [x] Reduced motion skips typing animation
 
 ## Likely files
 - `src/components/desktop/BootScreen.tsx`
