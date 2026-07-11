@@ -100,7 +100,7 @@ export function StartMenu() {
         <li role="none">
           <button
             className="start-menu__item"
-            onClick={() => openWindow('resume', 'Resume — RESUME.TXT')}
+            onClick={() => openWindow('resume', 'Resume — RESUME.md')}
             role="menuitem"
             type="button"
           >

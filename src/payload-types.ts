@@ -462,13 +462,27 @@ export interface SiteSetting {
     portrait?: (number | null) | Media;
   };
   /**
-   * Notepad-style resume for the desktop app. Edit the text anytime; optional PDF for download.
+   * README-style resume for the desktop app. Use headings, bold, links, lists, and code — same Lexical editor as Articles.
    */
   resume?: {
     /**
-     * Plain-text resume shown in the Resume window. Leave empty to use the bundled default from gracie-resume-jul26.
+     * Rich resume body (headings, bold, links, lists, code). Leave empty to use the bundled default from gracie-resume-jul26.
      */
-    body?: string | null;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     /**
      * Optional PDF download. Falls back to /brand/gracie-resume-jul26.pdf if empty.
      */

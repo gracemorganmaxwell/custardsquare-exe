@@ -109,16 +109,15 @@ export const SiteSettings: GlobalConfig = {
       label: 'Resume window',
       admin: {
         description:
-          'Notepad-style resume for the desktop app. Edit the text anytime; optional PDF for download.',
+          'README-style resume for the desktop app. Use headings, bold, links, lists, and code — same Lexical editor as Articles.',
       },
       fields: [
         {
           name: 'body',
-          type: 'textarea',
+          type: 'richText',
           admin: {
             description:
-              'Plain-text resume shown in the Resume window. Leave empty to use the bundled default from gracie-resume-jul26.',
-            rows: 24,
+              'Rich resume body (headings, bold, links, lists, code). Leave empty to use the bundled default from gracie-resume-jul26.',
           },
         },
         {

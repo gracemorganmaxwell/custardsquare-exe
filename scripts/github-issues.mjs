@@ -148,7 +148,7 @@ const issues = [
       'Frontend reads settings; only logged-in admin can update',
       'Credits for icons/assets live here as simple text or a short list — no separate Credits collection',
       'About window fields (name, bio, portrait) live here — see #32',
-      'Resume window fields (body, pdf) live here — see #34',
+      'Resume window fields (rich text content + pdf) live here — see #34 / #60',
     ],
     files: ['src/globals/SiteSettings.ts'],
   },
@@ -751,6 +751,28 @@ const issues = [
       'src/components/desktop/ShutdownDialog.tsx',
       'src/components/desktop/BootScreen.tsx',
       'src/components/windows/TerminalWindow.tsx',
+    ],
+  },
+  {
+    id: '060',
+    title: 'Rich-text Resume (README-style editing)',
+    milestone: 'M5 — Desktop Apps',
+    labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
+    summary:
+      'Upgrade Resume from plain text to Lexical rich text (same editor as Articles): headings, bold/italic, links, lists, code — README-like editing in CMS and desktop UI.',
+    acceptance: [
+      'SiteSettings Resume uses Lexical rich text (headings, bold, links, lists, code)',
+      'Resume window renders that rich content (not a plain pre)',
+      'PDF download still works',
+      'Seeded default resume keeps structure (headings + sections) from the Jul 2026 PDF',
+    ],
+    deps: ['#34', '#7'],
+    files: [
+      'src/globals/SiteSettings.ts',
+      'src/components/windows/ResumeWindow.tsx',
+      'src/components/richtext/RichTextDocument.tsx',
+      'src/lib/default-resume-lexical.ts',
+      'src/lib/site-settings.ts',
     ],
   },
 ]

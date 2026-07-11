@@ -339,12 +339,107 @@
   margin: 0;
   padding: 0.55rem 0.65rem;
   overflow: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
+  background: var(--win95-white);
+}
+
+.resume-window__richtext {
+  color: var(--win95-black);
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.resume-window__richtext > *:first-child {
+  margin-top: 0;
+}
+
+.resume-window__richtext > *:last-child {
+  margin-bottom: 0;
+}
+
+.resume-window__richtext h1,
+.resume-window__richtext h2,
+.resume-window__richtext h3,
+.resume-window__richtext h4 {
+  margin: 0.85rem 0 0.35rem;
+  font-family: var(--win95-font);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.resume-window__richtext h1 {
+  font-size: 1.05rem;
+}
+
+.resume-window__richtext h2 {
+  font-size: 0.9375rem;
+  border-bottom: 1px solid var(--win95-grey-dark);
+  padding-bottom: 0.15rem;
+}
+
+.resume-window__richtext h3 {
+  font-size: 0.875rem;
+}
+
+.resume-window__richtext p {
+  margin: 0 0 0.55rem;
+}
+
+.resume-window__richtext ul,
+.resume-window__richtext ol {
+  margin: 0 0 0.55rem;
+  padding-left: 1.25rem;
+}
+
+.resume-window__richtext li {
+  margin: 0.15rem 0;
+}
+
+.resume-window__richtext a {
+  color: #000080;
+  text-decoration: underline;
+}
+
+.resume-window__richtext strong,
+.resume-window__richtext b {
+  font-weight: 700;
+}
+
+.resume-window__richtext em,
+.resume-window__richtext i {
+  font-style: italic;
+}
+
+.resume-window__richtext code {
   font-family: var(--win95-font-mono);
   font-size: 0.75rem;
-  line-height: 1.45;
-  background: var(--win95-white);
+  padding: 0.05rem 0.25rem;
+  background: var(--win95-grey-light);
+  border: 1px solid var(--win95-grey-dark);
+}
+
+.resume-window__richtext pre {
+  margin: 0.55rem 0;
+  padding: 0.45rem 0.55rem;
+  overflow: auto;
+  font-family: var(--win95-font-mono);
+  font-size: 0.75rem;
+  background: #1e1e1e;
+  color: #f5f0ff;
+  border: 1px solid var(--win95-grey-darker);
+}
+
+.resume-window__richtext blockquote {
+  margin: 0.55rem 0;
+  padding: 0.25rem 0 0.25rem 0.65rem;
+  border-left: 3px solid var(--dream-purple-soft);
+  color: var(--win95-grey-darker);
+}
+
+.resume-window__richtext hr {
+  margin: 0.75rem 0;
+  border: 0;
+  border-top: 1px solid var(--win95-grey-dark);
 }
 
 .resume-window__status {

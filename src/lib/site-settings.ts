@@ -1,10 +1,12 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
+import { DEFAULT_RESUME_PDF_HREF } from '@/lib/default-resume'
 import {
-  DEFAULT_RESUME_BODY,
-  DEFAULT_RESUME_PDF_HREF,
-} from '@/lib/default-resume'
+  buildDefaultResumeLexical,
+  isLexicalContentEmpty,
+} from '@/lib/default-resume-lexical'
 import type { Media, SiteSetting } from '@/payload-types'
 import { getServerURL } from '@/lib/site-url'
 
@@ -28,7 +30,7 @@ export type ResolvedAboutContent = {
 }
 
 export type ResolvedResumeContent = {
-  body: string
+  content: SerializedEditorState
   pdfHref: string
 }
 
@@ -78,9 +80,11 @@ function resolveAbout(about: SiteSetting['about'] | undefined): ResolvedAboutCon
 
 function resolveResume(resume: SiteSetting['resume'] | undefined): ResolvedResumeContent {
   const pdf = resolveMedia(resume?.pdf)
+  const content = resume?.body
 
   return {
-    body: resume?.body?.trim() || DEFAULT_RESUME_BODY,
+    content:
+      content && !isLexicalContentEmpty(content) ? content : buildDefaultResumeLexical(),
     pdfHref: resolveMediaUrl(pdf) ?? DEFAULT_RESUME_PDF_HREF,
   }
 }

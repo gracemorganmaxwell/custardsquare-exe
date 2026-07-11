@@ -24,6 +24,7 @@ node scripts/capture-issue-screenshots.mjs
 | #31 Articles window | `../foundation/issue-031-ac1-articles-list.png` |
 | #32 About window | `../foundation/issue-032-ac1-about-text.png` |
 | #34 Resume window | `../foundation/issue-034-ac1-resume-text.png` |
+| #60 Rich-text Resume | `../foundation/issue-060-ac2-rich-resume-ui.png` |
 | #14 Articles index | `issue-014-articles-index.png` |
 | #15 Article detail | `issue-015-article-detail.png` |
 | #16 Rich text + TOC | `issue-016-article-toc.png` |

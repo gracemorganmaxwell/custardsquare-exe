@@ -18,6 +18,9 @@ Notepad-style resume from SiteSettings (seeded from `gracie-resume-jul26.pdf`). 
 - CMS: `/admin` → Site Settings → **Resume window** (body + pdf)
 - Capture: `node --import tsx/esm scripts/capture-issue-034-evidence.mjs`
 
+## Note
+Rich-text README-style editing lands in #60 (Lexical). This ticket covers the initial Resume window + PDF download.
+
 ## Depends on
 - #10
 

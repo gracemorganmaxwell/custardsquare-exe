@@ -1,5 +1,6 @@
 'use client'
 
+import { RichTextDocument } from '@/components/richtext/RichTextDocument'
 import type { ResolvedResumeContent } from '@/lib/site-settings'
 
 type ResumeWindowProps = {
@@ -10,7 +11,7 @@ export function ResumeWindow({ resume }: ResumeWindowProps) {
   return (
     <div className="resume-window">
       <div className="resume-window__toolbar">
-        <span>RESUME.TXT</span>
+        <span>RESUME.md</span>
         <a
           className="win95-button resume-window__download"
           download
@@ -21,12 +22,14 @@ export function ResumeWindow({ resume }: ResumeWindowProps) {
           Download PDF
         </a>
       </div>
-      <pre aria-label="Resume" className="resume-window__body win95-inset">
-        {resume.body}
-      </pre>
+      <div aria-label="Resume" className="resume-window__body win95-inset">
+        <RichTextDocument className="resume-window__richtext" content={resume.content} />
+      </div>
       <div aria-label="Status bar" className="resume-window__status">
-        <div className="resume-window__status-field">Read-only · edit in Site Settings</div>
-        <div className="resume-window__status-field">UTF-8</div>
+        <div className="resume-window__status-field">
+          Rich text · edit in Site Settings (headings, bold, links, lists…)
+        </div>
+        <div className="resume-window__status-field">Lexical</div>
       </div>
     </div>
   )

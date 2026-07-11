@@ -33,7 +33,7 @@ export const DESKTOP_ICONS: DesktopIconItem[] = [
     label: 'Resume',
     iconSrc: '/icons/desktop/projects.png',
     windowId: 'resume',
-    windowTitle: 'Resume — RESUME.TXT',
+    windowTitle: 'Resume — RESUME.md',
   },
   {
     id: 'this-computer',
