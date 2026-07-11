@@ -1,6 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
 import { isAdmin } from '../lib/access'
+import { buildDefaultResumeLexical } from '../lib/default-resume-lexical'
+import { DEFAULT_SKILL_GROUPS } from '../lib/default-skills'
+
+const DEFAULT_SKILLS_FIELD_VALUE = DEFAULT_SKILL_GROUPS.map((group) => ({
+  group: group.group,
+  items: group.items.join(', '),
+}))
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -80,7 +87,7 @@ export const SiteSettings: GlobalConfig = {
           type: 'text',
           defaultValue: 'Gracie',
           admin: {
-            description: 'Display name in the About window',
+            description: 'Display name in the About window (prefilled for new installs)',
           },
         },
         {
@@ -89,7 +96,7 @@ export const SiteSettings: GlobalConfig = {
           defaultValue:
             'custardsquare.exe is my public second brain — a dreamy Windows 98 desktop over a real content system. Say hi on LinkedIn.',
           admin: {
-            description: 'About blurb under the name',
+            description: 'About blurb under the name (prefilled for new installs)',
           },
         },
         {
@@ -115,9 +122,10 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'body',
           type: 'richText',
+          defaultValue: buildDefaultResumeLexical(),
           admin: {
             description:
-              'Rich resume body (headings, bold, links, lists, code). Leave empty to use the bundled default from gracie-resume-jul26.',
+              'Rich resume body (headings, bold, links, lists, code). Prefills from gracie-resume-jul26; clear and save empty to fall back to the bundled default on the desktop.',
           },
         },
         {
@@ -135,8 +143,9 @@ export const SiteSettings: GlobalConfig = {
       name: 'skills',
       type: 'array',
       label: 'Skills window',
+      defaultValue: DEFAULT_SKILLS_FIELD_VALUE,
       admin: {
-        description: 'Grouped skills for the System Properties-style Skills app.',
+        description: 'Grouped skills for the System Properties-style Skills app (prefilled).',
       },
       fields: [
         {

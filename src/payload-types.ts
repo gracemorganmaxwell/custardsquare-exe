@@ -449,11 +449,11 @@ export interface SiteSetting {
    */
   about?: {
     /**
-     * Display name in the About window
+     * Display name in the About window (prefilled for new installs)
      */
     name?: string | null;
     /**
-     * About blurb under the name
+     * About blurb under the name (prefilled for new installs)
      */
     bio?: string | null;
     /**
@@ -466,7 +466,7 @@ export interface SiteSetting {
    */
   resume?: {
     /**
-     * Rich resume body (headings, bold, links, lists, code). Leave empty to use the bundled default from gracie-resume-jul26.
+     * Rich resume body (headings, bold, links, lists, code). Prefills from gracie-resume-jul26; clear and save empty to fall back to the bundled default on the desktop.
      */
     body?: {
       root: {
@@ -489,7 +489,7 @@ export interface SiteSetting {
     pdf?: (number | null) | Media;
   };
   /**
-   * Grouped skills for the System Properties-style Skills app.
+   * Grouped skills for the System Properties-style Skills app (prefilled).
    */
   skills?:
     | {

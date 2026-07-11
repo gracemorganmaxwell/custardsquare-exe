@@ -11,6 +11,7 @@ import {
 
 import { Win95Titlebar } from '@/components/desktop/Win95Titlebar'
 import type { DesktopPoint } from '@/lib/desktopStore'
+import { useIsMobileDesktop } from '@/lib/useMediaQuery'
 
 type WinWindowProps = {
   active?: boolean
@@ -56,11 +57,12 @@ export function WinWindow({
   const titleId = useId()
   const windowRef = useRef<HTMLElement>(null)
   const dragOffsetRef = useRef<DesktopPoint>({ x: 0, y: 0 })
+  const isMobile = useIsMobileDesktop()
   const [position, setPosition] = useState<DesktopPoint | null>(initialPosition)
   const [dragging, setDragging] = useState(false)
 
   useEffect(() => {
-    if (position !== null || !windowRef.current || hidden) {
+    if (isMobile || position !== null || !windowRef.current || hidden) {
       return
     }
 
@@ -75,10 +77,10 @@ export function WinWindow({
     )
     setPosition(next)
     onPositionChange?.(next)
-  }, [hidden, onPositionChange, position])
+  }, [hidden, isMobile, onPositionChange, position])
 
   useEffect(() => {
-    if (!dragging) {
+    if (!dragging || isMobile) {
       return
     }
 
@@ -111,7 +113,13 @@ export function WinWindow({
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
     }
-  }, [dragging, onPositionChange])
+  }, [dragging, isMobile, onPositionChange])
+
+  useEffect(() => {
+    if (isMobile) {
+      setDragging(false)
+    }
+  }, [isMobile])
 
   const classNames = [
     'win-window',
@@ -121,11 +129,14 @@ export function WinWindow({
   if (className) {
     classNames.push(className)
   }
-  if (dragging) {
+  if (dragging && !isMobile) {
     classNames.push('win-window--dragging')
   }
-  if (position) {
+  if (position && !isMobile) {
     classNames.push('win-window--positioned')
+  }
+  if (isMobile) {
+    classNames.push('win-window--mobile-panel')
   }
   if (hidden) {
     classNames.push('win-window--hidden')
@@ -140,7 +151,7 @@ export function WinWindow({
       ref={windowRef}
       style={{
         zIndex,
-        ...(position
+        ...(!isMobile && position
           ? {
               left: position.x,
               top: position.y,
@@ -150,22 +161,26 @@ export function WinWindow({
     >
       <Win95Titlebar
         active={active}
-        dragging={dragging}
+        dragging={dragging && !isMobile}
         onClose={onClose}
-        onDragStart={(event: ReactPointerEvent<HTMLDivElement>) => {
-          if (!windowRef.current) {
-            return
-          }
+        onDragStart={
+          isMobile
+            ? undefined
+            : (event: ReactPointerEvent<HTMLDivElement>) => {
+                if (!windowRef.current) {
+                  return
+                }
 
-          const rect = windowRef.current.getBoundingClientRect()
-          dragOffsetRef.current = {
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top,
-          }
-          onFocus?.()
-          setDragging(true)
-        }}
-        onMinimize={onMinimize}
+                const rect = windowRef.current.getBoundingClientRect()
+                dragOffsetRef.current = {
+                  x: event.clientX - rect.left,
+                  y: event.clientY - rect.top,
+                }
+                onFocus?.()
+                setDragging(true)
+              }
+        }
+        onMinimize={isMobile ? undefined : onMinimize}
         title={title}
         titleId={titleId}
       />

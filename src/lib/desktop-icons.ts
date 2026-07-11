@@ -71,4 +71,11 @@ export const DESKTOP_ICONS: DesktopIconItem[] = [
     windowId: 'projects',
     windowTitle: 'Projects',
   },
+  {
+    id: 'credits',
+    label: 'Credits',
+    iconSrc: '/icons/desktop/github.png',
+    windowId: 'credits',
+    windowTitle: 'Credits',
+  },
 ]

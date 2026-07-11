@@ -5,6 +5,7 @@ type DesktopIconProps = {
   iconSrc: string
   isSelected: boolean
   disabled?: boolean
+  openOnSingleClick?: boolean
   onActivate: () => void
   onSelect: () => void
 }
@@ -14,6 +15,7 @@ export function DesktopIcon({
   iconSrc,
   isSelected,
   disabled = false,
+  openOnSingleClick = false,
   onActivate,
   onSelect,
 }: DesktopIconProps) {
@@ -25,9 +27,12 @@ export function DesktopIcon({
       type="button"
       onClick={() => {
         onSelect()
+        if (openOnSingleClick && !disabled) {
+          onActivate()
+        }
       }}
       onDoubleClick={() => {
-        if (!disabled) {
+        if (!openOnSingleClick && !disabled) {
           onActivate()
         }
       }}

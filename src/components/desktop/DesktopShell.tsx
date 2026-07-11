@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import { AdminFooterLink } from '@/components/desktop/AdminFooterLink'
 import { DesktopIconGrid } from '@/components/desktop/DesktopIconGrid'
 import { ShutdownDialog } from '@/components/desktop/ShutdownDialog'
@@ -7,9 +9,11 @@ import { StartMenu } from '@/components/desktop/StartMenu'
 import { Taskbar } from '@/components/desktop/Taskbar'
 import { WindowManager } from '@/components/desktop/WindowManager'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
+import { useDesktopStore } from '@/lib/desktopStore'
 import type { SkillGroup } from '@/lib/default-skills'
 import type { ResolvedAboutContent, ResolvedResumeContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
+import { useIsMobileDesktop } from '@/lib/useMediaQuery'
 
 type DesktopShellProps = {
   about: ResolvedAboutContent
@@ -30,8 +34,20 @@ export function DesktopShell({
   skills,
   socialLinks,
 }: DesktopShellProps) {
+  const isMobile = useIsMobileDesktop()
+  const closeWindow = useDesktopStore((state) => state.closeWindow)
+
+  useEffect(() => {
+    if (!isMobile) {
+      return
+    }
+
+    // App grid is the home screen on mobile — Welcome is still in Start.
+    closeWindow('welcome')
+  }, [isMobile, closeWindow])
+
   return (
-    <div className="desktop-shell">
+    <div className={`desktop-shell${isMobile ? ' desktop-shell--mobile' : ''}`}>
       <div aria-hidden="true" className="desktop-shell__wallpaper">
         <div className="desktop-shell__wallpaper-brand">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -46,7 +62,7 @@ export function DesktopShell({
         </div>
       </div>
       <div aria-hidden="true" className="desktop-shell__crt" />
-      <section aria-label="Desktop icons" className="desktop-shell__icons">
+      <section aria-label={isMobile ? 'Apps' : 'Desktop icons'} className="desktop-shell__icons">
         <DesktopIconGrid />
       </section>
       <WindowManager
