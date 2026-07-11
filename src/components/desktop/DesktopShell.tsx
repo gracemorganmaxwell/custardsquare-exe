@@ -1,28 +1,52 @@
+'use client'
+
 import { AdminFooterLink } from '@/components/desktop/AdminFooterLink'
 import { DesktopIconGrid } from '@/components/desktop/DesktopIconGrid'
+import { ShutdownDialog } from '@/components/desktop/ShutdownDialog'
+import { StartMenu } from '@/components/desktop/StartMenu'
+import { Taskbar } from '@/components/desktop/Taskbar'
+import { WindowManager } from '@/components/desktop/WindowManager'
+import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
 
-type DesktopShellProps = {
-  children: React.ReactNode
+type SocialLink = {
+  label: string
+  url: string
 }
 
-export function DesktopShell({ children }: DesktopShellProps) {
+type DesktopShellProps = {
+  articles: ExplorerArticleItem[]
+  siteDescription: string
+  socialLinks: SocialLink[]
+}
+
+export function DesktopShell({ articles, siteDescription, socialLinks }: DesktopShellProps) {
   return (
     <div className="desktop-shell">
       <div aria-hidden="true" className="desktop-shell__wallpaper">
-        {/* Decorative pixel asset — avoid next/image softening */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt=""
-          className="desktop-shell__wallpaper-flag"
-          height={100}
-          src="/brand/desktop-background.png"
-          width={100}
-        />
+        <div className="desktop-shell__wallpaper-brand">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt=""
+            className="desktop-shell__wallpaper-flag"
+            height={100}
+            src="/brand/desktop-background.png"
+            width={100}
+          />
+          <p className="desktop-shell__wallpaper-caption">custardsquare OS</p>
+        </div>
       </div>
+      <div aria-hidden="true" className="desktop-shell__crt" />
       <section aria-label="Desktop icons" className="desktop-shell__icons">
         <DesktopIconGrid />
       </section>
-      <div className="desktop-shell__windows">{children}</div>
+      <WindowManager
+        articles={articles}
+        siteDescription={siteDescription}
+        socialLinks={socialLinks}
+      />
+      <StartMenu />
+      <Taskbar />
+      <ShutdownDialog />
       <AdminFooterLink />
     </div>
   )

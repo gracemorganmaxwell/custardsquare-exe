@@ -14,7 +14,7 @@
 
 .login-screen__window .win95-titlebar {
   width: 100%;
-  border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0;
+  border-radius: var(--cs-radius-lg) var(--cs-radius-lg) 0 0;
 }
 
 .login-screen__body {

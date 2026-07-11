@@ -11,4 +11,4 @@ Fake visitor login — cosmetic only. Click through to the desktop. Not real aut
 - [ ] Separate from `/admin` Payload login
 
 ## Likely files
-- `src/components/desktop/LoginScreen.tsx`
+- `src/components/desktop/DesktopExperience.tsx`

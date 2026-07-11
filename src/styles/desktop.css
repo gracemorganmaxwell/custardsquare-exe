@@ -18,31 +18,76 @@
 }
 
 /* Single flag ornament over the vaporwave gradient (not tiled) */
-.desktop-shell__wallpaper-flag {
+.desktop-shell__wallpaper-brand {
   position: absolute;
   right: clamp(1rem, 6vw, 3.5rem);
-  bottom: clamp(2.5rem, 8vh, 4.5rem);
-  left: auto;
-  top: auto;
+  bottom: clamp(3.5rem, 10vh, 5.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.desktop-shell__wallpaper-flag {
+  display: block;
   width: 100px;
   height: 100px;
   max-width: none;
-  transform: none;
   image-rendering: pixelated;
   /* Keep neon flag visible without washing out on the gradient */
   mix-blend-mode: normal;
   opacity: 1;
   filter: drop-shadow(0 0 10px rgb(155 109 255 / 55%));
+}
+
+.desktop-shell__wallpaper-caption {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-shadow: 0 1px 2px rgb(42 31 78 / 55%);
+  white-space: nowrap;
+}
+
+.desktop-shell__crt {
+  position: absolute;
+  inset: 0;
+  z-index: 45;
   pointer-events: none;
-  user-select: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0%) 0,
+    rgb(0 0 0 / 0%) 2px,
+    rgb(0 0 0 / 14%) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-shell__crt {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {
+  .desktop-shell__wallpaper-brand {
+    right: 1rem;
+    bottom: 3rem;
+  }
+
   .desktop-shell__wallpaper-flag {
     width: 56px;
     height: 56px;
-    right: 1rem;
-    bottom: 2rem;
+  }
+
+  .desktop-shell__wallpaper-caption {
+    font-size: 0.6875rem;
   }
 }
 
@@ -68,7 +113,8 @@
   gap: 0.25rem;
   width: 5.5rem;
   padding: 0.25rem;
-  border: 1px dotted transparent;
+  border: 1px solid transparent;
+  border-radius: var(--cs-radius-md);
   background: transparent;
   color: #fff;
   cursor: default;
@@ -81,8 +127,11 @@
 
 .desktop-icon:focus-visible,
 .desktop-icon--selected {
-  border-color: #fff;
   outline: none;
+}
+
+.desktop-icon:hover:not(:disabled) {
+  background: rgb(255 255 255 / 50%);
 }
 
 .desktop-icon:disabled {
@@ -102,14 +151,15 @@
 }
 
 .desktop-icon__label {
-  display: block;
+  display: inline-block;
   max-width: 100%;
+  padding: 0.05rem 0.2rem;
   word-break: break-word;
 }
 
 .desktop-shell__windows {
   position: absolute;
-  inset: 0;
+  inset: 0 0 2.25rem 0;
   z-index: 2;
   pointer-events: none;
 }
@@ -136,9 +186,12 @@
 }
 
 .win-window--dragging {
-  z-index: 5;
   cursor: grabbing;
   user-select: none;
+}
+
+.win-window--hidden {
+  display: none;
 }
 
 .win-window__body {
@@ -158,57 +211,365 @@
   color: var(--win95-title-inactive-fg);
 }
 
-/* Welcome window content */
-.welcome-window .win95-titlebar {
-  width: 100%;
-  border-radius: var(--cs-radius-md) var(--cs-radius-md) 0 0;
-}
-
-.welcome-window .home__body {
+.win-window .home__body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin: 0;
-  padding: 0.5rem 0.75rem 0.75rem;
-  background: var(--win95-grey);
+  margin: 0.35rem;
+  padding: 0.65rem;
+  background: var(--win95-white);
   color: var(--win95-black);
   text-align: left;
 }
 
-.welcome-window .tagline {
+.win-window .tagline {
   margin: 0;
   font-family: var(--win95-font);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
 
-.welcome-window .links {
+.win-window .links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.welcome-window .links a {
+.win-window .links a {
   text-decoration: none;
 }
 
-.welcome-window .links .win95-button {
+.win-window .links .win95-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: auto;
   text-decoration: none;
+  cursor: default;
 }
 
-.welcome-window .links a.win95-button:focus-visible {
+.win-window .links .win95-button:hover {
+  background: var(--dream-lavender);
+}
+
+.win-window .links a.win95-button:focus-visible {
   outline: 1px dotted var(--win95-black);
   outline-offset: -4px;
+}
+
+.desktop-placeholder-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-family: var(--win95-font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.explorer-window {
+  width: min(32rem, calc(100vw - 2rem));
+  min-height: 16rem;
+}
+
+.explorer-window .win-window__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 14rem;
+}
+
+.explorer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 14rem;
+  padding: 0.35rem;
+  background: var(--win95-grey);
+  color: var(--win95-black);
+  font-family: var(--win95-font);
+}
+
+.explorer__panes {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: 0.35rem;
+  flex: 1;
+  min-height: 11rem;
+}
+
+.explorer__tree,
+.explorer__files {
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
+  overflow: auto;
+}
+
+.explorer__tree-item,
+.explorer__file {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.2rem 0.3rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: default;
+}
+
+.explorer__tree-item[aria-current='true'],
+.explorer__file[aria-current='true'] {
+  background: #000080;
+  color: #fff;
+}
+
+.explorer__file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: 0.35rem;
+}
+
+.explorer__file {
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  word-break: break-word;
+}
+
+.explorer__file:hover {
+  background: rgb(0 0 128 / 10%);
+}
+
+.explorer__file[aria-current='true']:hover {
+  background: #000080;
+}
+
+.explorer__file-icon {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.explorer__empty {
+  margin: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.explorer__status {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 3rem;
+  gap: 2px;
+  font-size: 0.6875rem;
+}
+
+.explorer__status-field {
+  padding: 0.15rem 0.3rem;
+  background: var(--win95-grey);
+  border: 1px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Taskbar */
+.taskbar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 2.25rem;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0;
+  box-shadow: inset 1px 1px 0 var(--win95-bevel-light);
+}
+
+.taskbar__start {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: auto;
+  font-weight: 700;
+}
+
+.taskbar__start--active,
+.taskbar__window-button--active {
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  box-shadow: none;
+}
+
+.taskbar__start-icon {
+  image-rendering: pixelated;
+}
+
+.taskbar__windows {
+  display: flex;
+  flex: 1;
+  gap: 0.25rem;
+  min-width: 0;
+  overflow: auto;
+}
+
+.taskbar__window-button {
+  max-width: 10rem;
+  min-width: 5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taskbar__clock {
+  flex-shrink: 0;
+  min-width: 4.5rem;
+  padding: 0.15rem 0.45rem;
+  font-family: var(--win95-font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  background: var(--win95-grey);
+}
+
+/* Start menu */
+.start-menu {
+  position: absolute;
+  bottom: 2.35rem;
+  left: 0.25rem;
+  z-index: 25;
+  display: flex;
+  width: min(16rem, calc(100vw - 1rem));
+  overflow: hidden;
+  border-radius: var(--cs-radius-sm);
+}
+
+.start-menu__banner {
+  display: flex;
+  align-items: flex-end;
+  width: 1.75rem;
+  padding: 0.5rem 0.2rem;
+  background: linear-gradient(180deg, #6d4bc3 0%, #2a1f4e 100%);
+  color: #fff;
+  font-family: var(--win95-font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.start-menu__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--win95-grey);
+}
+
+.start-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--win95-black);
+  cursor: default;
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+  text-align: left;
+  text-decoration: none;
+}
+
+.start-menu__item:hover,
+.start-menu__item:focus-visible {
+  background: var(--dream-purple);
+  color: #fff;
+  outline: none;
+}
+
+.start-menu__item img {
+  image-rendering: pixelated;
+}
+
+.start-menu__separator {
+  height: 1px;
+  margin: 0.25rem 0.35rem;
+  background: var(--win95-grey-dark);
+  box-shadow: 0 1px 0 var(--win95-bevel-light);
+}
+
+/* Shutdown dialog */
+.shutdown-dialog {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+}
+
+.shutdown-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 35%);
+}
+
+.shutdown-dialog__window {
+  position: relative;
+  z-index: 1;
+  width: min(22rem, calc(100vw - 2rem));
+}
+
+.shutdown-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--win95-grey);
+  color: var(--win95-black);
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+}
+
+.shutdown-dialog__body p {
+  margin: 0;
+}
+
+.shutdown-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.shutdown-dialog__actions a.win95-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .site-admin-footer {
   position: fixed;
   right: 0;
-  bottom: 1rem;
+  bottom: 2.5rem;
   left: 0;
   z-index: 3;
   margin: 0;

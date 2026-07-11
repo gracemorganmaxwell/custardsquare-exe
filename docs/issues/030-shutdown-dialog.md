@@ -7,8 +7,8 @@ json: {"title":"Shutdown dialog","labels":["epic:desktop-ui","priority:mvp","typ
 Fun Shut Down dialog — log off, restart, go outside, cancel.
 
 ## Done when
-- [ ] Log off returns to login/boot
-- [ ] Cancel closes dialog
+- [x] Log off returns to login/boot
+- [x] Cancel closes dialog
 
 ## Likely files
 - `src/components/desktop/ShutdownDialog.tsx`

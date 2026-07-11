@@ -7,9 +7,9 @@ json: {"title":"Taskbar + clock","labels":["epic:desktop-ui","priority:mvp","typ
 Win95 taskbar with open-window buttons and a clock.
 
 ## Done when
-- [ ] Clock shows local time
-- [ ] Open windows appear in the taskbar
-- [ ] Clicking taskbar button focuses/restores window
+- [x] Clock shows local time
+- [x] Open windows appear in the taskbar
+- [x] Clicking taskbar button focuses/restores window
 
 ## Likely files
 - `src/components/desktop/Taskbar.tsx`

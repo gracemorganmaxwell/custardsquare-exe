@@ -7,8 +7,8 @@ json: {"title":"Start menu navigation","labels":["epic:desktop-ui","priority:mvp
 Start button opens a menu of apps and links.
 
 ## Done when
-- [ ] Start button toggles menu
-- [ ] Menu items open windows or routes
+- [x] Start button toggles menu
+- [x] Menu items open windows or routes
 
 ## Likely files
 - `src/components/desktop/StartMenu.tsx`

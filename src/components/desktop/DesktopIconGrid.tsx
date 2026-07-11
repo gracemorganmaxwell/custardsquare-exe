@@ -1,32 +1,39 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
 import { DesktopIcon } from '@/components/desktop/DesktopIcon'
 import { DESKTOP_ICONS } from '@/lib/desktop-icons'
+import { useDesktopStore } from '@/lib/desktopStore'
 
 export function DesktopIconGrid() {
-  const router = useRouter()
+  const openWindow = useDesktopStore((state) => state.openWindow)
+  const openExplorer = useDesktopStore((state) => state.openExplorer)
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const activateIcon = useCallback(
     (index: number) => {
       const icon = DESKTOP_ICONS[index]
-      if (!icon || icon.disabled || !icon.href) {
+      if (!icon || icon.disabled) {
         return
       }
 
-      router.push(icon.href)
+      if (icon.explorerFolder) {
+        openExplorer(icon.explorerFolder)
+        return
+      }
+
+      if (icon.windowId) {
+        openWindow(icon.windowId, icon.windowTitle ?? icon.label)
+      }
     },
-    [router],
+    [openExplorer, openWindow],
   )
 
   return (
     <div
-      className="desktop-icon-grid"
-      role="toolbar"
       aria-label="Desktop icons"
+      className="desktop-icon-grid"
       onKeyDown={(event) => {
         const lastIndex = DESKTOP_ICONS.length - 1
 
@@ -50,13 +57,14 @@ export function DesktopIconGrid() {
           setSelectedIndex(lastIndex)
         }
       }}
+      role="toolbar"
     >
       {DESKTOP_ICONS.map((icon, index) => (
         <DesktopIcon
-          key={icon.id}
           disabled={icon.disabled}
           iconSrc={icon.iconSrc}
           isSelected={selectedIndex === index}
+          key={icon.id}
           label={icon.label}
           onActivate={() => activateIcon(index)}
           onSelect={() => setSelectedIndex(index)}

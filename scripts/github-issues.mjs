@@ -318,7 +318,7 @@ const issues = [
       'Submitting the form enters the desktop',
       'Separate from `/admin` Payload login',
     ],
-    files: ['src/components/desktop/LoginScreen.tsx'],
+    files: ['src/components/desktop/DesktopExperience.tsx'],
   },
   {
     id: '024',
@@ -370,9 +370,7 @@ const issues = [
     files: [
       'src/components/desktop/WindowManager.tsx',
       'src/components/ui95/WinWindow.tsx',
-      'src/components/desktop/WelcomeWindow.tsx',
     ],
-    note: 'Partial: WinWindow drag + active/inactive chrome shipped via WelcomeWindow. Open/close/minimize still needs WindowManager.',
   },
   {
     id: '028',

@@ -7,12 +7,9 @@ json: {"title":"Window manager + WinWindow","labels":["epic:desktop-ui","priorit
 Basic draggable windows with title bar. Open, close, minimize. Good enough beats perfect.
 
 ## Done when
-- [ ] Windows open and close
+- [x] Windows open and close
 - [x] Active/inactive title bar styles
 - [x] Draggable on desktop
-
-## Progress
-`WinWindow` + `WelcomeWindow` ship title-bar drag and active/inactive chrome. Open/close/minimize still pending (`WindowManager`).
 
 ## Likely files
 - `src/components/desktop/WindowManager.tsx`
