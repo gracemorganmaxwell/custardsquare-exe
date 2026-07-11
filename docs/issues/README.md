@@ -18,5 +18,5 @@ Each file is named `NNN-slug.md` and includes YAML frontmatter with title, label
 
 ## Issue count
 
-- **MVP issues:** 001–049 + 058–060 (49)
+- **MVP issues:** 001–049 + 058–063 (52)
 - **V2 issues:** 050–057+ (11)

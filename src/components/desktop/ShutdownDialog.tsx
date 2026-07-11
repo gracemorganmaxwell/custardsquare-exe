@@ -18,11 +18,11 @@ export function ShutdownDialog() {
       <div className="shutdown-dialog__window win95-raised">
         <div className="win95-titlebar">
           <span className="win95-titlebar__title" id="shutdown-title">
-            Shut Down Windows
+            Shut Down custardsquare OS
           </span>
         </div>
         <div className="shutdown-dialog__body">
-          <p>What do you want to do?</p>
+          <p>What do you want the computer to do?</p>
           <div className="shutdown-dialog__actions">
             <button
               className="win95-button"

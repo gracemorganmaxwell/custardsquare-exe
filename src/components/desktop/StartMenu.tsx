@@ -46,7 +46,7 @@ export function StartMenu() {
   return (
     <div aria-label="Start menu" className="start-menu win95-raised" ref={menuRef} role="menu">
       <div aria-hidden="true" className="start-menu__banner">
-        custardsquare.exe
+        custardsquare OS
       </div>
       <ul className="start-menu__list">
         <li role="none">
@@ -107,6 +107,66 @@ export function StartMenu() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img alt="" height={24} src="/icons/desktop/projects.png" width={24} />
             Resume
+          </button>
+        </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
+            onClick={() => openWindow('skills', 'Skills')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/this_computer.png" width={24} />
+            Skills
+          </button>
+        </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
+            onClick={() => openWindow('terminal', 'Terminal — custardsquare OS')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/ui/folder.png" width={24} />
+            Terminal
+          </button>
+        </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
+            onClick={() => openWindow('notes', 'Notes')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/articles.png" width={24} />
+            Notes
+          </button>
+        </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
+            onClick={() => openWindow('projects', 'Projects')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/projects.png" width={24} />
+            Projects
+          </button>
+        </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
+            onClick={() => openWindow('credits', 'Credits')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/github.png" width={24} />
+            Credits
           </button>
         </li>
         <li aria-hidden="true" className="start-menu__separator" />

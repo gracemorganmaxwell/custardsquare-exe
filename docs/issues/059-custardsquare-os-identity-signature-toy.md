@@ -7,9 +7,14 @@ json: {"title":"custardsquare OS identity + one signature toy","labels":["epic:d
 Lean into the named OS brand (wallpaper caption already says **custardsquare OS**) and pick **one** signature toy that peers use on Win9x portfolios — without turning the site into a full OS sim.
 
 ## Done when
-- [ ] OS identity shows in at least two chrome surfaces (e.g. wallpaper caption + About/shutdown/boot copy)
-- [ ] One signature toy ships (prefer Terminal `#37` or a tiny sticky-notes flavour — not Minesweeper/Clippy unless you want that)
-- [ ] Toy is discoverable from Start menu or desktop icon
+- [x] OS identity shows in at least two chrome surfaces (e.g. wallpaper caption + About/shutdown/boot copy)
+- [x] One signature toy ships (prefer Terminal `#37` or a tiny sticky-notes flavour — not Minesweeper/Clippy unless you want that)
+- [x] Toy is discoverable from Start menu or desktop icon
+
+## Evidence
+- `docs/screenshots/foundation/issue-059-ac1-shutdown-os-identity.png`
+- `docs/screenshots/foundation/issue-037-ac1-terminal-help.png`
+- Capture: `node --import tsx/esm scripts/capture-issue-033-059-evidence.mjs`
 
 ## Note
 Peers worth glancing at: andresmit.co.za (Clippy/BSOD), 98-portfolio (folder apps), willos-98 (serious content in Win98 shell), 98.js.org (full sim — **do not** copy scope). Soft frame + sharp controls stays the brand; dreaminess lives in wallpaper/title gradient, not every corner.
@@ -22,5 +27,5 @@ Peers worth glancing at: andresmit.co.za (Clippy/BSOD), 98-portfolio (folder app
 ## Likely files
 - `src/components/desktop/DesktopShell.tsx`
 - `src/components/desktop/ShutdownDialog.tsx`
-- `src/components/desktop/BootScreen.tsx`
-- `src/components/windows/TerminalWindow.tsx` (if toy = terminal)
+- `src/components/desktop/DesktopExperience.tsx`
+- `src/components/windows/TerminalWindow.tsx`

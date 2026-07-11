@@ -7,9 +7,13 @@ json: {"title":"Notes + Projects placeholders","labels":["epic:desktop-apps","pr
 "Coming soon" windows until V2 collections exist. Icons can still appear on desktop.
 
 ## Done when
-- [ ] Windows open without errors
-- [ ] Friendly coming-soon message shown
+- [x] Windows open without errors
+- [x] Friendly coming-soon message shown
+
+## Evidence
+- `docs/screenshots/foundation/issue-038-ac1-notes-placeholder.png`
+- Capture: `node --import tsx/esm scripts/capture-issue-033-059-evidence.mjs`
 
 ## Likely files
-- `src/components/windows/NotesWindow.tsx`
-- `src/components/windows/ProjectsWindow.tsx`
+- `src/components/windows/ComingSoonWindow.tsx`
+- `src/components/desktop/WindowManager.tsx`

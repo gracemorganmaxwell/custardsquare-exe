@@ -33,9 +33,11 @@ export default async function HomePage() {
       <DesktopExperience
         about={settings.about}
         articles={articles}
+        credits={settings.credits}
         resume={settings.resume}
         siteDescription={settings.siteDescription}
         siteTitle={settings.siteTitle}
+        skills={settings.skills}
         socialLinks={socialLinks}
       />
     </BootScreen>

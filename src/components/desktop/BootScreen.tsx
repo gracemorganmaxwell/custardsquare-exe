@@ -9,7 +9,7 @@ type BootScreenProps = {
 
 function getBootLines(siteTitle: string): string[] {
   return [
-    `Starting ${siteTitle}...`,
+    `Starting custardsquare OS (${siteTitle})...`,
     'Loading second brain modules...',
     'Indexing crumbs...',
     'Ready.',

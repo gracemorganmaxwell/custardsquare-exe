@@ -7,6 +7,12 @@ import {
   buildDefaultResumeLexical,
   isLexicalContentEmpty,
 } from '@/lib/default-resume-lexical'
+import {
+  DEFAULT_CREDITS,
+  DEFAULT_SKILL_GROUPS,
+  parseSkillItems,
+  type SkillGroup,
+} from '@/lib/default-skills'
 import type { Media, SiteSetting } from '@/payload-types'
 import { getServerURL } from '@/lib/site-url'
 
@@ -36,12 +42,13 @@ export type ResolvedResumeContent = {
 
 export type ResolvedSiteSettings = {
   about: ResolvedAboutContent
-  credits: string | null
+  credits: string
   defaultOgImage: Media | null
   favicon: Media | null
   resume: ResolvedResumeContent
   siteDescription: string
   siteTitle: string
+  skills: SkillGroup[]
   socialLinks: NonNullable<SiteSetting['socialLinks']>
 }
 
@@ -59,9 +66,10 @@ export async function getSiteSettings(): Promise<ResolvedSiteSettings> {
     defaultOgImage: resolveMedia(settings?.defaultOgImage),
     favicon: resolveMedia(settings?.favicon),
     socialLinks: settings?.socialLinks ?? [],
-    credits: settings?.credits?.trim() || null,
+    credits: settings?.credits?.trim() || DEFAULT_CREDITS,
     about: resolveAbout(settings?.about),
     resume: resolveResume(settings?.resume),
+    skills: resolveSkills(settings?.skills),
   }
 }
 
@@ -87,6 +95,19 @@ function resolveResume(resume: SiteSetting['resume'] | undefined): ResolvedResum
       content && !isLexicalContentEmpty(content) ? content : buildDefaultResumeLexical(),
     pdfHref: resolveMediaUrl(pdf) ?? DEFAULT_RESUME_PDF_HREF,
   }
+}
+
+function resolveSkills(skills: SiteSetting['skills'] | undefined): SkillGroup[] {
+  if (!skills || skills.length === 0) {
+    return DEFAULT_SKILL_GROUPS
+  }
+
+  return skills
+    .map((entry) => ({
+      group: entry.group.trim(),
+      items: parseSkillItems(entry.items),
+    }))
+    .filter((entry) => entry.group.length > 0 && entry.items.length > 0)
 }
 
 function resolveMediaUrl(media: Media | null): string | undefined {

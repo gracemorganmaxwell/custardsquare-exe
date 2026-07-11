@@ -319,3 +319,15 @@
   color: #666666;
   font-style: italic;
 }
+
+.article-credits {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.125rem;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: #ffffff;
+  border: 1px solid #e0d4f0;
+  border-radius: 8px;
+}

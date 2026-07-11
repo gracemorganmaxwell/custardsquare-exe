@@ -7,22 +7,27 @@ import { StartMenu } from '@/components/desktop/StartMenu'
 import { Taskbar } from '@/components/desktop/Taskbar'
 import { WindowManager } from '@/components/desktop/WindowManager'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
+import type { SkillGroup } from '@/lib/default-skills'
 import type { ResolvedAboutContent, ResolvedResumeContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
 
 type DesktopShellProps = {
   about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
+  credits: string
   resume: ResolvedResumeContent
   siteDescription: string
+  skills: SkillGroup[]
   socialLinks: SocialLink[]
 }
 
 export function DesktopShell({
   about,
   articles,
+  credits,
   resume,
   siteDescription,
+  skills,
   socialLinks,
 }: DesktopShellProps) {
   return (
@@ -47,8 +52,10 @@ export function DesktopShell({
       <WindowManager
         about={about}
         articles={articles}
+        credits={credits}
         resume={resume}
         siteDescription={siteDescription}
+        skills={skills}
         socialLinks={socialLinks}
       />
       <StartMenu />

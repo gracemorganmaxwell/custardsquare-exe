@@ -132,11 +132,39 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'skills',
+      type: 'array',
+      label: 'Skills window',
+      admin: {
+        description: 'Grouped skills for the System Properties-style Skills app.',
+      },
+      fields: [
+        {
+          name: 'group',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Group heading (e.g. Software Development)',
+          },
+        },
+        {
+          name: 'items',
+          type: 'textarea',
+          required: true,
+          admin: {
+            description: 'Comma-separated or line-separated skill items',
+          },
+        },
+      ],
+    },
+    {
       name: 'credits',
       type: 'textarea',
+      defaultValue:
+        'Desktop icons by aconfuseddragon (itch.io).\nWindows 95/98 is a trademark of Microsoft Corporation. custardsquare.exe is an independent fan project and is not affiliated with Microsoft.',
       admin: {
         description:
-          'Icon and asset credits (e.g. aconfuseddragon on itch.io). Shown in Credits window later.',
+          'Icon and asset credits. Shown in the Credits window (and optional /credits page).',
       },
     },
   ],

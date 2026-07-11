@@ -775,6 +775,59 @@ const issues = [
       'src/lib/site-settings.ts',
     ],
   },
+  {
+    id: '061',
+    title: 'Seed About/Resume defaults in Site Settings admin',
+    milestone: 'M5 — Desktop Apps',
+    labels: ['epic:cms', 'priority:mvp', 'type:chore'],
+    summary:
+      'Ensure Site Settings shows sensible About/Resume defaults in admin (not only frontend fallbacks).',
+    acceptance: [
+      'About name/bio defaults appear when editing Site Settings',
+      'Resume rich-text field is prefilled or clearly documents the bundled fallback',
+      'No blank surprise on first CMS open for those groups',
+    ],
+    deps: ['#32', '#60'],
+    files: ['src/globals/SiteSettings.ts', 'src/lib/default-resume-lexical.ts'],
+  },
+  {
+    id: '062',
+    title: 'Optional boot/click sounds (muted by default)',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Optional Win9x-flavoured sounds for boot and UI clicks. Muted by default; respect reduced-motion / toggle.',
+    acceptance: [
+      'Sounds off by default',
+      'Toggle enables boot + click sounds',
+      'Reduced-motion / mute preference skips audio',
+    ],
+    deps: ['#22', '#29'],
+    files: [
+      'public/sounds/',
+      'src/lib/desktop-audio.ts',
+      'src/components/desktop/BootScreen.tsx',
+      'src/lib/desktopStore.ts',
+    ],
+  },
+  {
+    id: '063',
+    title: 'Double-click desktop icons (classic Win9x)',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Classic desktop behaviour: single-click selects, double-click opens. Keyboard Enter/Space still activates.',
+    acceptance: [
+      'Single click selects an icon without opening',
+      'Double click opens the app/window',
+      'Enter / Space still opens the selected icon',
+    ],
+    deps: ['#25'],
+    files: [
+      'src/components/desktop/DesktopIcon.tsx',
+      'src/components/desktop/DesktopIconGrid.tsx',
+    ],
+  },
 ]
 
 const GUIDING_PRINCIPLE =

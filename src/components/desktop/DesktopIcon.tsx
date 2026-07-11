@@ -25,6 +25,8 @@ export function DesktopIcon({
       type="button"
       onClick={() => {
         onSelect()
+      }}
+      onDoubleClick={() => {
         if (!disabled) {
           onActivate()
         }

@@ -489,7 +489,23 @@ export interface SiteSetting {
     pdf?: (number | null) | Media;
   };
   /**
-   * Icon and asset credits (e.g. aconfuseddragon on itch.io). Shown in Credits window later.
+   * Grouped skills for the System Properties-style Skills app.
+   */
+  skills?:
+    | {
+        /**
+         * Group heading (e.g. Software Development)
+         */
+        group: string;
+        /**
+         * Comma-separated or line-separated skill items
+         */
+        items: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Icon and asset credits. Shown in the Credits window (and optional /credits page).
    */
   credits?: string | null;
   updatedAt?: string | null;
@@ -523,6 +539,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         body?: T;
         pdf?: T;
+      };
+  skills?:
+    | T
+    | {
+        group?: T;
+        items?: T;
+        id?: T;
       };
   credits?: T;
   updatedAt?: T;
