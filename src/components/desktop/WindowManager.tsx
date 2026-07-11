@@ -5,8 +5,9 @@ import {
   ThisComputerWindowBody,
   WelcomeWindowBody,
 } from '@/components/desktop/windowBodies'
-import { WinWindow } from '@/components/ui95/WinWindow'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
+import { ArticlesWindow } from '@/components/windows/ArticlesWindow'
+import { WinWindow } from '@/components/ui95/WinWindow'
 import {
   getOpenWindows,
   useDesktopStore,
@@ -38,6 +39,10 @@ function renderBody(
     return <AboutWindowBody />
   }
 
+  if (id === 'articles') {
+    return <ArticlesWindow articles={articles} />
+  }
+
   return <ThisComputerWindowBody articles={articles} />
 }
 
@@ -59,7 +64,9 @@ export function WindowManager({ articles, siteDescription, socialLinks }: Window
               ? 'welcome-window'
               : windowState.id === 'this-computer'
                 ? 'explorer-window'
-                : undefined
+                : windowState.id === 'articles'
+                  ? 'articles-app-window'
+                  : undefined
           }
           hidden={windowState.minimized}
           initialPosition={windowState.position}

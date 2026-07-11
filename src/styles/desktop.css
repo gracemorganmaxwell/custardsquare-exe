@@ -276,6 +276,118 @@
   min-height: 14rem;
 }
 
+.articles-app-window {
+  width: min(28rem, calc(100vw - 2rem));
+  min-height: 14rem;
+}
+
+.articles-app-window .win-window__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 12rem;
+}
+
+.articles-window {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 12rem;
+  padding: 0.35rem;
+  background: var(--win95-grey);
+  color: var(--win95-black);
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+}
+
+.articles-window__toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.2rem 0.35rem;
+  background: var(--win95-grey-light);
+  border: 1px solid;
+  border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+    var(--win95-bevel-light);
+  font-size: 0.75rem;
+}
+
+.articles-window__list {
+  flex: 1;
+  min-height: 8rem;
+  margin: 0;
+  padding: 0.15rem;
+  list-style: none;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
+  overflow: auto;
+}
+
+.articles-window__row {
+  display: grid;
+  grid-template-columns: 1rem 1fr auto;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.2rem 0.35rem;
+  color: inherit;
+  text-decoration: none;
+  text-align: left;
+  cursor: default;
+}
+
+.articles-window__row:hover {
+  background: rgb(0 0 128 / 8%);
+}
+
+.articles-window__row[aria-current='true'] {
+  background: #000080;
+  color: #fff;
+}
+
+.articles-window__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.articles-window__path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--win95-font-mono);
+  font-size: 0.6875rem;
+  opacity: 0.85;
+}
+
+.articles-window__empty {
+  flex: 1;
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
+}
+
+.articles-window__status {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 2px;
+}
+
+.articles-window__status-field {
+  padding: 0.1rem 0.35rem;
+  background: var(--win95-grey);
+  border: 1px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  font-size: 0.6875rem;
+}
+
 .explorer {
   display: flex;
   flex-direction: column;

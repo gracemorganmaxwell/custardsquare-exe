@@ -2,7 +2,7 @@
 
 import { create } from 'zustand'
 
-export type DesktopWindowId = 'welcome' | 'about' | 'this-computer'
+export type DesktopWindowId = 'welcome' | 'about' | 'this-computer' | 'articles'
 
 export type ExplorerFolderId = 'root' | 'articles' | 'dreams' | 'about'
 

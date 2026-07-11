@@ -88,7 +88,7 @@ export function StartMenu() {
         <li role="none">
           <button
             className="start-menu__item"
-            onClick={() => openExplorer('articles')}
+            onClick={() => openWindow('articles', 'Articles')}
             role="menuitem"
             type="button"
           >

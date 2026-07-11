@@ -18,9 +18,8 @@ export const DESKTOP_ICONS: DesktopIconItem[] = [
     id: 'articles',
     label: 'Articles',
     iconSrc: '/icons/desktop/articles.png',
-    windowId: 'this-computer',
-    windowTitle: explorerWindowTitle('articles'),
-    explorerFolder: 'articles',
+    windowId: 'articles',
+    windowTitle: 'Articles',
   },
   {
     id: 'about',

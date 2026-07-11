@@ -28,13 +28,17 @@ function welcomeLinks(socialLinks: SocialLink[]): SocialLink[] {
 
 export function WelcomeWindowBody({ siteDescription, socialLinks }: WelcomeWindowBodyProps) {
   const links = welcomeLinks(socialLinks)
-  const openExplorer = useDesktopStore((state) => state.openExplorer)
+  const openWindow = useDesktopStore((state) => state.openWindow)
 
   return (
     <div className="home__body win95-inset">
       <p className="tagline">{siteDescription}</p>
       <div className="links">
-        <button className="win95-button docs" onClick={() => openExplorer('articles')} type="button">
+        <button
+          className="win95-button docs"
+          onClick={() => openWindow('articles', 'Articles')}
+          type="button"
+        >
           Articles
         </button>
         {links.map((link) => (

@@ -21,6 +21,7 @@ node scripts/capture-issue-screenshots.mjs
 | #28 Taskbar + clock | `../foundation/issue-028-ac1-ac2-taskbar-clock.png` |
 | #29 Start menu | `../foundation/issue-029-ac1-ac2-start-menu.png` |
 | #30 Shutdown dialog | `../foundation/issue-030-ac2-shutdown-dialog.png` |
+| #31 Articles window | `../foundation/issue-031-ac1-articles-list.png` |
 | #14 Articles index | `issue-014-articles-index.png` |
 | #15 Article detail | `issue-015-article-detail.png` |
 | #16 Rich text + TOC | `issue-016-article-toc.png` |
