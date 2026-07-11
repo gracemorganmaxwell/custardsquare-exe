@@ -115,12 +115,6 @@ export function WinWindow({
     }
   }, [dragging, isMobile, onPositionChange])
 
-  useEffect(() => {
-    if (isMobile) {
-      setDragging(false)
-    }
-  }, [isMobile])
-
   const classNames = [
     'win-window',
     'win95-raised',
@@ -129,7 +123,8 @@ export function WinWindow({
   if (className) {
     classNames.push(className)
   }
-  if (dragging && !isMobile) {
+  const isDragging = dragging && !isMobile
+  if (isDragging) {
     classNames.push('win-window--dragging')
   }
   if (position && !isMobile) {
@@ -161,7 +156,7 @@ export function WinWindow({
     >
       <Win95Titlebar
         active={active}
-        dragging={dragging && !isMobile}
+        dragging={isDragging}
         onClose={onClose}
         onDragStart={
           isMobile
