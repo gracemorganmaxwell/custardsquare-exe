@@ -7,8 +7,12 @@ json: {"title":"Decorative login screen","labels":["epic:desktop-ui","priority:m
 Fake visitor login — cosmetic only. Click through to the desktop. Not real auth.
 
 ## Done when
-- [ ] Submitting the form enters the desktop
-- [ ] Separate from `/admin` Payload login
+- [x] Submitting the form enters the desktop
+- [x] Separate from `/admin` Payload login
+
+## Evidence
+- `docs/screenshots/foundation/issue-030-ac1-log-off-login.png` — decorative Start login (also #30 log-off return)
+- `docs/screenshots/issues/issue-023-start-screen.png` (if present from earlier capture)
 
 ## Likely files
 - `src/components/desktop/DesktopExperience.tsx`

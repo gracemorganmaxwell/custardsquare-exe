@@ -711,6 +711,27 @@ const issues = [
       'src/payload.config.ts',
     ],
   },
+  {
+    id: '059',
+    title: 'custardsquare OS identity + one signature toy',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Lean into the named OS brand (wallpaper caption already says custardsquare OS) and ship one signature toy peers use on Win9x portfolios — without a full OS sim.',
+    acceptance: [
+      'OS identity shows in at least two chrome surfaces (e.g. wallpaper caption + About/shutdown/boot copy)',
+      'One signature toy ships (prefer Terminal #37 or a tiny sticky-notes flavour)',
+      'Toy is discoverable from Start menu or desktop icon',
+    ],
+    note: 'Peers: andresmit.co.za, 98-portfolio, willos-98. Soft frame + sharp controls stays the brand. Do not copy 98.js.org scope.',
+    deps: ['#27', '#29', '#30'],
+    files: [
+      'src/components/desktop/DesktopShell.tsx',
+      'src/components/desktop/ShutdownDialog.tsx',
+      'src/components/desktop/BootScreen.tsx',
+      'src/components/windows/TerminalWindow.tsx',
+    ],
+  },
 ]
 
 const GUIDING_PRINCIPLE =

@@ -11,5 +11,10 @@ Win95 taskbar with open-window buttons and a clock.
 - [x] Open windows appear in the taskbar
 - [x] Clicking taskbar button focuses/restores window
 
+## Evidence
+- `docs/screenshots/foundation/issue-028-ac1-ac2-taskbar-clock.png`
+- `docs/screenshots/foundation/issue-028-ac3-taskbar-restore.png`
+- Capture: `node --import tsx/esm scripts/capture-issue-026-030-evidence.mjs`
+
 ## Likely files
 - `src/components/desktop/Taskbar.tsx`
