@@ -445,6 +445,23 @@ export interface SiteSetting {
       }[]
     | null;
   /**
+   * Content for the desktop About app. Edit here — no code deploy needed.
+   */
+  about?: {
+    /**
+     * Display name in the About window
+     */
+    name?: string | null;
+    /**
+     * About blurb under the name
+     */
+    bio?: string | null;
+    /**
+     * Portrait image (pixel art works great). Falls back to the bundled brand portrait if empty.
+     */
+    portrait?: (number | null) | Media;
+  };
+  /**
    * Icon and asset credits (e.g. aconfuseddragon on itch.io). Shown in Credits window later.
    */
   credits?: string | null;
@@ -466,6 +483,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         label?: T;
         url?: T;
         id?: T;
+      };
+  about?:
+    | T
+    | {
+        name?: T;
+        bio?: T;
+        portrait?: T;
       };
   credits?: T;
   updatedAt?: T;

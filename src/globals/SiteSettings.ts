@@ -68,6 +68,42 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'about',
+      type: 'group',
+      label: 'About window',
+      admin: {
+        description: 'Content for the desktop About app. Edit here — no code deploy needed.',
+      },
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          defaultValue: 'Gracie',
+          admin: {
+            description: 'Display name in the About window',
+          },
+        },
+        {
+          name: 'bio',
+          type: 'textarea',
+          defaultValue:
+            'custardsquare.exe is my public second brain — a dreamy Windows 98 desktop over a real content system. Say hi on LinkedIn.',
+          admin: {
+            description: 'About blurb under the name',
+          },
+        },
+        {
+          name: 'portrait',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Portrait image (pixel art works great). Falls back to the bundled brand portrait if empty.',
+          },
+        },
+      ],
+    },
+    {
       name: 'credits',
       type: 'textarea',
       admin: {

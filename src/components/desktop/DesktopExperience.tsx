@@ -5,9 +5,11 @@ import { DesktopShell } from '@/components/desktop/DesktopShell'
 import { Win95Titlebar } from '@/components/desktop/Win95Titlebar'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
 import { useDesktopStore } from '@/lib/desktopStore'
+import type { ResolvedAboutContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
 
 type DesktopExperienceProps = {
+  about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
   siteDescription: string
   siteTitle: string
@@ -15,6 +17,7 @@ type DesktopExperienceProps = {
 }
 
 export function DesktopExperience({
+  about,
   articles,
   siteDescription,
   siteTitle,
@@ -26,6 +29,7 @@ export function DesktopExperience({
   if (session === 'desktop') {
     return (
       <DesktopShell
+        about={about}
         articles={articles}
         siteDescription={siteDescription}
         socialLinks={socialLinks}

@@ -147,6 +147,7 @@ const issues = [
       'Social links (label + URL) are editable',
       'Frontend reads settings; only logged-in admin can update',
       'Credits for icons/assets live here as simple text or a short list — no separate Credits collection',
+      'About window fields (name, bio, portrait) live here — see #32',
     ],
     files: ['src/globals/SiteSettings.ts'],
   },
@@ -428,10 +429,19 @@ const issues = [
     title: 'About window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'About Grace — content from SiteSettings. Add the field to SiteSettings when you build this.',
-    acceptance: ['About text renders in a window', 'Links work'],
+    summary:
+      'About Grace — name, bio, and portrait editable in SiteSettings. LinkedIn from social links.',
+    acceptance: [
+      'About text renders in a window',
+      'Links work',
+      'Admin can edit About name, bio, and portrait in SiteSettings',
+    ],
     deps: ['#10'],
-    files: ['src/components/windows/AboutWindow.tsx'],
+    files: [
+      'src/components/windows/AboutWindow.tsx',
+      'src/globals/SiteSettings.ts',
+      'public/brand/about-portrait.png',
+    ],
   },
   {
     id: '033',

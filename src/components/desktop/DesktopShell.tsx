@@ -7,15 +7,17 @@ import { StartMenu } from '@/components/desktop/StartMenu'
 import { Taskbar } from '@/components/desktop/Taskbar'
 import { WindowManager } from '@/components/desktop/WindowManager'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
+import type { ResolvedAboutContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
 
 type DesktopShellProps = {
+  about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
   siteDescription: string
   socialLinks: SocialLink[]
 }
 
-export function DesktopShell({ articles, siteDescription, socialLinks }: DesktopShellProps) {
+export function DesktopShell({ about, articles, siteDescription, socialLinks }: DesktopShellProps) {
   return (
     <div className="desktop-shell">
       <div aria-hidden="true" className="desktop-shell__wallpaper">
@@ -36,6 +38,7 @@ export function DesktopShell({ articles, siteDescription, socialLinks }: Desktop
         <DesktopIconGrid />
       </section>
       <WindowManager
+        about={about}
         articles={articles}
         siteDescription={siteDescription}
         socialLinks={socialLinks}

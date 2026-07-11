@@ -13,9 +13,11 @@ import {
   useDesktopStore,
   type DesktopWindowId,
 } from '@/lib/desktopStore'
+import type { ResolvedAboutContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
 
 type WindowManagerProps = {
+  about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
   siteDescription: string
   socialLinks: SocialLink[]
@@ -23,6 +25,7 @@ type WindowManagerProps = {
 
 function renderBody(
   id: DesktopWindowId,
+  about: ResolvedAboutContent,
   siteDescription: string,
   socialLinks: SocialLink[],
   articles: ExplorerArticleItem[],
@@ -32,7 +35,9 @@ function renderBody(
   }
 
   if (id === 'about') {
-    return <AboutWindow siteDescription={siteDescription} socialLinks={socialLinks} />
+    return (
+      <AboutWindow about={about} siteDescription={siteDescription} socialLinks={socialLinks} />
+    )
   }
 
   if (id === 'articles') {
@@ -42,7 +47,12 @@ function renderBody(
   return <ThisComputerWindowBody articles={articles} />
 }
 
-export function WindowManager({ articles, siteDescription, socialLinks }: WindowManagerProps) {
+export function WindowManager({
+  about,
+  articles,
+  siteDescription,
+  socialLinks,
+}: WindowManagerProps) {
   const windows = useDesktopStore((state) => state.windows)
   const focusedWindowId = useDesktopStore((state) => state.focusedWindowId)
   const closeWindow = useDesktopStore((state) => state.closeWindow)
@@ -76,7 +86,7 @@ export function WindowManager({ articles, siteDescription, socialLinks }: Window
           title={windowState.title}
           zIndex={windowState.zIndex}
         >
-          {renderBody(windowState.id, siteDescription, socialLinks, articles)}
+          {renderBody(windowState.id, about, siteDescription, socialLinks, articles)}
         </WinWindow>
       ))}
     </div>

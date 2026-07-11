@@ -11,6 +11,7 @@ One Payload global for site-wide values. Start small now; add about/skills/resum
 - [x] Social links (label + URL) are editable
 - [x] Frontend reads settings; only logged-in admin can update
 - [x] Credits for icons/assets live here as simple text or a short list — no separate Credits collection
+- [x] About window fields (name, bio, portrait) live here — see #32
 
 ## Likely files
 - `src/globals/SiteSettings.ts`

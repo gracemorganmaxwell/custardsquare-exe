@@ -1,13 +1,15 @@
 'use client'
 
 import { LINKEDIN_LINK, linkedInUrl, type SocialLink } from '@/lib/social-links'
+import type { ResolvedAboutContent } from '@/lib/site-settings'
 
 type AboutWindowProps = {
+  about: ResolvedAboutContent
   siteDescription: string
   socialLinks: SocialLink[]
 }
 
-export function AboutWindow({ siteDescription, socialLinks }: AboutWindowProps) {
+export function AboutWindow({ about, siteDescription, socialLinks }: AboutWindowProps) {
   const linkedIn = linkedInUrl(socialLinks)
 
   return (
@@ -16,21 +18,18 @@ export function AboutWindow({ siteDescription, socialLinks }: AboutWindowProps) 
         <div className="about-window__portrait-wrap win95-inset">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            alt="Pixel portrait of Gracie"
+            alt={about.portraitAlt}
             className="about-window__portrait"
             height={160}
-            src="/brand/about-portrait.png"
+            src={about.portraitSrc}
             width={160}
           />
         </div>
 
         <div className="about-window__copy">
-          <h2 className="about-window__name">Gracie</h2>
+          <h2 className="about-window__name">{about.name}</h2>
           <p className="about-window__tagline">{siteDescription}</p>
-          <p className="about-window__bio">
-            custardsquare.exe is my public second brain — a dreamy Windows 98 desktop over a real
-            content system. Say hi on LinkedIn.
-          </p>
+          <p className="about-window__bio">{about.bio}</p>
           <div className="about-window__actions">
             <a
               className="win95-button"

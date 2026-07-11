@@ -31,6 +31,7 @@ export default async function HomePage() {
   return (
     <BootScreen siteTitle={settings.siteTitle}>
       <DesktopExperience
+        about={settings.about}
         articles={articles}
         siteDescription={settings.siteDescription}
         siteTitle={settings.siteTitle}
