@@ -148,6 +148,7 @@ const issues = [
       'Frontend reads settings; only logged-in admin can update',
       'Credits for icons/assets live here as simple text or a short list — no separate Credits collection',
       'About window fields (name, bio, portrait) live here — see #32',
+      'Resume window fields (body, pdf) live here — see #34',
     ],
     files: ['src/globals/SiteSettings.ts'],
   },
@@ -458,10 +459,20 @@ const issues = [
     title: 'Resume window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Notepad-style resume from SiteSettings. Monospace text is enough.',
-    acceptance: ['Resume text renders', 'Link to download or plain text view'],
+    summary:
+      'Notepad-style resume from SiteSettings (seeded from gracie-resume-jul26.pdf). Monospace text + PDF download.',
+    acceptance: [
+      'Resume text renders',
+      'Link to download or plain text view',
+      'Admin can edit resume body and optional PDF in SiteSettings',
+    ],
     deps: ['#10'],
-    files: ['src/components/windows/ResumeWindow.tsx'],
+    files: [
+      'src/components/windows/ResumeWindow.tsx',
+      'src/globals/SiteSettings.ts',
+      'src/lib/default-resume.ts',
+      'public/brand/gracie-resume-jul26.pdf',
+    ],
   },
   {
     id: '035',

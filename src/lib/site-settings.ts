@@ -1,6 +1,10 @@
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
+import {
+  DEFAULT_RESUME_BODY,
+  DEFAULT_RESUME_PDF_HREF,
+} from '@/lib/default-resume'
 import type { Media, SiteSetting } from '@/payload-types'
 import { getServerURL } from '@/lib/site-url'
 
@@ -23,11 +27,17 @@ export type ResolvedAboutContent = {
   portraitSrc: string
 }
 
+export type ResolvedResumeContent = {
+  body: string
+  pdfHref: string
+}
+
 export type ResolvedSiteSettings = {
   about: ResolvedAboutContent
   credits: string | null
   defaultOgImage: Media | null
   favicon: Media | null
+  resume: ResolvedResumeContent
   siteDescription: string
   siteTitle: string
   socialLinks: NonNullable<SiteSetting['socialLinks']>
@@ -49,6 +59,7 @@ export async function getSiteSettings(): Promise<ResolvedSiteSettings> {
     socialLinks: settings?.socialLinks ?? [],
     credits: settings?.credits?.trim() || null,
     about: resolveAbout(settings?.about),
+    resume: resolveResume(settings?.resume),
   }
 }
 
@@ -62,6 +73,15 @@ function resolveAbout(about: SiteSetting['about'] | undefined): ResolvedAboutCon
     bio: about?.bio?.trim() || DEFAULT_ABOUT_BIO,
     portraitSrc: resolveMediaUrl(portrait) ?? DEFAULT_ABOUT_PORTRAIT_SRC,
     portraitAlt: alt && alt.length > 0 ? alt : `Portrait of ${name}`,
+  }
+}
+
+function resolveResume(resume: SiteSetting['resume'] | undefined): ResolvedResumeContent {
+  const pdf = resolveMedia(resume?.pdf)
+
+  return {
+    body: resume?.body?.trim() || DEFAULT_RESUME_BODY,
+    pdfHref: resolveMediaUrl(pdf) ?? DEFAULT_RESUME_PDF_HREF,
   }
 }
 

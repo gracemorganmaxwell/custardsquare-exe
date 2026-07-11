@@ -104,6 +104,35 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'resume',
+      type: 'group',
+      label: 'Resume window',
+      admin: {
+        description:
+          'Notepad-style resume for the desktop app. Edit the text anytime; optional PDF for download.',
+      },
+      fields: [
+        {
+          name: 'body',
+          type: 'textarea',
+          admin: {
+            description:
+              'Plain-text resume shown in the Resume window. Leave empty to use the bundled default from gracie-resume-jul26.',
+            rows: 24,
+          },
+        },
+        {
+          name: 'pdf',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Optional PDF download. Falls back to /brand/gracie-resume-jul26.pdf if empty.',
+          },
+        },
+      ],
+    },
+    {
       name: 'credits',
       type: 'textarea',
       admin: {

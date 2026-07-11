@@ -7,17 +7,24 @@ import { StartMenu } from '@/components/desktop/StartMenu'
 import { Taskbar } from '@/components/desktop/Taskbar'
 import { WindowManager } from '@/components/desktop/WindowManager'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
-import type { ResolvedAboutContent } from '@/lib/site-settings'
+import type { ResolvedAboutContent, ResolvedResumeContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
 
 type DesktopShellProps = {
   about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
+  resume: ResolvedResumeContent
   siteDescription: string
   socialLinks: SocialLink[]
 }
 
-export function DesktopShell({ about, articles, siteDescription, socialLinks }: DesktopShellProps) {
+export function DesktopShell({
+  about,
+  articles,
+  resume,
+  siteDescription,
+  socialLinks,
+}: DesktopShellProps) {
   return (
     <div className="desktop-shell">
       <div aria-hidden="true" className="desktop-shell__wallpaper">
@@ -40,6 +47,7 @@ export function DesktopShell({ about, articles, siteDescription, socialLinks }: 
       <WindowManager
         about={about}
         articles={articles}
+        resume={resume}
         siteDescription={siteDescription}
         socialLinks={socialLinks}
       />

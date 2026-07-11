@@ -97,6 +97,18 @@ export function StartMenu() {
             Articles
           </button>
         </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
+            onClick={() => openWindow('resume', 'Resume — RESUME.TXT')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/projects.png" width={24} />
+            Resume
+          </button>
+        </li>
         <li aria-hidden="true" className="start-menu__separator" />
         <li role="none">
           <button className="start-menu__item" onClick={() => openShutdown()} role="menuitem" type="button">

@@ -462,6 +462,19 @@ export interface SiteSetting {
     portrait?: (number | null) | Media;
   };
   /**
+   * Notepad-style resume for the desktop app. Edit the text anytime; optional PDF for download.
+   */
+  resume?: {
+    /**
+     * Plain-text resume shown in the Resume window. Leave empty to use the bundled default from gracie-resume-jul26.
+     */
+    body?: string | null;
+    /**
+     * Optional PDF download. Falls back to /brand/gracie-resume-jul26.pdf if empty.
+     */
+    pdf?: (number | null) | Media;
+  };
+  /**
    * Icon and asset credits (e.g. aconfuseddragon on itch.io). Shown in Credits window later.
    */
   credits?: string | null;
@@ -490,6 +503,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         name?: T;
         bio?: T;
         portrait?: T;
+      };
+  resume?:
+    | T
+    | {
+        body?: T;
+        pdf?: T;
       };
   credits?: T;
   updatedAt?: T;

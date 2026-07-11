@@ -7,18 +7,20 @@ import {
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
 import { AboutWindow } from '@/components/windows/AboutWindow'
 import { ArticlesWindow } from '@/components/windows/ArticlesWindow'
+import { ResumeWindow } from '@/components/windows/ResumeWindow'
 import { WinWindow } from '@/components/ui95/WinWindow'
 import {
   getOpenWindows,
   useDesktopStore,
   type DesktopWindowId,
 } from '@/lib/desktopStore'
-import type { ResolvedAboutContent } from '@/lib/site-settings'
+import type { ResolvedAboutContent, ResolvedResumeContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
 
 type WindowManagerProps = {
   about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
+  resume: ResolvedResumeContent
   siteDescription: string
   socialLinks: SocialLink[]
 }
@@ -26,6 +28,7 @@ type WindowManagerProps = {
 function renderBody(
   id: DesktopWindowId,
   about: ResolvedAboutContent,
+  resume: ResolvedResumeContent,
   siteDescription: string,
   socialLinks: SocialLink[],
   articles: ExplorerArticleItem[],
@@ -44,12 +47,17 @@ function renderBody(
     return <ArticlesWindow articles={articles} />
   }
 
+  if (id === 'resume') {
+    return <ResumeWindow resume={resume} />
+  }
+
   return <ThisComputerWindowBody articles={articles} />
 }
 
 export function WindowManager({
   about,
   articles,
+  resume,
   siteDescription,
   socialLinks,
 }: WindowManagerProps) {
@@ -74,7 +82,9 @@ export function WindowManager({
                   ? 'articles-app-window'
                   : windowState.id === 'about'
                     ? 'about-app-window'
-                    : undefined
+                    : windowState.id === 'resume'
+                      ? 'resume-app-window'
+                      : undefined
           }
           hidden={windowState.minimized}
           initialPosition={windowState.position}
@@ -86,7 +96,14 @@ export function WindowManager({
           title={windowState.title}
           zIndex={windowState.zIndex}
         >
-          {renderBody(windowState.id, about, siteDescription, socialLinks, articles)}
+          {renderBody(
+            windowState.id,
+            about,
+            resume,
+            siteDescription,
+            socialLinks,
+            articles,
+          )}
         </WinWindow>
       ))}
     </div>

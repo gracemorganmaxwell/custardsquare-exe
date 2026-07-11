@@ -33,6 +33,7 @@ export default async function HomePage() {
       <DesktopExperience
         about={settings.about}
         articles={articles}
+        resume={settings.resume}
         siteDescription={settings.siteDescription}
         siteTitle={settings.siteTitle}
         socialLinks={socialLinks}
