@@ -1,11 +1,11 @@
 'use client'
 
 import {
-  AboutWindowBody,
   ThisComputerWindowBody,
   WelcomeWindowBody,
 } from '@/components/desktop/windowBodies'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
+import { AboutWindow } from '@/components/windows/AboutWindow'
 import { ArticlesWindow } from '@/components/windows/ArticlesWindow'
 import { WinWindow } from '@/components/ui95/WinWindow'
 import {
@@ -13,11 +13,7 @@ import {
   useDesktopStore,
   type DesktopWindowId,
 } from '@/lib/desktopStore'
-
-type SocialLink = {
-  label: string
-  url: string
-}
+import type { SocialLink } from '@/lib/social-links'
 
 type WindowManagerProps = {
   articles: ExplorerArticleItem[]
@@ -36,7 +32,7 @@ function renderBody(
   }
 
   if (id === 'about') {
-    return <AboutWindowBody />
+    return <AboutWindow siteDescription={siteDescription} socialLinks={socialLinks} />
   }
 
   if (id === 'articles') {
@@ -66,7 +62,9 @@ export function WindowManager({ articles, siteDescription, socialLinks }: Window
                 ? 'explorer-window'
                 : windowState.id === 'articles'
                   ? 'articles-app-window'
-                  : undefined
+                  : windowState.id === 'about'
+                    ? 'about-app-window'
+                    : undefined
           }
           hidden={windowState.minimized}
           initialPosition={windowState.position}

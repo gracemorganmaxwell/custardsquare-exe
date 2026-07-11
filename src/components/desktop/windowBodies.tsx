@@ -5,29 +5,15 @@ import {
   type ExplorerArticleItem,
 } from '@/components/desktop/ExplorerWindowBody'
 import { useDesktopStore } from '@/lib/desktopStore'
-
-type SocialLink = {
-  label: string
-  url: string
-}
+import { withLinkedIn, type SocialLink } from '@/lib/social-links'
 
 type WelcomeWindowBodyProps = {
   siteDescription: string
   socialLinks: SocialLink[]
 }
 
-const LINKEDIN_LINK: SocialLink = {
-  label: 'LinkedIn',
-  url: 'https://www.linkedin.com/in/graciemorgan-maxwell/',
-}
-
-function welcomeLinks(socialLinks: SocialLink[]): SocialLink[] {
-  const hasLinkedIn = socialLinks.some((link) => /linkedin\.com/i.test(link.url))
-  return hasLinkedIn ? socialLinks : [...socialLinks, LINKEDIN_LINK]
-}
-
 export function WelcomeWindowBody({ siteDescription, socialLinks }: WelcomeWindowBodyProps) {
-  const links = welcomeLinks(socialLinks)
+  const links = withLinkedIn(socialLinks)
   const openWindow = useDesktopStore((state) => state.openWindow)
 
   return (
@@ -47,18 +33,6 @@ export function WelcomeWindowBody({ siteDescription, socialLinks }: WelcomeWindo
           </a>
         ))}
       </div>
-    </div>
-  )
-}
-
-export function AboutWindowBody() {
-  return (
-    <div className="home__body win95-inset">
-      <p className="tagline">
-        custardsquare.exe is Gracie&apos;s public second brain — a dreamy Windows 98 desktop over a
-        real content system.
-      </p>
-      <p className="tagline">More About content lands in a later milestone.</p>
     </div>
   )
 }

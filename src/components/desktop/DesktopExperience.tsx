@@ -5,11 +5,7 @@ import { DesktopShell } from '@/components/desktop/DesktopShell'
 import { Win95Titlebar } from '@/components/desktop/Win95Titlebar'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
 import { useDesktopStore } from '@/lib/desktopStore'
-
-type SocialLink = {
-  label: string
-  url: string
-}
+import type { SocialLink } from '@/lib/social-links'
 
 type DesktopExperienceProps = {
   articles: ExplorerArticleItem[]

@@ -7,11 +7,7 @@ import { StartMenu } from '@/components/desktop/StartMenu'
 import { Taskbar } from '@/components/desktop/Taskbar'
 import { WindowManager } from '@/components/desktop/WindowManager'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
-
-type SocialLink = {
-  label: string
-  url: string
-}
+import type { SocialLink } from '@/lib/social-links'
 
 type DesktopShellProps = {
   articles: ExplorerArticleItem[]
