@@ -29,12 +29,16 @@ export type DesktopWindowState = {
   zIndex: number
 }
 
-type DesktopSession = 'login' | 'desktop'
+type DesktopSession = 'boot' | 'login' | 'desktop'
+type BootDestination = 'login' | 'desktop'
 
 type DesktopStore = {
+  bootDestination: BootDestination
+  bootGeneration: number
   closeShutdown: () => void
   closeStartMenu: () => void
   closeWindow: (id: DesktopWindowId) => void
+  completeBoot: () => void
   enterDesktop: () => void
   explorerFolder: ExplorerFolderId
   focusWindow: (id: DesktopWindowId) => void
@@ -45,6 +49,7 @@ type DesktopStore = {
   openExplorer: (folder: ExplorerFolderId) => void
   openShutdown: () => void
   openWindow: (id: DesktopWindowId, title: string) => void
+  restart: () => void
   restoreWindow: (id: DesktopWindowId) => void
   session: DesktopSession
   setExplorerFolder: (folder: ExplorerFolderId) => void
@@ -86,13 +91,29 @@ function bumpZ(windows: DesktopWindowState[], id: DesktopWindowId, nextZIndex: n
 }
 
 export const useDesktopStore = create<DesktopStore>((set, get) => ({
+  bootDestination: 'login',
+  bootGeneration: 0,
   explorerFolder: 'root',
   focusedWindowId: null,
   nextZIndex: 2,
-  session: 'login',
+  session: 'boot',
   shutdownOpen: false,
   startMenuOpen: false,
   windows: [],
+
+  completeBoot: () => {
+    const destination = get().bootDestination
+    if (destination === 'desktop') {
+      get().enterDesktop()
+      return
+    }
+
+    set({
+      session: 'login',
+      shutdownOpen: false,
+      startMenuOpen: false,
+    })
+  },
 
   enterDesktop: () => {
     set({
@@ -116,10 +137,25 @@ export const useDesktopStore = create<DesktopStore>((set, get) => ({
 
   logOff: () => {
     set({
+      bootDestination: 'login',
       explorerFolder: 'root',
       focusedWindowId: null,
       nextZIndex: 2,
       session: 'login',
+      shutdownOpen: false,
+      startMenuOpen: false,
+      windows: [],
+    })
+  },
+
+  restart: () => {
+    set({
+      bootDestination: 'desktop',
+      bootGeneration: get().bootGeneration + 1,
+      explorerFolder: 'root',
+      focusedWindowId: null,
+      nextZIndex: 2,
+      session: 'boot',
       shutdownOpen: false,
       startMenuOpen: false,
       windows: [],

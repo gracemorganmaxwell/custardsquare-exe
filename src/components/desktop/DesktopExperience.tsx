@@ -1,6 +1,7 @@
 'use client'
 
 import { AdminFooterLink } from '@/components/desktop/AdminFooterLink'
+import { BootScreen } from '@/components/desktop/BootScreen'
 import { DesktopShell } from '@/components/desktop/DesktopShell'
 import { Win95Titlebar } from '@/components/desktop/Win95Titlebar'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
@@ -31,7 +32,12 @@ export function DesktopExperience({
   socialLinks,
 }: DesktopExperienceProps) {
   const session = useDesktopStore((state) => state.session)
+  const bootGeneration = useDesktopStore((state) => state.bootGeneration)
   const enterDesktop = useDesktopStore((state) => state.enterDesktop)
+
+  if (session === 'boot') {
+    return <BootScreen key={bootGeneration} siteTitle={siteTitle} />
+  }
 
   if (session === 'desktop') {
     return (

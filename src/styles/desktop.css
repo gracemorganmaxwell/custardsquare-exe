@@ -945,13 +945,6 @@
   gap: 0.4rem;
 }
 
-.shutdown-dialog__actions a.win95-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
 .skills-window {
   display: flex;
   flex-direction: column;
