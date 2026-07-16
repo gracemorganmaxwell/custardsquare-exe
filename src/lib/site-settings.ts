@@ -26,7 +26,7 @@ export const DEFAULT_ABOUT_NAME = 'Gracie'
 export const DEFAULT_ABOUT_BIO =
   'custardsquare.exe is my public second brain — a dreamy Windows 98 desktop over a real content system. Say hi on LinkedIn.'
 
-export const DEFAULT_ABOUT_PORTRAIT_SRC = '/brand/about-portrait.png'
+export const DEFAULT_ABOUT_PORTRAIT_SRC = '/brand/about-portrait.svg'
 
 export type ResolvedAboutContent = {
   bio: string

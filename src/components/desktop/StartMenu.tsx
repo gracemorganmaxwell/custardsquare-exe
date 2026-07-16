@@ -58,7 +58,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/welcome.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/welcome.svg" width={24} />
             Welcome
           </button>
         </li>
@@ -70,7 +70,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/about.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/about.svg" width={24} />
             About
           </button>
         </li>
@@ -82,7 +82,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/this_computer.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/this_computer.svg" width={24} />
             My Computer
           </button>
         </li>
@@ -94,7 +94,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/articles.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/articles.svg" width={24} />
             Articles
           </button>
         </li>
@@ -106,7 +106,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/resume.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/resume.svg" width={24} />
             Resume
           </button>
         </li>
@@ -118,7 +118,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/skills.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/skills.svg" width={24} />
             Skills
           </button>
         </li>
@@ -130,7 +130,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/terminal.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/terminal.svg" width={24} />
             Terminal
           </button>
         </li>
@@ -142,7 +142,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/notes.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/notes.svg" width={24} />
             Notes
           </button>
         </li>
@@ -154,7 +154,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/projects.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/projects.svg" width={24} />
             Projects
           </button>
         </li>
@@ -166,7 +166,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/credits.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/credits.svg" width={24} />
             Credits
           </button>
         </li>
@@ -180,7 +180,7 @@ export function StartMenu() {
             target="_blank"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/github.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/github.svg" width={24} />
             GitHub
           </a>
         </li>
@@ -188,7 +188,7 @@ export function StartMenu() {
         <li role="none">
           <button className="start-menu__item" onClick={() => openShutdown()} role="menuitem" type="button">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/shutdown.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/shutdown.svg" width={24} />
             Shut Down…
           </button>
         </li>

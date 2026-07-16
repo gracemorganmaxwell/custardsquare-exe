@@ -34,11 +34,11 @@ export default buildConfig({
     },
     meta: {
       icons: {
-        apple: [{ type: 'image/png', url: '/brand/cms-favicon.png' }],
+        apple: [{ url: '/brand/cms-favicon.svg' }],
         icon: [
           { sizes: 'any', url: '/admin-favicon.ico' },
           { sizes: '32x32', type: 'image/png', url: '/admin-favicon-32.png' },
-          { sizes: '50x50', type: 'image/png', url: '/brand/cms-favicon.png' },
+          { sizes: '50x50', url: '/brand/cms-favicon.svg' },
         ],
         shortcut: '/admin-favicon.ico',
       },

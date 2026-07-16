@@ -112,7 +112,7 @@ export function buildPageMetadata({
   }
 }
 
-const DEFAULT_FRONTEND_FAVICON = '/brand/custardsq-favicon.png'
+const DEFAULT_FRONTEND_FAVICON = '/brand/custardsq-favicon.svg'
 
 export function buildRootMetadata(settings: ResolvedSiteSettings): Metadata {
   const faviconUrl = getMediaUrl(settings.favicon) ?? DEFAULT_FRONTEND_FAVICON
