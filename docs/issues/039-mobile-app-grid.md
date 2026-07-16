@@ -7,8 +7,16 @@ json: {"title":"Mobile app grid","labels":["epic:a11y-responsive","priority:mvp"
 On small screens, show an app grid instead of a tiny draggable desktop.
 
 ## Done when
-- [ ] Mobile layout is usable
-- [ ] Tapping an app opens it full-screen
+- [x] Mobile layout is usable
+- [x] Tapping an app opens it full-screen
+
+## Evidence
+- `docs/screenshots/foundation/issue-039-ac1-mobile-app-grid.png`
+- `docs/screenshots/foundation/issue-039-ac2-tap-opens-fullscreen.png`
+- Capture: `node --import tsx/esm scripts/capture-issue-039-040-evidence.mjs`
 
 ## Likely files
 - `src/components/desktop/DesktopShell.tsx`
+- `src/components/desktop/DesktopIconGrid.tsx`
+- `src/lib/useMediaQuery.ts`
+- `src/styles/desktop.css`

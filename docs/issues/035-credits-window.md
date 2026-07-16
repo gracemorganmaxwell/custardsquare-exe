@@ -7,11 +7,17 @@ json: {"title":"Credits window","labels":["epic:desktop-apps","priority:mvp","ty
 Show credits from SiteSettings (aconfuseddragon icons + Microsoft disclaimer).
 
 ## Done when
-- [ ] Credits display in a window
-- [ ] Optional plain `/credits` page for mobile
+- [x] Credits display in a window
+- [x] Optional plain `/credits` page for mobile
+
+## Evidence
+- `docs/screenshots/foundation/issue-035-ac1-credits-window.png`
+- `docs/screenshots/foundation/issue-035-ac2-credits-page.png`
+- Capture: `node --import tsx/esm scripts/capture-issue-033-059-evidence.mjs`
 
 ## Depends on
 - #10
 
 ## Likely files
 - `src/components/windows/CreditsWindow.tsx`
+- `src/app/(frontend)/credits/page.tsx`

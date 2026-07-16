@@ -7,8 +7,12 @@ json: {"title":"Desktop UI state (Zustand)","labels":["epic:desktop-ui","priorit
 In-memory state for open windows and focus. Saving layout to localStorage is V2 (#55).
 
 ## Done when
-- [ ] Track which windows are open
-- [ ] Active window focus works
+- [x] Track which windows are open
+- [x] Active window focus works
+
+## Evidence
+- `docs/screenshots/foundation/issue-026-ac1-ac2-open-focus.png` — welcome window open + taskbar focus chrome
+- Capture: `node --import tsx/esm scripts/capture-issue-026-030-evidence.mjs`
 
 ## Likely files
 - `src/lib/desktopStore.ts`

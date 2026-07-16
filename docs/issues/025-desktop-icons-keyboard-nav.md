@@ -7,8 +7,14 @@ json: {"title":"Desktop icons + keyboard nav","labels":["epic:desktop-ui","prior
 Desktop icons that open apps. Click and Enter both work.
 
 ## Done when
-- [ ] Icons use assets from `public/icons/`
-- [ ] Click or Enter opens the app window
+- [x] Icons use assets from `public/icons/`
+- [x] Click or Enter opens the app window
+
+## Evidence
+- Implemented in `DesktopIconGrid` + `desktop-icons.ts` (opens windows / explorer folders)
+- Visual: `docs/screenshots/foundation/issue-026-ac1-ac2-open-focus.png` (icons visible on desktop)
 
 ## Likely files
 - `src/components/desktop/DesktopIcon.tsx`
+- `src/components/desktop/DesktopIconGrid.tsx`
+- `src/lib/desktop-icons.ts`

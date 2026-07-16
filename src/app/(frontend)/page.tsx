@@ -1,7 +1,6 @@
 import { BootScreen } from '@/components/desktop/BootScreen'
-import { DesktopShell } from '@/components/desktop/DesktopShell'
-import { LoginScreen } from '@/components/desktop/LoginScreen'
-import { WelcomeWindow } from '@/components/desktop/WelcomeWindow'
+import { DesktopExperience } from '@/components/desktop/DesktopExperience'
+import { getPublishedArticles } from '@/lib/articles'
 import { getSiteSettings } from '@/lib/site-settings'
 
 export const dynamic = 'force-dynamic'
@@ -11,24 +10,36 @@ const FALLBACK_SOCIAL_LINKS = [
     label: 'GitHub',
     url: 'https://github.com/gracemorganmaxwell/custardsquare-exe',
   },
+  {
+    label: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/graciemorgan-maxwell/',
+  },
 ]
 
 export default async function HomePage() {
-  const settings = await getSiteSettings()
+  const [settings, publishedArticles] = await Promise.all([
+    getSiteSettings(),
+    getPublishedArticles(),
+  ])
   const socialLinks =
     settings.socialLinks.length > 0 ? settings.socialLinks : FALLBACK_SOCIAL_LINKS
+  const articles = publishedArticles.map((article) => ({
+    slug: article.slug,
+    title: article.title,
+  }))
 
   return (
     <BootScreen siteTitle={settings.siteTitle}>
-      <LoginScreen siteTitle={settings.siteTitle}>
-        <DesktopShell>
-          <WelcomeWindow
-            siteDescription={settings.siteDescription}
-            siteTitle={settings.siteTitle}
-            socialLinks={socialLinks}
-          />
-        </DesktopShell>
-      </LoginScreen>
+      <DesktopExperience
+        about={settings.about}
+        articles={articles}
+        credits={settings.credits}
+        resume={settings.resume}
+        siteDescription={settings.siteDescription}
+        siteTitle={settings.siteTitle}
+        skills={settings.skills}
+        socialLinks={socialLinks}
+      />
     </BootScreen>
   )
 }

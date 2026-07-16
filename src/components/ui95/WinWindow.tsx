@@ -1,31 +1,39 @@
 'use client'
 
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+} from 'react'
 
 import { Win95Titlebar } from '@/components/desktop/Win95Titlebar'
+import type { DesktopPoint } from '@/lib/desktopStore'
+import { useIsMobileDesktop } from '@/lib/useMediaQuery'
 
 type WinWindowProps = {
+  active?: boolean
   children: ReactNode
   className?: string
-  initialPosition?: {
-    x: number
-    y: number
-  }
+  hidden?: boolean
+  initialPosition?: DesktopPoint | null
+  onClose?: () => void
+  onFocus?: () => void
+  onMinimize?: () => void
+  onPositionChange?: (position: DesktopPoint) => void
   title: string
+  zIndex?: number
 }
 
-type Point = {
-  x: number
-  y: number
-}
-
-function clampPosition(point: Point, width: number, height: number): Point {
+function clampPosition(point: DesktopPoint, width: number, height: number): DesktopPoint {
   if (typeof window === 'undefined') {
     return point
   }
 
   const maxX = Math.max(8, window.innerWidth - width - 8)
-  const maxY = Math.max(8, window.innerHeight - height - 8)
+  const maxY = Math.max(8, window.innerHeight - height - 48)
 
   return {
     x: Math.min(Math.max(8, point.x), maxX),
@@ -33,34 +41,46 @@ function clampPosition(point: Point, width: number, height: number): Point {
   }
 }
 
-export function WinWindow({ children, className, initialPosition, title }: WinWindowProps) {
+export function WinWindow({
+  active = true,
+  children,
+  className,
+  hidden = false,
+  initialPosition = null,
+  onClose,
+  onFocus,
+  onMinimize,
+  onPositionChange,
+  title,
+  zIndex = 2,
+}: WinWindowProps) {
   const titleId = useId()
   const windowRef = useRef<HTMLElement>(null)
-  const dragOffsetRef = useRef<Point>({ x: 0, y: 0 })
-  const [position, setPosition] = useState<Point | null>(initialPosition ?? null)
+  const dragOffsetRef = useRef<DesktopPoint>({ x: 0, y: 0 })
+  const isMobile = useIsMobileDesktop()
+  const [position, setPosition] = useState<DesktopPoint | null>(initialPosition)
   const [dragging, setDragging] = useState(false)
-  const [active, setActive] = useState(true)
 
   useEffect(() => {
-    if (position !== null || !windowRef.current) {
+    if (isMobile || position !== null || !windowRef.current || hidden) {
       return
     }
 
     const rect = windowRef.current.getBoundingClientRect()
-    setPosition(
-      clampPosition(
-        {
-          x: Math.round((window.innerWidth - rect.width) / 2),
-          y: Math.round((window.innerHeight - rect.height) / 2),
-        },
-        rect.width,
-        rect.height,
-      ),
+    const next = clampPosition(
+      {
+        x: Math.round((window.innerWidth - rect.width) / 2),
+        y: Math.round((window.innerHeight - rect.height) / 3),
+      },
+      rect.width,
+      rect.height,
     )
-  }, [position])
+    setPosition(next)
+    onPositionChange?.(next)
+  }, [hidden, isMobile, onPositionChange, position])
 
   useEffect(() => {
-    if (!dragging) {
+    if (!dragging || isMobile) {
       return
     }
 
@@ -70,16 +90,16 @@ export function WinWindow({ children, className, initialPosition, title }: WinWi
       }
 
       const rect = windowRef.current.getBoundingClientRect()
-      setPosition(
-        clampPosition(
-          {
-            x: event.clientX - dragOffsetRef.current.x,
-            y: event.clientY - dragOffsetRef.current.y,
-          },
-          rect.width,
-          rect.height,
-        ),
+      const next = clampPosition(
+        {
+          x: event.clientX - dragOffsetRef.current.x,
+          y: event.clientY - dragOffsetRef.current.y,
+        },
+        rect.width,
+        rect.height,
       )
+      setPosition(next)
+      onPositionChange?.(next)
     }
 
     const onPointerUp = () => {
@@ -93,7 +113,7 @@ export function WinWindow({ children, className, initialPosition, title }: WinWi
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
     }
-  }, [dragging])
+  }, [dragging, isMobile, onPositionChange])
 
   const classNames = [
     'win-window',
@@ -103,44 +123,59 @@ export function WinWindow({ children, className, initialPosition, title }: WinWi
   if (className) {
     classNames.push(className)
   }
-  if (dragging) {
+  const isDragging = dragging && !isMobile
+  if (isDragging) {
     classNames.push('win-window--dragging')
   }
-  if (position) {
+  if (position && !isMobile) {
     classNames.push('win-window--positioned')
+  }
+  if (isMobile) {
+    classNames.push('win-window--mobile-panel')
+  }
+  if (hidden) {
+    classNames.push('win-window--hidden')
   }
 
   return (
     <article
+      aria-hidden={hidden}
       aria-labelledby={titleId}
       className={classNames.join(' ')}
-      onPointerDown={() => setActive(true)}
+      onPointerDown={() => onFocus?.()}
       ref={windowRef}
-      style={
-        position
+      style={{
+        zIndex,
+        ...(!isMobile && position
           ? {
               left: position.x,
               top: position.y,
             }
-          : undefined
-      }
+          : undefined),
+      }}
     >
       <Win95Titlebar
         active={active}
-        dragging={dragging}
-        onDragStart={(event) => {
-          if (!windowRef.current) {
-            return
-          }
+        dragging={isDragging}
+        onClose={onClose}
+        onDragStart={
+          isMobile
+            ? undefined
+            : (event: ReactPointerEvent<HTMLDivElement>) => {
+                if (!windowRef.current) {
+                  return
+                }
 
-          const rect = windowRef.current.getBoundingClientRect()
-          dragOffsetRef.current = {
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top,
-          }
-          setActive(true)
-          setDragging(true)
-        }}
+                const rect = windowRef.current.getBoundingClientRect()
+                dragOffsetRef.current = {
+                  x: event.clientX - rect.left,
+                  y: event.clientY - rect.top,
+                }
+                onFocus?.()
+                setDragging(true)
+              }
+        }
+        onMinimize={isMobile ? undefined : onMinimize}
         title={title}
         titleId={titleId}
       />

@@ -445,7 +445,67 @@ export interface SiteSetting {
       }[]
     | null;
   /**
-   * Icon and asset credits (e.g. aconfuseddragon on itch.io). Shown in Credits window later.
+   * Content for the desktop About app. Edit here — no code deploy needed.
+   */
+  about?: {
+    /**
+     * Display name in the About window (prefilled for new installs)
+     */
+    name?: string | null;
+    /**
+     * About blurb under the name (prefilled for new installs)
+     */
+    bio?: string | null;
+    /**
+     * Portrait image (pixel art works great). Falls back to the bundled brand portrait if empty.
+     */
+    portrait?: (number | null) | Media;
+  };
+  /**
+   * README-style resume for the desktop app. Use headings, bold, links, lists, and code — same Lexical editor as Articles.
+   */
+  resume?: {
+    /**
+     * Rich resume body (headings, bold, links, lists, code). Prefills from gracie-resume-jul26; clear and save empty to fall back to the bundled default on the desktop.
+     */
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Optional PDF download. Falls back to /brand/gracie-resume-jul26.pdf if empty.
+     */
+    pdf?: (number | null) | Media;
+  };
+  /**
+   * Grouped skills for the System Properties-style Skills app (prefilled).
+   */
+  skills?:
+    | {
+        /**
+         * Group heading (e.g. Software Development)
+         */
+        group: string;
+        /**
+         * Comma-separated or line-separated skill items
+         */
+        items: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Icon and asset credits. Shown in the Credits window (and optional /credits page).
    */
   credits?: string | null;
   updatedAt?: string | null;
@@ -465,6 +525,26 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         label?: T;
         url?: T;
+        id?: T;
+      };
+  about?:
+    | T
+    | {
+        name?: T;
+        bio?: T;
+        portrait?: T;
+      };
+  resume?:
+    | T
+    | {
+        body?: T;
+        pdf?: T;
+      };
+  skills?:
+    | T
+    | {
+        group?: T;
+        items?: T;
         id?: T;
       };
   credits?: T;

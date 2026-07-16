@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>custardsquare.exe — Win9x idea mockup</title>
+    <style>
+      :root {
+        --win95-grey: #c0c0c0;
+        --win95-grey-light: #dfdfdf;
+        --win95-grey-dark: #808080;
+        --win95-grey-darker: #404040;
+        --win95-white: #ffffff;
+        --win95-black: #000000;
+        --win95-bevel-light: #ffffff;
+        --win95-bevel-dark: #808080;
+        --win95-bevel-shadow: #404040;
+        --dream-pink: #ffd6f5;
+        --dream-purple: #6d4bc3;
+        --dream-lavender: #e0d4f0;
+        --title-active: linear-gradient(90deg, #6d4bc3 0%, #9b6dff 100%);
+        --font: Tahoma, 'MS Sans Serif', 'Segoe UI', system-ui, sans-serif;
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 10px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font);
+        color: var(--win95-black);
+        background: #1a1428;
+      }
+
+      .banner {
+        position: relative;
+        z-index: 20;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.65rem 1rem;
+        background: var(--win95-grey);
+        border-bottom: 2px solid var(--win95-bevel-shadow);
+        font-size: 0.8125rem;
+      }
+
+      .banner strong {
+        font-size: 0.875rem;
+      }
+
+      .banner__note {
+        color: var(--win95-grey-darker);
+      }
+
+      .toggles {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.55rem;
+        background: var(--win95-grey-light);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .chip input {
+        margin: 0;
+      }
+
+      .desktop {
+        position: relative;
+        height: calc(100vh - 3rem);
+        min-height: 640px;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse at 15% 20%, rgb(255 214 245 / 45%) 0%, transparent 55%),
+          radial-gradient(ellipse at 85% 75%, rgb(109 75 195 / 50%) 0%, transparent 50%),
+          linear-gradient(165deg, #2a1f4e 0%, #6d4bc3 38%, #ffd6f5 72%, #9b6dff 100%);
+      }
+
+      .desktop.crt::after {
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 50;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgb(0 0 0 / 0%) 0,
+          rgb(0 0 0 / 0%) 2px,
+          rgb(0 0 0 / 12%) 3px
+        );
+        mix-blend-mode: multiply;
+      }
+
+      .icons {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 2;
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      .icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        width: 5.5rem;
+        padding: 0.25rem;
+        border: 1px solid transparent;
+        border-radius: var(--radius-md);
+        background: transparent;
+        color: #fff;
+        cursor: default;
+        font: inherit;
+        font-size: 0.6875rem;
+        line-height: 1.2;
+        text-align: center;
+        text-shadow: 1px 1px 0 rgb(0 0 0 / 85%);
+      }
+
+      .icon:hover:not(.selected) {
+        background: rgb(255 255 255 / 28%);
+      }
+
+      .icon.selected {
+        background: transparent;
+      }
+
+      .icon.selected .icon__glyph {
+        outline: 1px dotted #fff;
+        outline-offset: 2px;
+        filter: brightness(0.85) contrast(1.1);
+      }
+
+      .icon.selected .icon__label {
+        background: #000080;
+        color: #fff;
+        text-shadow: none;
+        outline: 1px dotted #fff;
+        outline-offset: 1px;
+      }
+
+      .icon__glyph {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: 2px;
+        font-size: 1rem;
+        text-shadow: none;
+        color: var(--win95-black);
+      }
+
+      .icon__label {
+        display: inline-block;
+        max-width: 100%;
+        padding: 0.05rem 0.2rem;
+        word-break: break-word;
+      }
+
+      .hint {
+        position: absolute;
+        left: 7.5rem;
+        top: 1.25rem;
+        z-index: 2;
+        max-width: 16rem;
+        padding: 0.5rem 0.65rem;
+        background: #ffffcc;
+        border: 1px solid #000;
+        border-radius: var(--radius-sm);
+        box-shadow: 2px 2px 0 rgb(0 0 0 / 35%);
+        font-size: 0.75rem;
+        color: #000;
+      }
+
+      .window {
+        position: absolute;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+      }
+
+      .window--welcome {
+        top: 4.5rem;
+        left: 10rem;
+        width: min(420px, calc(100vw - 2rem));
+      }
+
+      .window--explorer {
+        top: 7rem;
+        left: 28rem;
+        width: min(460px, calc(100vw - 2rem));
+        height: 320px;
+      }
+
+      .window--ie {
+        top: 14rem;
+        left: 8rem;
+        width: min(520px, calc(100vw - 2rem));
+        height: 280px;
+      }
+
+      @media (max-width: 980px) {
+        .window--explorer,
+        .window--ie {
+          left: 1rem;
+          right: 1rem;
+          width: auto;
+        }
+
+        .window--explorer {
+          top: 22rem;
+        }
+
+        .window--ie {
+          top: 44rem;
+        }
+
+        .desktop {
+          min-height: 1100px;
+          height: auto;
+          padding-bottom: 3.5rem;
+        }
+      }
+
+      .titlebar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        min-height: 1.75rem;
+        padding: 0.125rem 0.125rem 0.125rem 0.375rem;
+        background: var(--title-active);
+        color: #fff;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        user-select: none;
+      }
+
+      .titlebar__controls {
+        display: flex;
+        align-self: stretch;
+        gap: 2px;
+      }
+
+      .titlebar__btn {
+        width: 1.25rem;
+        align-self: stretch;
+        background: var(--win95-grey);
+        border: 1px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-md);
+        box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+        font-size: 0.65rem;
+        line-height: 1;
+        cursor: default;
+      }
+
+      .menubar {
+        display: flex;
+        gap: 0.15rem;
+        padding: 0.15rem 0.25rem;
+        background: var(--win95-grey);
+        border-bottom: 1px solid var(--win95-bevel-dark);
+        font-size: 0.75rem;
+      }
+
+      .menubar button {
+        border: 1px solid transparent;
+        background: transparent;
+        font: inherit;
+        padding: 0.1rem 0.4rem;
+        cursor: default;
+        border-radius: 2px;
+      }
+
+      .menubar button:hover,
+      .menubar button[aria-expanded='true'] {
+        background: #000080;
+        color: #fff;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        align-items: center;
+        padding: 0.3rem;
+        border-bottom: 1px solid var(--win95-bevel-dark);
+        font-size: 0.75rem;
+      }
+
+      .toolbar__btn {
+        min-width: 1.75rem;
+        padding: 0.15rem 0.4rem;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-sm);
+        font: inherit;
+        cursor: default;
+      }
+
+      .toolbar__btn:disabled {
+        color: var(--win95-grey-dark);
+      }
+
+      .toolbar__btn:not(:disabled):active {
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+      }
+
+      .address {
+        display: flex;
+        flex: 1;
+        min-width: 12rem;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .address input {
+        flex: 1;
+        min-width: 0;
+        padding: 0.15rem 0.35rem;
+        border: 2px solid;
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+        background: #fff;
+        font: inherit;
+        font-size: 0.75rem;
+      }
+
+      .body {
+        flex: 1;
+        min-height: 0;
+        margin: 0.35rem;
+        padding: 0.65rem;
+        background: #fff;
+        border: 2px solid;
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+        border-radius: var(--radius-sm);
+        overflow: auto;
+        font-size: 0.8125rem;
+      }
+
+      .body p {
+        margin: 0 0 0.75rem;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .win-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.25rem 0.7rem;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-sm);
+        box-shadow: 1px 1px 0 var(--win95-bevel-shadow);
+        color: inherit;
+        text-decoration: none;
+        font: inherit;
+        font-size: 0.8125rem;
+        cursor: default;
+      }
+
+      .win-btn:hover {
+        background: var(--dream-lavender);
+      }
+
+      .status {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 0.8fr;
+        gap: 2px;
+        margin: 0 0.25rem 0.25rem;
+        font-size: 0.6875rem;
+      }
+
+      .status__field {
+        padding: 0.15rem 0.35rem;
+        background: var(--win95-grey);
+        border: 1px solid;
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .explorer {
+        display: grid;
+        grid-template-columns: 9rem 1fr;
+        gap: 0.5rem;
+        height: 100%;
+        min-height: 180px;
+      }
+
+      .tree,
+      .files {
+        margin: 0;
+        padding: 0.35rem;
+        list-style: none;
+        background: #fff;
+        border: 2px solid;
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+        overflow: auto;
+      }
+
+      .tree button,
+      .files button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: 0;
+        background: transparent;
+        font: inherit;
+        font-size: 0.75rem;
+        padding: 0.15rem 0.25rem;
+        cursor: default;
+      }
+
+      .tree button[aria-current='true'],
+      .files button[aria-current='true'] {
+        background: #000080;
+        color: #fff;
+      }
+
+      .file-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      .file {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        border: 1px solid transparent;
+        background: transparent;
+        font: inherit;
+        font-size: 0.6875rem;
+        padding: 0.25rem;
+        cursor: default;
+      }
+
+      .file:hover {
+        background: rgb(0 0 128 / 8%);
+      }
+
+      .file[aria-current='true'] {
+        background: #000080;
+        color: #fff;
+      }
+
+      .file__glyph {
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        background: #fff8c4;
+        border: 1px solid #808080;
+        font-size: 0.85rem;
+      }
+
+      .ie-page {
+        font-family: Times, 'Times New Roman', serif;
+        font-size: 0.95rem;
+      }
+
+      .ie-page h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.25rem;
+        color: #000080;
+      }
+
+      .taskbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 2.25rem;
+        padding: 0.2rem 0.35rem;
+        background: var(--win95-grey);
+        border-top: 2px solid var(--win95-bevel-light);
+        box-shadow: inset 0 1px 0 var(--win95-white);
+      }
+
+      .start {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.15rem 0.55rem;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-sm);
+        cursor: default;
+      }
+
+      .start[aria-pressed='true'] {
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+      }
+
+      .task-btn {
+        padding: 0.15rem 0.55rem;
+        max-width: 10rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.75rem;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-sm);
+        cursor: default;
+      }
+
+      .task-btn.active {
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+        background: var(--win95-grey-light);
+      }
+
+      .tray {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.1rem 0.35rem;
+        border: 1px solid;
+        border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+          var(--win95-bevel-dark);
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .tray button {
+        border: 0;
+        background: transparent;
+        font: inherit;
+        cursor: default;
+        padding: 0 0.15rem;
+      }
+
+      .legend {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        z-index: 4;
+        width: min(240px, calc(100vw - 2rem));
+        padding: 0.55rem 0.65rem;
+        background: rgb(250 248 252 / 92%);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+      }
+
+      .legend h2 {
+        margin: 0 0 0.4rem;
+        font-size: 0.8125rem;
+      }
+
+      .legend ol {
+        margin: 0;
+        padding-left: 1.1rem;
+      }
+
+      .legend li {
+        margin-bottom: 0.3rem;
+      }
+
+      .ctx {
+        position: absolute;
+        z-index: 40;
+        min-width: 9rem;
+        padding: 0.15rem;
+        background: var(--win95-grey);
+        border: 2px solid;
+        border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+          var(--win95-bevel-light);
+        box-shadow: 2px 2px 0 rgb(0 0 0 / 35%);
+        display: none;
+      }
+
+      .ctx.open {
+        display: block;
+      }
+
+      .ctx button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: 0;
+        background: transparent;
+        font: inherit;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.55rem;
+        cursor: default;
+      }
+
+      .ctx button:hover {
+        background: #000080;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner">
+      <div>
+        <strong>Mockup only</strong>
+        <span class="banner__note"> — not wired into the real desktop. Try the interactions below.</span>
+      </div>
+      <div class="toggles">
+        <label class="chip">
+          <input id="crtToggle" type="checkbox" />
+          CRT scanlines
+        </label>
+        <label class="chip">
+          <input id="soundToggle" type="checkbox" />
+          Startup chime (muted off)
+        </label>
+      </div>
+    </div>
+
+    <div class="desktop" id="desktop">
+      <aside class="legend">
+        <h2>Ideas shown</h2>
+        <ol>
+          <li>Menu bar + status bar</li>
+          <li>Win95 icon select (dotted + navy label)</li>
+          <li>Explorer-style Articles</li>
+          <li>IE chrome for LinkedIn</li>
+          <li>Tray mute + optional CRT</li>
+        </ol>
+      </aside>
+
+      <p class="hint">
+        Single-click selects an icon.<br />
+        Double-click “opens” (focuses window).<br />
+        Right-click for a context menu.
+      </p>
+
+      <div class="icons" id="icons">
+        <button class="icon selected" data-target="welcome" type="button">
+          <span class="icon__glyph" aria-hidden="true">👋</span>
+          <span class="icon__label">Welcome</span>
+        </button>
+        <button class="icon" data-target="explorer" type="button">
+          <span class="icon__glyph" aria-hidden="true">📁</span>
+          <span class="icon__label">Articles</span>
+        </button>
+        <button class="icon" data-target="ie" type="button">
+          <span class="icon__glyph" aria-hidden="true">🌐</span>
+          <span class="icon__label">LinkedIn</span>
+        </button>
+        <button class="icon" data-target="bin" type="button">
+          <span class="icon__glyph" aria-hidden="true">🗑</span>
+          <span class="icon__label">Recycle Bin</span>
+        </button>
+      </div>
+
+      <!-- 1. Welcome: menu + status + soft dream buttons -->
+      <section class="window window--welcome" id="welcome" aria-label="Welcome window">
+        <div class="titlebar">
+          <span>Welcome — custardsquare.exe</span>
+          <div class="titlebar__controls">
+            <button class="titlebar__btn" type="button" aria-label="Minimize">_</button>
+            <button class="titlebar__btn" type="button" aria-label="Maximize">□</button>
+            <button class="titlebar__btn" type="button" aria-label="Close">×</button>
+          </div>
+        </div>
+        <div class="menubar" role="menubar">
+          <button type="button" role="menuitem">File</button>
+          <button type="button" role="menuitem">Edit</button>
+          <button type="button" role="menuitem">View</button>
+          <button type="button" role="menuitem">Help</button>
+        </div>
+        <div class="body">
+          <p>
+            Dreamy Win9x chrome with real content affordances: menu bar above, status bar below,
+            and lavender hover on action buttons.
+          </p>
+          <div class="links">
+            <a class="win-btn" href="#explorer">Articles</a>
+            <a class="win-btn" href="https://github.com/gracemorganmaxwell/custardsquare-exe"
+              >GitHub</a
+            >
+            <a class="win-btn" href="#ie">LinkedIn</a>
+          </div>
+        </div>
+        <div class="status" aria-label="Status bar">
+          <div class="status__field">Ready</div>
+          <div class="status__field">3 links</div>
+          <div class="status__field">UTF-8</div>
+        </div>
+      </section>
+
+      <!-- 3. Explorer-style Articles -->
+      <section class="window window--explorer" id="explorer" aria-label="Articles explorer">
+        <div class="titlebar">
+          <span>Exploring — C:\SECOND_BRAIN\Articles</span>
+          <div class="titlebar__controls">
+            <button class="titlebar__btn" type="button" aria-label="Minimize">_</button>
+            <button class="titlebar__btn" type="button" aria-label="Maximize">□</button>
+            <button class="titlebar__btn" type="button" aria-label="Close">×</button>
+          </div>
+        </div>
+        <div class="menubar">
+          <button type="button">File</button>
+          <button type="button">Edit</button>
+          <button type="button">View</button>
+          <button type="button">Go</button>
+        </div>
+        <div class="body" style="padding: 0.35rem">
+          <div class="explorer">
+            <ul class="tree" aria-label="Folders">
+              <li><button type="button">🖥 My Computer</button></li>
+              <li><button type="button" aria-current="true">📁 Articles</button></li>
+              <li><button type="button">📁 Dreams</button></li>
+              <li><button type="button">📁 About</button></li>
+            </ul>
+            <div class="files" aria-label="Files">
+              <div class="file-grid">
+                <button class="file" type="button" aria-current="true">
+                  <span class="file__glyph">📄</span>
+                  why-i-built…
+                </button>
+                <button class="file" type="button">
+                  <span class="file__glyph">📄</span>
+                  design-tokens
+                </button>
+                <button class="file" type="button">
+                  <span class="file__glyph">📄</span>
+                  boot-screen
+                </button>
+                <button class="file" type="button">
+                  <span class="file__glyph">📁</span>
+                  drafts
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="status">
+          <div class="status__field">4 object(s)</div>
+          <div class="status__field">Selected: why-i-built…</div>
+          <div class="status__field">12 KB</div>
+        </div>
+      </section>
+
+      <!-- 4. IE chrome for LinkedIn -->
+      <section class="window window--ie" id="ie" aria-label="Internet Explorer mock">
+        <div class="titlebar">
+          <span>LinkedIn — Microsoft Internet Explorer</span>
+          <div class="titlebar__controls">
+            <button class="titlebar__btn" type="button" aria-label="Minimize">_</button>
+            <button class="titlebar__btn" type="button" aria-label="Maximize">□</button>
+            <button class="titlebar__btn" type="button" aria-label="Close">×</button>
+          </div>
+        </div>
+        <div class="menubar">
+          <button type="button">File</button>
+          <button type="button">Edit</button>
+          <button type="button">View</button>
+          <button type="button">Favorites</button>
+          <button type="button">Help</button>
+        </div>
+        <div class="toolbar">
+          <button class="toolbar__btn" type="button" disabled>← Back</button>
+          <button class="toolbar__btn" type="button" disabled>Forward →</button>
+          <button class="toolbar__btn" type="button">Stop</button>
+          <button class="toolbar__btn" type="button">Refresh</button>
+          <label class="address">
+            Address
+            <input
+              readonly
+              value="https://www.linkedin.com/in/graciemorgan-maxwell/"
+            />
+          </label>
+          <a
+            class="toolbar__btn"
+            href="https://www.linkedin.com/in/graciemorgan-maxwell/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Go</a
+          >
+        </div>
+        <div class="body ie-page">
+          <h1>Gracie Morgan-Maxwell</h1>
+          <p>
+            Mock IE frame around an external profile. In the real app this could embed a preview
+            card or open the live URL from <strong>Go</strong>.
+          </p>
+          <p style="color: #666; font-size: 0.8rem">
+            Status: Done · Zone: Internet
+          </p>
+        </div>
+        <div class="status">
+          <div class="status__field">Done</div>
+          <div class="status__field">Internet zone</div>
+          <div class="status__field">🔒</div>
+        </div>
+      </section>
+
+      <div class="ctx" id="ctx" role="menu">
+        <button type="button">Open</button>
+        <button type="button">Explore</button>
+        <button type="button">Create Shortcut</button>
+        <button type="button">Properties</button>
+      </div>
+
+      <div class="taskbar">
+        <button class="start" id="startBtn" type="button" aria-pressed="false">
+          <span aria-hidden="true">🏁</span> Start
+        </button>
+        <button class="task-btn active" type="button">Welcome</button>
+        <button class="task-btn" type="button">Articles</button>
+        <button class="task-btn" type="button">LinkedIn</button>
+        <div class="tray">
+          <button id="trayMute" type="button" title="Sound">🔇</button>
+          <button type="button" title="Online">📡</button>
+          <span id="clock">2:51 PM</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const desktop = document.getElementById('desktop')
+      const icons = [...document.querySelectorAll('.icon')]
+      const ctx = document.getElementById('ctx')
+      const crtToggle = document.getElementById('crtToggle')
+      const soundToggle = document.getElementById('soundToggle')
+      const trayMute = document.getElementById('trayMute')
+      const startBtn = document.getElementById('startBtn')
+      const clock = document.getElementById('clock')
+
+      function selectIcon(icon) {
+        icons.forEach((el) => el.classList.toggle('selected', el === icon))
+      }
+
+      function focusWindow(id) {
+        const win = document.getElementById(id)
+        if (!win || id === 'bin') {
+          alert('Recycle Bin (easter egg placeholder)\\n\\nNothing to restore… yet.')
+          return
+        }
+        document.querySelectorAll('.window').forEach((w, i) => {
+          w.style.zIndex = w === win ? '12' : String(5 + i)
+        })
+        win.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+      }
+
+      icons.forEach((icon) => {
+        icon.addEventListener('click', () => selectIcon(icon))
+        icon.addEventListener('dblclick', () => focusWindow(icon.dataset.target))
+        icon.addEventListener('contextmenu', (event) => {
+          event.preventDefault()
+          selectIcon(icon)
+          ctx.classList.add('open')
+          ctx.style.left = `${event.clientX}px`
+          ctx.style.top = `${event.clientY}px`
+        })
+      })
+
+      document.addEventListener('click', () => ctx.classList.remove('open'))
+
+      document.querySelectorAll('.tree button, .file').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const group = btn.closest('.tree, .file-grid')
+          group.querySelectorAll('button').forEach((el) => el.removeAttribute('aria-current'))
+          btn.setAttribute('aria-current', 'true')
+        })
+      })
+
+      crtToggle.addEventListener('change', () => {
+        desktop.classList.toggle('crt', crtToggle.checked)
+      })
+
+      function syncMuteUI() {
+        const muted = !soundToggle.checked
+        trayMute.textContent = muted ? '🔇' : '🔊'
+      }
+
+      soundToggle.addEventListener('change', () => {
+        syncMuteUI()
+        if (soundToggle.checked) {
+          try {
+            const ctxAudio = new (window.AudioContext || window.webkitAudioContext)()
+            const osc = ctxAudio.createOscillator()
+            const gain = ctxAudio.createGain()
+            osc.type = 'square'
+            osc.frequency.value = 440
+            gain.gain.value = 0.03
+            osc.connect(gain)
+            gain.connect(ctxAudio.destination)
+            osc.start()
+            setTimeout(() => {
+              osc.frequency.value = 660
+            }, 120)
+            setTimeout(() => {
+              osc.stop()
+              ctxAudio.close()
+            }, 280)
+          } catch {
+            /* ignore */
+          }
+        }
+      })
+
+      trayMute.addEventListener('click', () => {
+        soundToggle.checked = !soundToggle.checked
+        soundToggle.dispatchEvent(new Event('change'))
+      })
+
+      startBtn.addEventListener('click', () => {
+        const pressed = startBtn.getAttribute('aria-pressed') === 'true'
+        startBtn.setAttribute('aria-pressed', String(!pressed))
+      })
+
+      function tick() {
+        clock.textContent = new Date().toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: '2-digit',
+        })
+      }
+      tick()
+      setInterval(tick, 30_000)
+      syncMuteUI()
+    </script>
+  </body>
+</html>

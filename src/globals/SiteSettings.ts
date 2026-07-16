@@ -1,6 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
 import { isAdmin } from '../lib/access'
+import { buildDefaultResumeLexical } from '../lib/default-resume-lexical'
+import { DEFAULT_SKILL_GROUPS } from '../lib/default-skills'
+
+const DEFAULT_SKILLS_FIELD_VALUE = DEFAULT_SKILL_GROUPS.map((group) => ({
+  group: group.group,
+  items: group.items.join(', '),
+}))
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -68,11 +75,105 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
-      name: 'credits',
-      type: 'textarea',
+      name: 'about',
+      type: 'group',
+      label: 'About window',
+      admin: {
+        description: 'Content for the desktop About app. Edit here — no code deploy needed.',
+      },
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          defaultValue: 'Gracie',
+          admin: {
+            description: 'Display name in the About window (prefilled for new installs)',
+          },
+        },
+        {
+          name: 'bio',
+          type: 'textarea',
+          defaultValue:
+            'custardsquare.exe is my public second brain — a dreamy Windows 98 desktop over a real content system. Say hi on LinkedIn.',
+          admin: {
+            description: 'About blurb under the name (prefilled for new installs)',
+          },
+        },
+        {
+          name: 'portrait',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Portrait image (pixel art works great). Falls back to the bundled brand portrait if empty.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'resume',
+      type: 'group',
+      label: 'Resume window',
       admin: {
         description:
-          'Icon and asset credits (e.g. aconfuseddragon on itch.io). Shown in Credits window later.',
+          'README-style resume for the desktop app. Use headings, bold, links, lists, and code — same Lexical editor as Articles.',
+      },
+      fields: [
+        {
+          name: 'body',
+          type: 'richText',
+          defaultValue: buildDefaultResumeLexical(),
+          admin: {
+            description:
+              'Rich resume body (headings, bold, links, lists, code). Prefills from gracie-resume-jul26; clear and save empty to fall back to the bundled default on the desktop.',
+          },
+        },
+        {
+          name: 'pdf',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description:
+              'Optional PDF download. Falls back to /brand/gracie-resume-jul26.pdf if empty.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'skills',
+      type: 'array',
+      label: 'Skills window',
+      defaultValue: DEFAULT_SKILLS_FIELD_VALUE,
+      admin: {
+        description: 'Grouped skills for the System Properties-style Skills app (prefilled).',
+      },
+      fields: [
+        {
+          name: 'group',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Group heading (e.g. Software Development)',
+          },
+        },
+        {
+          name: 'items',
+          type: 'textarea',
+          required: true,
+          admin: {
+            description: 'Comma-separated or line-separated skill items',
+          },
+        },
+      ],
+    },
+    {
+      name: 'credits',
+      type: 'textarea',
+      defaultValue:
+        'Desktop icons by aconfuseddragon (itch.io).\nWindows 95/98 is a trademark of Microsoft Corporation. custardsquare.exe is an independent fan project and is not affiliated with Microsoft.',
+      admin: {
+        description:
+          'Icon and asset credits. Shown in the Credits window (and optional /credits page).',
       },
     },
   ],

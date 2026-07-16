@@ -147,6 +147,8 @@ const issues = [
       'Social links (label + URL) are editable',
       'Frontend reads settings; only logged-in admin can update',
       'Credits for icons/assets live here as simple text or a short list — no separate Credits collection',
+      'About window fields (name, bio, portrait) live here — see #32',
+      'Resume window fields (rich text content + pdf) live here — see #34 / #60',
     ],
     files: ['src/globals/SiteSettings.ts'],
   },
@@ -318,7 +320,7 @@ const issues = [
       'Submitting the form enters the desktop',
       'Separate from `/admin` Payload login',
     ],
-    files: ['src/components/desktop/LoginScreen.tsx'],
+    files: ['src/components/desktop/DesktopExperience.tsx'],
   },
   {
     id: '024',
@@ -370,9 +372,7 @@ const issues = [
     files: [
       'src/components/desktop/WindowManager.tsx',
       'src/components/ui95/WinWindow.tsx',
-      'src/components/desktop/WelcomeWindow.tsx',
     ],
-    note: 'Partial: WinWindow drag + active/inactive chrome shipped via WelcomeWindow. Open/close/minimize still needs WindowManager.',
   },
   {
     id: '028',
@@ -430,10 +430,19 @@ const issues = [
     title: 'About window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'About Grace — content from SiteSettings. Add the field to SiteSettings when you build this.',
-    acceptance: ['About text renders in a window', 'Links work'],
+    summary:
+      'About Grace — name, bio, and portrait editable in SiteSettings. LinkedIn from social links.',
+    acceptance: [
+      'About text renders in a window',
+      'Links work',
+      'Admin can edit About name, bio, and portrait in SiteSettings',
+    ],
     deps: ['#10'],
-    files: ['src/components/windows/AboutWindow.tsx'],
+    files: [
+      'src/components/windows/AboutWindow.tsx',
+      'src/globals/SiteSettings.ts',
+      'public/brand/about-portrait.png',
+    ],
   },
   {
     id: '033',
@@ -450,10 +459,20 @@ const issues = [
     title: 'Resume window',
     milestone: 'M5 — Desktop Apps',
     labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
-    summary: 'Notepad-style resume from SiteSettings. Monospace text is enough.',
-    acceptance: ['Resume text renders', 'Link to download or plain text view'],
+    summary:
+      'Notepad-style resume from SiteSettings (seeded from gracie-resume-jul26.pdf). Monospace text + PDF download.',
+    acceptance: [
+      'Resume text renders',
+      'Link to download or plain text view',
+      'Admin can edit resume body and optional PDF in SiteSettings',
+    ],
     deps: ['#10'],
-    files: ['src/components/windows/ResumeWindow.tsx'],
+    files: [
+      'src/components/windows/ResumeWindow.tsx',
+      'src/globals/SiteSettings.ts',
+      'src/lib/default-resume.ts',
+      'public/brand/gracie-resume-jul26.pdf',
+    ],
   },
   {
     id: '035',
@@ -711,6 +730,102 @@ const issues = [
       'src/lib/seo.ts',
       'src/styles/desktop.css',
       'src/payload.config.ts',
+    ],
+  },
+  {
+    id: '059',
+    title: 'custardsquare OS identity + one signature toy',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Lean into the named OS brand (wallpaper caption already says custardsquare OS) and ship one signature toy peers use on Win9x portfolios — without a full OS sim.',
+    acceptance: [
+      'OS identity shows in at least two chrome surfaces (e.g. wallpaper caption + About/shutdown/boot copy)',
+      'One signature toy ships (prefer Terminal #37 or a tiny sticky-notes flavour)',
+      'Toy is discoverable from Start menu or desktop icon',
+    ],
+    note: 'Peers: andresmit.co.za, 98-portfolio, willos-98. Soft frame + sharp controls stays the brand. Do not copy 98.js.org scope.',
+    deps: ['#27', '#29', '#30'],
+    files: [
+      'src/components/desktop/DesktopShell.tsx',
+      'src/components/desktop/ShutdownDialog.tsx',
+      'src/components/desktop/BootScreen.tsx',
+      'src/components/windows/TerminalWindow.tsx',
+    ],
+  },
+  {
+    id: '060',
+    title: 'Rich-text Resume (README-style editing)',
+    milestone: 'M5 — Desktop Apps',
+    labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
+    summary:
+      'Upgrade Resume from plain text to Lexical rich text (same editor as Articles): headings, bold/italic, links, lists, code — README-like editing in CMS and desktop UI.',
+    acceptance: [
+      'SiteSettings Resume uses Lexical rich text (headings, bold, links, lists, code)',
+      'Resume window renders that rich content (not a plain pre)',
+      'PDF download still works',
+      'Seeded default resume keeps structure (headings + sections) from the Jul 2026 PDF',
+    ],
+    deps: ['#34', '#7'],
+    files: [
+      'src/globals/SiteSettings.ts',
+      'src/components/windows/ResumeWindow.tsx',
+      'src/components/richtext/RichTextDocument.tsx',
+      'src/lib/default-resume-lexical.ts',
+      'src/lib/site-settings.ts',
+    ],
+  },
+  {
+    id: '061',
+    title: 'Seed About/Resume defaults in Site Settings admin',
+    milestone: 'M5 — Desktop Apps',
+    labels: ['epic:cms', 'priority:mvp', 'type:chore'],
+    summary:
+      'Ensure Site Settings shows sensible About/Resume defaults in admin (not only frontend fallbacks).',
+    acceptance: [
+      'About name/bio defaults appear when editing Site Settings',
+      'Resume rich-text field is prefilled or clearly documents the bundled fallback',
+      'No blank surprise on first CMS open for those groups',
+    ],
+    deps: ['#32', '#60'],
+    files: ['src/globals/SiteSettings.ts', 'src/lib/default-resume-lexical.ts'],
+  },
+  {
+    id: '062',
+    title: 'Optional boot/click sounds (muted by default)',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Optional Win9x-flavoured sounds for boot and UI clicks. Muted by default; respect reduced-motion / toggle.',
+    acceptance: [
+      'Sounds off by default',
+      'Toggle enables boot + click sounds',
+      'Reduced-motion / mute preference skips audio',
+    ],
+    deps: ['#22', '#29'],
+    files: [
+      'public/sounds/',
+      'src/lib/desktop-audio.ts',
+      'src/components/desktop/BootScreen.tsx',
+      'src/lib/desktopStore.ts',
+    ],
+  },
+  {
+    id: '063',
+    title: 'Double-click desktop icons (classic Win9x)',
+    milestone: 'M4 — Desktop Shell',
+    labels: ['epic:desktop-ui', 'priority:mvp', 'type:feature'],
+    summary:
+      'Classic desktop behaviour: single-click selects, double-click opens. Keyboard Enter/Space still activates.',
+    acceptance: [
+      'Single click selects an icon without opening',
+      'Double click opens the app/window',
+      'Enter / Space still opens the selected icon',
+    ],
+    deps: ['#25'],
+    files: [
+      'src/components/desktop/DesktopIcon.tsx',
+      'src/components/desktop/DesktopIconGrid.tsx',
     ],
   },
 ]
