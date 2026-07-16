@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useState } from 'react'
 
+import { useDesktopStore } from '@/lib/desktopStore'
+
 type BootScreenProps = {
-  children: React.ReactNode
   siteTitle: string
 }
 
@@ -16,10 +17,10 @@ function getBootLines(siteTitle: string): string[] {
   ]
 }
 
-export function BootScreen({ children, siteTitle }: BootScreenProps) {
+export function BootScreen({ siteTitle }: BootScreenProps) {
+  const finishBoot = useDesktopStore((state) => state.completeBoot)
   const lines = useMemo(() => getBootLines(siteTitle), [siteTitle])
   const [visibleLineCount, setVisibleLineCount] = useState(0)
-  const [isComplete, setIsComplete] = useState(false)
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -27,28 +28,30 @@ export function BootScreen({ children, siteTitle }: BootScreenProps) {
     if (reduceMotion) {
       const timer = window.setTimeout(() => {
         setVisibleLineCount(lines.length)
-        setIsComplete(true)
+        finishBoot()
       }, 0)
       return () => window.clearTimeout(timer)
     }
 
     let lineIndex = 0
+    let finishTimer = 0
     const lineTimer = window.setInterval(() => {
       lineIndex += 1
       setVisibleLineCount(lineIndex)
 
       if (lineIndex >= lines.length) {
         window.clearInterval(lineTimer)
-        window.setTimeout(() => setIsComplete(true), 500)
+        finishTimer = window.setTimeout(() => {
+          finishBoot()
+        }, 500)
       }
     }, 480)
 
-    return () => window.clearInterval(lineTimer)
-  }, [lines.length])
-
-  if (isComplete) {
-    return children
-  }
+    return () => {
+      window.clearInterval(lineTimer)
+      window.clearTimeout(finishTimer)
+    }
+  }, [finishBoot, lines.length])
 
   const visibleLines = lines.slice(0, visibleLineCount)
 

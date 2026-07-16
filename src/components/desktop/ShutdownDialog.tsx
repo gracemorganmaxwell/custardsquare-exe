@@ -6,7 +6,7 @@ export function ShutdownDialog() {
   const open = useDesktopStore((state) => state.shutdownOpen)
   const closeShutdown = useDesktopStore((state) => state.closeShutdown)
   const logOff = useDesktopStore((state) => state.logOff)
-  const enterDesktop = useDesktopStore((state) => state.enterDesktop)
+  const restart = useDesktopStore((state) => state.restart)
 
   if (!open) {
     return null
@@ -38,15 +38,12 @@ export function ShutdownDialog() {
               className="win95-button"
               onClick={() => {
                 closeShutdown()
-                enterDesktop()
+                restart()
               }}
               type="button"
             >
               Restart
             </button>
-            <a className="win95-button" href="https://www.outsideonline.com/" rel="noopener noreferrer">
-              Go Outside
-            </a>
             <button className="win95-button" onClick={() => closeShutdown()} type="button">
               Cancel
             </button>
