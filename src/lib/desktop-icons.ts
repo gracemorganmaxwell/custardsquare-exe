@@ -1,5 +1,6 @@
 import type { DesktopWindowId, ExplorerFolderId } from '@/lib/desktopStore'
 import { explorerWindowTitle } from '@/lib/desktopStore'
+import { GITHUB_LINK } from '@/lib/social-links'
 
 export type DesktopIconItem = {
   disabled?: boolean
@@ -12,7 +13,10 @@ export type DesktopIconItem = {
   windowTitle?: string
 }
 
-/** aconfuseddragon Win95 Plus icons — copied from learning-journey-os/public/icons/ */
+/**
+ * aconfuseddragon Win95 Plus icons — full pack in /public/icons/pack/
+ * (copied from learning-journey-os). Desktop aliases live in /public/icons/desktop/.
+ */
 export const DESKTOP_ICONS: DesktopIconItem[] = [
   {
     id: 'this-computer',
@@ -39,28 +43,28 @@ export const DESKTOP_ICONS: DesktopIconItem[] = [
   {
     id: 'resume',
     label: 'Resume',
-    iconSrc: '/icons/desktop/projects.png',
+    iconSrc: '/icons/desktop/resume.png',
     windowId: 'resume',
     windowTitle: 'Resume — RESUME.md',
   },
   {
     id: 'skills',
     label: 'Skills',
-    iconSrc: '/icons/desktop/this_computer.png',
+    iconSrc: '/icons/desktop/skills.png',
     windowId: 'skills',
     windowTitle: 'Skills',
   },
   {
     id: 'terminal',
     label: 'Terminal',
-    iconSrc: '/icons/ui/folder.png',
+    iconSrc: '/icons/desktop/terminal.png',
     windowId: 'terminal',
     windowTitle: 'Terminal — custardsquare OS',
   },
   {
     id: 'notes',
     label: 'Notes',
-    iconSrc: '/icons/desktop/articles.png',
+    iconSrc: '/icons/desktop/notes.png',
     windowId: 'notes',
     windowTitle: 'Notes',
   },
@@ -74,8 +78,14 @@ export const DESKTOP_ICONS: DesktopIconItem[] = [
   {
     id: 'credits',
     label: 'Credits',
-    iconSrc: '/icons/desktop/github.png',
+    iconSrc: '/icons/desktop/credits.png',
     windowId: 'credits',
     windowTitle: 'Credits',
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    iconSrc: '/icons/desktop/github.png',
+    href: GITHUB_LINK.url,
   },
 ]

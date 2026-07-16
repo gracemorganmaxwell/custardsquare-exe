@@ -20,6 +20,11 @@ export function DesktopIconGrid() {
         return
       }
 
+      if (icon.href) {
+        window.open(icon.href, '_blank', 'noopener,noreferrer')
+        return
+      }
+
       if (icon.explorerFolder) {
         openExplorer(icon.explorerFolder)
         return

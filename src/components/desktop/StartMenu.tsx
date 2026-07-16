@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 
 import { useDesktopStore } from '@/lib/desktopStore'
+import { GITHUB_LINK } from '@/lib/social-links'
 
 export function StartMenu() {
   const open = useDesktopStore((state) => state.startMenuOpen)
@@ -57,7 +58,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/this_computer.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/welcome.png" width={24} />
             Welcome
           </button>
         </li>
@@ -105,7 +106,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/projects.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/resume.png" width={24} />
             Resume
           </button>
         </li>
@@ -117,7 +118,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/this_computer.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/skills.png" width={24} />
             Skills
           </button>
         </li>
@@ -129,7 +130,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/ui/folder.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/terminal.png" width={24} />
             Terminal
           </button>
         </li>
@@ -141,7 +142,7 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/articles.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/notes.png" width={24} />
             Notes
           </button>
         </li>
@@ -165,15 +166,29 @@ export function StartMenu() {
             type="button"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/github.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/credits.png" width={24} />
             Credits
           </button>
+        </li>
+        <li role="none">
+          <a
+            className="start-menu__item"
+            href={GITHUB_LINK.url}
+            onClick={() => closeStartMenu()}
+            rel="noopener noreferrer"
+            role="menuitem"
+            target="_blank"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/github.png" width={24} />
+            GitHub
+          </a>
         </li>
         <li aria-hidden="true" className="start-menu__separator" />
         <li role="none">
           <button className="start-menu__item" onClick={() => openShutdown()} role="menuitem" type="button">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img alt="" height={24} src="/icons/desktop/github.png" width={24} />
+            <img alt="" height={24} src="/icons/desktop/shutdown.png" width={24} />
             Shut Down…
           </button>
         </li>
