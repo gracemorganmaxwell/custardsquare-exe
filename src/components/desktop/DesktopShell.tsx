@@ -55,7 +55,7 @@ export function DesktopShell({
             alt=""
             className="desktop-shell__wallpaper-flag"
             height={100}
-            src="/brand/desktop-background.svg"
+            src="/brand/desktop-background.png"
             width={100}
           />
           <p className="desktop-shell__wallpaper-caption">custardsquare OS</p>

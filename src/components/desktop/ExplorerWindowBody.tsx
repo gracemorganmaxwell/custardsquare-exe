@@ -26,22 +26,22 @@ type TreeItem = {
 const TREE_ITEMS: TreeItem[] = [
   {
     folder: 'root',
-    iconSrc: '/icons/desktop/this_computer.svg',
+    iconSrc: '/icons/desktop/this_computer.png',
     label: 'SECOND_BRAIN',
   },
   {
     folder: 'articles',
-    iconSrc: '/icons/desktop/articles.svg',
+    iconSrc: '/icons/desktop/articles.png',
     label: 'Articles',
   },
   {
     folder: 'dreams',
-    iconSrc: '/icons/desktop/projects.svg',
+    iconSrc: '/icons/desktop/projects.png',
     label: 'Dreams',
   },
   {
     folder: 'about',
-    iconSrc: '/icons/desktop/about.svg',
+    iconSrc: '/icons/desktop/about.png',
     label: 'About',
   },
 ]
@@ -142,7 +142,7 @@ export function ExplorerWindowBody({ articles }: ExplorerWindowBodyProps) {
                       alt=""
                       className="explorer__file-icon"
                       height={32}
-                      src="/icons/desktop/articles.svg"
+                      src="/icons/desktop/articles.png"
                       width={32}
                     />
                     <span>{article.title}</span>
@@ -168,7 +168,7 @@ export function ExplorerWindowBody({ articles }: ExplorerWindowBodyProps) {
                   alt=""
                   className="explorer__file-icon"
                   height={32}
-                  src="/icons/desktop/about.svg"
+                  src="/icons/desktop/about.png"
                   width={32}
                 />
                 <span>About.txt</span>

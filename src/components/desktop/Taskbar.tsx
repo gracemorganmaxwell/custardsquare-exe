@@ -35,7 +35,7 @@ export function Taskbar() {
         type="button"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img alt="" className="taskbar__start-icon" height={16} src="/brand/custardsq-favicon.svg" width={16} />
+        <img alt="" className="taskbar__start-icon" height={16} src="/brand/custardsq-favicon.png" width={16} />
         Start
       </button>
 

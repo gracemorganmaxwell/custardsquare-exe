@@ -39,7 +39,7 @@ export function ArticlesWindow({ articles }: ArticlesWindowProps) {
                 onClick={() => setSelectedSlug(article.slug)}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" height={16} src="/icons/desktop/articles.svg" width={16} />
+                <img alt="" height={16} src="/icons/desktop/articles.png" width={16} />
                 <span className="articles-window__title">{article.title}</span>
                 <span className="articles-window__path">/articles/{article.slug}</span>
               </Link>
