@@ -34,6 +34,13 @@ export const DESKTOP_ICONS: DesktopIconItem[] = [
     windowTitle: 'Articles',
   },
   {
+    id: 'search',
+    label: 'Search',
+    iconSrc: '/icons/desktop/search.png',
+    windowId: 'search',
+    windowTitle: 'Find Articles',
+  },
+  {
     id: 'about',
     label: 'About',
     iconSrc: '/icons/desktop/about.png',

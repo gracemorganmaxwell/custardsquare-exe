@@ -26,6 +26,7 @@ function runCommand(raw: string): string[] {
       'Commands:',
       '  help              list commands',
       '  open articles     open Articles window',
+      '  open search       open Search window',
       '  open about        open About window',
       '  open resume       open Resume window',
       '  open skills       open Skills window',
@@ -81,6 +82,9 @@ export function TerminalWindow() {
       if (target === 'articles') {
         openWindow('articles', 'Articles')
         output.push('Opening Articles…')
+      } else if (target === 'search') {
+        openWindow('search', 'Find Articles')
+        output.push('Opening Search…')
       } else if (target === 'about') {
         openWindow('about', 'About')
         output.push('Opening About…')
@@ -96,7 +100,9 @@ export function TerminalWindow() {
       } else if (target === 'terminal') {
         output.push('Already in Terminal.')
       } else {
-        output.push(`Cannot open '${target}'. Try: articles, about, resume, skills, credits.`)
+        output.push(
+          `Cannot open '${target}'. Try: articles, search, about, resume, skills, credits.`,
+        )
       }
     }
 

@@ -7,6 +7,7 @@ export type DesktopWindowId =
   | 'about'
   | 'this-computer'
   | 'articles'
+  | 'search'
   | 'resume'
   | 'skills'
   | 'credits'

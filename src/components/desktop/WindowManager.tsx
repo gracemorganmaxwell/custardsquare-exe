@@ -10,6 +10,7 @@ import { ArticlesWindow } from '@/components/windows/ArticlesWindow'
 import { ComingSoonWindow } from '@/components/windows/ComingSoonWindow'
 import { CreditsWindow } from '@/components/windows/CreditsWindow'
 import { ResumeWindow } from '@/components/windows/ResumeWindow'
+import { SearchWindow } from '@/components/windows/SearchWindow'
 import { SkillsWindow } from '@/components/windows/SkillsWindow'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { WinWindow } from '@/components/ui95/WinWindow'
@@ -36,6 +37,7 @@ function windowClassName(id: DesktopWindowId): string | undefined {
   if (id === 'welcome') return 'welcome-window'
   if (id === 'this-computer') return 'explorer-window'
   if (id === 'articles') return 'articles-app-window'
+  if (id === 'search') return 'search-app-window'
   if (id === 'about') return 'about-app-window'
   if (id === 'resume') return 'resume-app-window'
   if (id === 'skills') return 'skills-app-window'
@@ -67,6 +69,10 @@ function renderBody(
 
   if (id === 'articles') {
     return <ArticlesWindow articles={articles} />
+  }
+
+  if (id === 'search') {
+    return <SearchWindow articles={articles} />
   }
 
   if (id === 'resume') {
