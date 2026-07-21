@@ -15,6 +15,7 @@ export default async function HomePage() {
   const socialLinks =
     settings.socialLinks.length > 0 ? settings.socialLinks : FALLBACK_SOCIAL_LINKS
   const articles = publishedArticles.map((article) => ({
+    excerpt: article.excerpt,
     slug: article.slug,
     title: article.title,
   }))

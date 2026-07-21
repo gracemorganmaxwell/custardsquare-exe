@@ -101,6 +101,18 @@ export function StartMenu() {
         <li role="none">
           <button
             className="start-menu__item"
+            onClick={() => openWindow('search', 'Find Articles')}
+            role="menuitem"
+            type="button"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" height={24} src="/icons/desktop/search.png" width={24} />
+            Search
+          </button>
+        </li>
+        <li role="none">
+          <button
+            className="start-menu__item"
             onClick={() => openWindow('resume', 'Resume — RESUME.md')}
             role="menuitem"
             type="button"

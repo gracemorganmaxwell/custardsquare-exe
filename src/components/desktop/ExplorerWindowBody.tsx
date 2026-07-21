@@ -9,6 +9,7 @@ import {
 } from '@/lib/desktopStore'
 
 export type ExplorerArticleItem = {
+  excerpt: string
   slug: string
   title: string
 }

@@ -7,11 +7,14 @@ json: {"title":"Search window","labels":["epic:desktop-apps","priority:mvp","typ
 Filter published articles by title/excerpt. Client-side filter is fine for MVP.
 
 ## Done when
-- [ ] Typing filters the article list
-- [ ] Results link to article pages
+- [x] Typing filters the article list
+- [x] Results link to article pages
 
 ## Depends on
 - #14
 
 ## Likely files
 - `src/components/windows/SearchWindow.tsx`
+- `src/components/desktop/WindowManager.tsx`
+- `src/lib/desktop-icons.ts`
+- `src/components/desktop/StartMenu.tsx`
