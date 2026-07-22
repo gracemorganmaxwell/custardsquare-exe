@@ -27,6 +27,7 @@ public/icons/
     search.png
     shutdown.png        ← recycle_bin.png
     linkedin.png        ← contact_book.png
+    browser.png         ← chrome.png
   ui/
     folder.png          ← folder_open.png
     folder_dark.png
