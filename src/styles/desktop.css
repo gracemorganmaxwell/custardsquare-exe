@@ -288,6 +288,17 @@
   min-height: 12rem;
 }
 
+.projects-app-window {
+  width: min(28rem, calc(100vw - 2rem));
+  min-height: 14rem;
+}
+
+.projects-app-window .win-window__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 12rem;
+}
+
 .about-app-window {
   width: min(26rem, calc(100vw - 2rem));
 }
@@ -660,6 +671,66 @@
   border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
     var(--win95-bevel-dark);
   font-size: 0.6875rem;
+}
+
+.projects-window {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 12rem;
+  padding: 0.35rem;
+  background: var(--win95-grey);
+  color: var(--win95-black);
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+}
+
+.projects-window__toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.2rem 0.35rem;
+  background: var(--win95-grey-light);
+  border: 1px solid;
+  border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+    var(--win95-bevel-light);
+  font-size: 0.75rem;
+}
+
+.projects-window__files {
+  flex: 1;
+  min-height: 8rem;
+  margin: 0;
+  padding: 0.35rem;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
+  overflow: auto;
+}
+
+.projects-window__status {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 2px;
+}
+
+.projects-window__status-field {
+  padding: 0.1rem 0.35rem;
+  background: var(--win95-grey);
+  border: 1px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  font-size: 0.6875rem;
+  line-height: 1.35;
+}
+
+.projects-window__status-field:first-child {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .explorer {
@@ -1232,6 +1303,7 @@
   .welcome-window,
   .explorer-window,
   .articles-app-window,
+  .projects-app-window,
   .about-app-window,
   .resume-app-window,
   .skills-app-window,
@@ -1245,6 +1317,7 @@
   .skills-window,
   .resume-window,
   .articles-window,
+  .projects-window,
   .explorer,
   .credits-window,
   .coming-soon-window,

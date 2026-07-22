@@ -59,6 +59,8 @@ Build the content system first. Then build the desktop. Then add magic.
 
 The desktop is how people discover the brain. The CMS is how Grace keeps feeding it.
 
+Design choices (stack, CMS schema, shell vs content, and so on) are recorded in [`DECISIONS.md`](DECISIONS.md).
+
 ## Credits
 
 Icons used throughout custardsquare.exe are from the Windows 95 Plus-inspired icon packs by [aconfuseddragon](https://aconfuseddragon.itch.io/) on itch.io. Thank you to aconfuseddragon for creating and sharing such beautiful nostalgic pixel icon work.

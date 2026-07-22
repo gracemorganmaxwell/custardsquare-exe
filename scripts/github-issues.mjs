@@ -828,6 +828,27 @@ const issues = [
       'src/components/desktop/DesktopIconGrid.tsx',
     ],
   },
+  {
+    id: '064',
+    title: 'Projects window shortcuts (rain check, Refined K-9, Blue Rose)',
+    milestone: 'M5 — Desktop Apps',
+    labels: ['epic:desktop-apps', 'priority:mvp', 'type:feature'],
+    summary:
+      'Replace the Projects coming-soon placeholder with a hardcoded folder of browser shortcuts (external portfolio links + blurbs). Full CMS Projects stays V2 (#051).',
+    acceptance: [
+      'Projects window lists rain check, Refined K-9, and Blue Rose Nails with browser icons',
+      'Click opens each URL in a new browser tab',
+      'Selecting an item shows its blurb in the status bar',
+      'Notes window remains coming soon',
+    ],
+    deps: ['#38'],
+    files: [
+      'src/lib/project-links.ts',
+      'src/components/windows/ProjectsWindow.tsx',
+      'src/components/desktop/WindowManager.tsx',
+      'DECISIONS.md',
+    ],
+  },
 ]
 
 const GUIDING_PRINCIPLE =

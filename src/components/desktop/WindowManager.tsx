@@ -9,6 +9,7 @@ import { AboutWindow } from '@/components/windows/AboutWindow'
 import { ArticlesWindow } from '@/components/windows/ArticlesWindow'
 import { ComingSoonWindow } from '@/components/windows/ComingSoonWindow'
 import { CreditsWindow } from '@/components/windows/CreditsWindow'
+import { ProjectsWindow } from '@/components/windows/ProjectsWindow'
 import { ResumeWindow } from '@/components/windows/ResumeWindow'
 import { SkillsWindow } from '@/components/windows/SkillsWindow'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
@@ -40,7 +41,8 @@ function windowClassName(id: DesktopWindowId): string | undefined {
   if (id === 'resume') return 'resume-app-window'
   if (id === 'skills') return 'skills-app-window'
   if (id === 'credits') return 'credits-app-window'
-  if (id === 'notes' || id === 'projects') return 'coming-soon-app-window'
+  if (id === 'notes') return 'coming-soon-app-window'
+  if (id === 'projects') return 'projects-app-window'
   if (id === 'terminal') return 'terminal-app-window'
   return undefined
 }
@@ -91,12 +93,7 @@ function renderBody(
   }
 
   if (id === 'projects') {
-    return (
-      <ComingSoonWindow
-        appName="Projects"
-        blurb="Portfolio projects will open here once the Projects collection is ready."
-      />
-    )
+    return <ProjectsWindow />
   }
 
   if (id === 'terminal') {
