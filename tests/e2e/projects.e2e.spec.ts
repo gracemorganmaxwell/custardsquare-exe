@@ -32,7 +32,9 @@ test.describe('Projects window', () => {
 
     await window.getByRole('button', { name: /Walkies Quest/ }).click()
     await expect(page.getByRole('heading', { name: 'Walkies Quest' })).toBeVisible()
-    await expect(window.getByText(/rain map/i)).toBeVisible()
+    await expect(
+      window.locator('.projects-window__story-copy').filter({ hasText: /rain map/i }),
+    ).toBeVisible()
     await expect(window.getByRole('link', { name: 'Visit site' })).toHaveAttribute(
       'href',
       'https://walkies.quest/',
