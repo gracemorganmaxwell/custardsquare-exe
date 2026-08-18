@@ -521,6 +521,10 @@ export interface SiteSetting {
          * Short blurb shown in the status bar when selected
          */
         summary: string;
+        /**
+         * The project story shown in the Projects window. Use a blank line between paragraphs. Falls back to the bundled story if empty.
+         */
+        story?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -573,6 +577,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         title?: T;
         url?: T;
         summary?: T;
+        story?: T;
         id?: T;
       };
   credits?: T;

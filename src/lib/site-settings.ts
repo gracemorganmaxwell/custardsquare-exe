@@ -119,11 +119,17 @@ function resolveProjects(projects: SiteSetting['projects'] | undefined): Project
   }
 
   return projects
-    .map((entry) => ({
-      title: entry.title.trim(),
-      url: entry.url.trim(),
-      summary: entry.summary.trim(),
-    }))
+    .map((entry) => {
+      const url = entry.url.trim()
+      const bundled = DEFAULT_PROJECTS.find((project) => project.url === url)
+
+      return {
+        title: entry.title.trim(),
+        url,
+        summary: entry.summary.trim(),
+        story: entry.story?.trim() || bundled?.story || '',
+      }
+    })
     .filter((entry) => entry.title.length > 0 && entry.url.length > 0 && entry.summary.length > 0)
 }
 

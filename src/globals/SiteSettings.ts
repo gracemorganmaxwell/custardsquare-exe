@@ -201,6 +201,14 @@ export const SiteSettings: GlobalConfig = {
             description: 'Short blurb shown in the status bar when selected',
           },
         },
+        {
+          name: 'story',
+          type: 'textarea',
+          admin: {
+            description:
+              'The project story shown in the Projects window. Use a blank line between paragraphs. Falls back to the bundled story if empty.',
+          },
+        },
       ],
     },
     {

@@ -17,6 +17,23 @@
 
 **Trade-offs / consequences:** Adding or editing projects does not require a code deploy once Site Settings is saved. Richer case studies (drafts, SEO, per-project pages) still need a collection later. If Site Settings is saved with an incomplete custom list, that list replaces the bundled defaults.
 
+## 2026-08-18 — Project stories are a textarea on the same array
+
+**Decision:** Each project has a `story` textarea shown in a pane under the Projects list. Click a row to read it; Visit site opens the live URL.
+
+**Context / problem:** The list-only window had nowhere to tell the story of each live site.
+
+**Options considered:**
+1. Payload collection with rich-text case studies (issue 051).
+2. Lexical rich text on the Site Settings array (same editor as Resume).
+3. Plain textarea + Win95 story pane on the existing projects array.
+
+**Chosen option:** Option 3.
+
+**Rationale:** Stories are a few paragraphs, not article pages. Skills/summary already use textareas. Empty CMS `story` falls back to the bundled copy for that URL so existing Site Settings still show a story.
+
+**Trade-offs / consequences:** No headings/links inside a story until a later collection. Edit copy in Site Settings → Projects window.
+
 ## 2026-08-18 — Allow 127.0.0.1 as a Next.js dev origin
 
 **Decision:** Set `allowedDevOrigins` to `127.0.0.1` and `localhost` in `next.config.ts`.

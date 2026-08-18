@@ -12,4 +12,4 @@ Project case studies with links. When you have projects worth showcasing.
 
 ## Current behaviour
 
-The Projects desktop app lists live sites from Site Settings (`projects` array). Empty CMS data falls back to `DEFAULT_PROJECTS` in `src/lib/default-projects.ts`. A dedicated Payload collection remains V2 for case-study pages (drafts, slugs, SEO).
+The Projects desktop app lists live sites from Site Settings (`projects` array) and shows a story pane for the selected row. Empty CMS data falls back to `DEFAULT_PROJECTS` in `src/lib/default-projects.ts`. A dedicated Payload collection remains V2 for case-study pages (drafts, slugs, SEO).
