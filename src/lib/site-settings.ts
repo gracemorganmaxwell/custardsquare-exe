@@ -2,6 +2,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
+import { DEFAULT_PROJECTS, type ProjectItem } from '@/lib/default-projects'
 import { DEFAULT_RESUME_PDF_HREF } from '@/lib/default-resume'
 import {
   buildDefaultResumeLexical,
@@ -50,6 +51,7 @@ export type ResolvedSiteSettings = {
   siteTitle: string
   skills: SkillGroup[]
   socialLinks: NonNullable<SiteSetting['socialLinks']>
+  projects: ProjectItem[]
 }
 
 export async function getSiteSettings(): Promise<ResolvedSiteSettings> {
@@ -70,6 +72,7 @@ export async function getSiteSettings(): Promise<ResolvedSiteSettings> {
     about: resolveAbout(settings?.about),
     resume: resolveResume(settings?.resume),
     skills: resolveSkills(settings?.skills),
+    projects: resolveProjects(settings?.projects),
   }
 }
 
@@ -108,6 +111,20 @@ function resolveSkills(skills: SiteSetting['skills'] | undefined): SkillGroup[] 
       items: parseSkillItems(entry.items),
     }))
     .filter((entry) => entry.group.length > 0 && entry.items.length > 0)
+}
+
+function resolveProjects(projects: SiteSetting['projects'] | undefined): ProjectItem[] {
+  if (!projects || projects.length === 0) {
+    return DEFAULT_PROJECTS
+  }
+
+  return projects
+    .map((entry) => ({
+      title: entry.title.trim(),
+      url: entry.url.trim(),
+      summary: entry.summary.trim(),
+    }))
+    .filter((entry) => entry.title.length > 0 && entry.url.length > 0 && entry.summary.length > 0)
 }
 
 function resolveMediaUrl(media: Media | null): string | undefined {

@@ -29,6 +29,7 @@ export default async function HomePage() {
       siteTitle={settings.siteTitle}
       skills={settings.skills}
       socialLinks={socialLinks}
+      projects={settings.projects}
     />
   )
 }

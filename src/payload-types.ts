@@ -505,6 +505,26 @@ export interface SiteSetting {
       }[]
     | null;
   /**
+   * Live sites listed in the Projects desktop app (prefilled). Empty list falls back to the bundled defaults.
+   */
+  projects?:
+    | {
+        /**
+         * Project name shown in the list
+         */
+        title: string;
+        /**
+         * Public URL opened from the Projects window
+         */
+        url: string;
+        /**
+         * Short blurb shown in the status bar when selected
+         */
+        summary: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Icon and asset credits. Shown in the Credits window (and optional /credits page).
    */
   credits?: string | null;
@@ -545,6 +565,14 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         group?: T;
         items?: T;
+        id?: T;
+      };
+  projects?:
+    | T
+    | {
+        title?: T;
+        url?: T;
+        summary?: T;
         id?: T;
       };
   credits?: T;
