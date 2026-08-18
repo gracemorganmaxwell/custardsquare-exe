@@ -660,8 +660,18 @@ const issues = [
     title: 'V2: Projects collection + window',
     milestone: null,
     labels: ['epic:desktop-apps', 'priority:v2', 'type:feature'],
-    summary: 'Project case studies with links. When you have projects worth showcasing.',
-    acceptance: ['Projects in Payload', 'Projects window lists them'],
+    summary:
+      'Live project sites in Payload, listed in the desktop Projects window with stories, favicons, and CMS editing.',
+    acceptance: [
+      'Projects collection in Payload (title, URL, summary, story, icon, published)',
+      'Projects window lists published sites with favicons and a story pane',
+    ],
+    files: [
+      'src/collections/Projects.ts',
+      'src/lib/projects.ts',
+      'src/lib/default-projects.ts',
+      'src/components/windows/ProjectsWindow.tsx',
+    ],
   },
   {
     id: '052',

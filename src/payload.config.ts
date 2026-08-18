@@ -14,7 +14,9 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles'
+import { Projects } from './collections/Projects'
 import { SiteSettings } from './globals/SiteSettings'
+import { seedProjectsIfEmpty } from './lib/seed-projects'
 import { getServerURL, getTrustedOrigins } from './lib/site-url'
 
 const filename = fileURLToPath(import.meta.url)
@@ -45,7 +47,7 @@ export default buildConfig({
       titleSuffix: ' — custardsquare.exe',
     },
   },
-  collections: [Users, Media, Articles],
+  collections: [Users, Media, Articles, Projects],
   globals: [SiteSettings],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
@@ -66,6 +68,9 @@ export default buildConfig({
     },
   }),
   sharp,
+  onInit: async (payload) => {
+    await seedProjectsIfEmpty(payload)
+  },
   plugins: [
     vercelBlobStorage({
       collections: {

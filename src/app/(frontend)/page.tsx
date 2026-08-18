@@ -1,5 +1,6 @@
 import { DesktopExperience } from '@/components/desktop/DesktopExperience'
 import { getPublishedArticles } from '@/lib/articles'
+import { getPublishedProjects } from '@/lib/projects'
 import { getSiteSettings } from '@/lib/site-settings'
 import { GITHUB_LINK, LINKEDIN_LINK } from '@/lib/social-links'
 
@@ -8,9 +9,10 @@ export const dynamic = 'force-dynamic'
 const FALLBACK_SOCIAL_LINKS = [GITHUB_LINK, LINKEDIN_LINK]
 
 export default async function HomePage() {
-  const [settings, publishedArticles] = await Promise.all([
+  const [settings, publishedArticles, projects] = await Promise.all([
     getSiteSettings(),
     getPublishedArticles(),
+    getPublishedProjects(),
   ])
   const socialLinks =
     settings.socialLinks.length > 0 ? settings.socialLinks : FALLBACK_SOCIAL_LINKS
@@ -29,6 +31,7 @@ export default async function HomePage() {
       siteTitle={settings.siteTitle}
       skills={settings.skills}
       socialLinks={socialLinks}
+      projects={projects}
     />
   )
 }

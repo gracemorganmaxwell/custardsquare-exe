@@ -13,8 +13,8 @@ import {
   parseSkillItems,
   type SkillGroup,
 } from '@/lib/default-skills'
+import { resolveMedia, resolveMediaUrl } from '@/lib/resolve-media'
 import type { Media, SiteSetting } from '@/payload-types'
-import { getServerURL } from '@/lib/site-url'
 
 export const DEFAULT_SITE_TITLE = 'custardsquare.exe'
 
@@ -108,27 +108,4 @@ function resolveSkills(skills: SiteSetting['skills'] | undefined): SkillGroup[] 
       items: parseSkillItems(entry.items),
     }))
     .filter((entry) => entry.group.length > 0 && entry.items.length > 0)
-}
-
-function resolveMediaUrl(media: Media | null): string | undefined {
-  const url = media?.url
-  if (!url) {
-    return undefined
-  }
-
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    return url
-  }
-
-  const base = getServerURL()
-  const path = url.startsWith('/') ? url : `/${url}`
-  return `${base}${path}`
-}
-
-function resolveMedia(media: number | Media | null | undefined): Media | null {
-  if (!media || typeof media === 'number') {
-    return null
-  }
-
-  return media
 }

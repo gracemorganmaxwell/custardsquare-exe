@@ -7,6 +7,8 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // Cloud Agent / Simple Browser often opens 127.0.0.1 while Next started as localhost.
+  allowedDevOrigins: ['127.0.0.1', 'localhost'],
   images: {
     localPatterns: [
       {

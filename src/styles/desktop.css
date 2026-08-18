@@ -288,6 +288,17 @@
   min-height: 12rem;
 }
 
+.projects-app-window {
+  width: min(36rem, calc(100vw - 2rem));
+  min-height: 22rem;
+}
+
+.projects-app-window .win-window__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 12rem;
+}
+
 .about-app-window {
   width: min(26rem, calc(100vw - 2rem));
 }
@@ -654,6 +665,174 @@
 }
 
 .articles-window__status-field {
+  padding: 0.1rem 0.35rem;
+  background: var(--win95-grey);
+  border: 1px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  font-size: 0.6875rem;
+}
+
+.projects-window {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 12rem;
+  padding: 0.35rem;
+  background: var(--win95-grey);
+  color: var(--win95-black);
+  font-family: var(--win95-font);
+  font-size: 0.8125rem;
+}
+
+.projects-window__toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.2rem 0.35rem;
+  background: var(--win95-grey-light);
+  border: 1px solid;
+  border-color: var(--win95-bevel-light) var(--win95-bevel-dark) var(--win95-bevel-dark)
+    var(--win95-bevel-light);
+  font-size: 0.75rem;
+}
+
+.projects-window__list {
+  flex: 0 0 auto;
+  max-height: 8.5rem;
+  min-height: 5.5rem;
+  margin: 0;
+  padding: 0.15rem;
+  list-style: none;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
+  overflow: auto;
+}
+
+.projects-window__row {
+  display: grid;
+  grid-template-columns: 1rem 1fr auto;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.2rem 0.35rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+  text-align: left;
+  cursor: default;
+}
+
+.projects-window__row:hover {
+  background: rgb(0 0 128 / 8%);
+}
+
+.projects-window__favicon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.projects-window__row[aria-current='true'] {
+  background: #000080;
+  color: #fff;
+}
+
+.projects-window__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.projects-window__path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--win95-font-mono);
+  font-size: 0.6875rem;
+  opacity: 0.85;
+}
+
+.projects-window__empty {
+  flex: 1;
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+  border-radius: var(--cs-radius-sm);
+}
+
+.projects-window__story {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 10rem;
+}
+
+.projects-window__story-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.projects-window__story-title {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.projects-window__story-body {
+  flex: 1;
+  min-height: 8rem;
+  background: var(--win95-white);
+}
+
+.projects-window__story-body .win95-scroll__viewport {
+  padding: 0.45rem 0.55rem;
+}
+
+.projects-window__story-body .win95-scroll__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.projects-window__story-copy,
+.projects-window__story-placeholder {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.projects-window__story-placeholder {
+  flex: 1;
+  padding: 0.55rem;
+  background: var(--win95-white);
+  border: 2px solid;
+  border-color: var(--win95-bevel-dark) var(--win95-bevel-light) var(--win95-bevel-light)
+    var(--win95-bevel-dark);
+}
+
+.projects-window__status {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 2px;
+}
+
+.projects-window__status-field {
   padding: 0.1rem 0.35rem;
   background: var(--win95-grey);
   border: 1px solid;
@@ -1232,6 +1411,7 @@
   .welcome-window,
   .explorer-window,
   .articles-app-window,
+  .projects-app-window,
   .about-app-window,
   .resume-app-window,
   .skills-app-window,
@@ -1245,6 +1425,7 @@
   .skills-window,
   .resume-window,
   .articles-window,
+  .projects-window,
   .explorer,
   .credits-window,
   .coming-soon-window,
@@ -1257,6 +1438,13 @@
     height: auto;
     flex: 1;
     min-height: 10rem;
+  }
+
+  .projects-window__story,
+  .projects-window__story-body {
+    height: auto;
+    flex: 1;
+    min-height: 8rem;
   }
 
   .terminal-window__screen {

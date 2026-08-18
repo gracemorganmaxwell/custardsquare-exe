@@ -10,6 +10,7 @@ import { Taskbar } from '@/components/desktop/Taskbar'
 import { WindowManager } from '@/components/desktop/WindowManager'
 import type { ExplorerArticleItem } from '@/components/desktop/ExplorerWindowBody'
 import { useDesktopStore } from '@/lib/desktopStore'
+import type { ProjectItem } from '@/lib/default-projects'
 import type { SkillGroup } from '@/lib/default-skills'
 import type { ResolvedAboutContent, ResolvedResumeContent } from '@/lib/site-settings'
 import type { SocialLink } from '@/lib/social-links'
@@ -19,6 +20,7 @@ type DesktopShellProps = {
   about: ResolvedAboutContent
   articles: ExplorerArticleItem[]
   credits: string
+  projects: ProjectItem[]
   resume: ResolvedResumeContent
   siteDescription: string
   skills: SkillGroup[]
@@ -29,6 +31,7 @@ export function DesktopShell({
   about,
   articles,
   credits,
+  projects,
   resume,
   siteDescription,
   skills,
@@ -69,6 +72,7 @@ export function DesktopShell({
         about={about}
         articles={articles}
         credits={credits}
+        projects={projects}
         resume={resume}
         siteDescription={siteDescription}
         skills={skills}

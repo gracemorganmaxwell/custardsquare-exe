@@ -27,6 +27,11 @@ public/icons/
     search.png
     shutdown.png        ← recycle_bin.png
     linkedin.png        ← contact_book.png
+  projects/             ← live-site favicons used in the Projects window
+    delta-rootz.png
+    refined-k9.png
+    blue-rose.png
+    walkies-quest.png
   ui/
     folder.png          ← folder_open.png
     folder_dark.png
