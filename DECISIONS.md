@@ -16,3 +16,20 @@
 **Rationale:** Skills already owns “list shown in a desktop window, CMS-editable, fallback when empty.” A collection is the right fit for later case-study pages (issue 051), not for external live-site links. Empty CMS arrays fall back to `DEFAULT_PROJECTS`, so existing Site Settings pick up the four sites without a seed script.
 
 **Trade-offs / consequences:** Adding or editing projects does not require a code deploy once Site Settings is saved. Richer case studies (drafts, SEO, per-project pages) still need a collection later. If Site Settings is saved with an incomplete custom list, that list replaces the bundled defaults.
+
+## 2026-08-18 — Allow 127.0.0.1 as a Next.js dev origin
+
+**Decision:** Set `allowedDevOrigins` to `127.0.0.1` and `localhost` in `next.config.ts`.
+
+**Context / problem:** Cursor's preview hits `http://localhost:3000` or `http://127.0.0.1:3000`. Next 16 blocks cross-origin dev assets when the Host header does not match the listen hostname, which left the Simple Browser with a refused or broken page.
+
+**Options considered:**
+1. Tell reviewers to use only `localhost` and IPv4 happy-eyeballs.
+2. Allow both `localhost` and `127.0.0.1` as dev origins.
+3. Disable the origin check (not supported as a public flag).
+
+**Chosen option:** Option 2.
+
+**Rationale:** Same machine, two names for loopback. Allowing both unblocks Cloud Agent / Simple Browser preview without exposing extra hosts.
+
+**Trade-offs / consequences:** Any process that can reach the local dev server as 127.0.0.1 can load Next's dev assets. That is already true for `localhost` during `pnpm dev`.
