@@ -1,7 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
 import { isAdmin } from '../lib/access'
-import { DEFAULT_PROJECTS } from '../lib/default-projects'
 import { buildDefaultResumeLexical } from '../lib/default-resume-lexical'
 import { DEFAULT_SKILL_GROUPS } from '../lib/default-skills'
 
@@ -163,50 +162,6 @@ export const SiteSettings: GlobalConfig = {
           required: true,
           admin: {
             description: 'Comma-separated or line-separated skill items',
-          },
-        },
-      ],
-    },
-    {
-      name: 'projects',
-      type: 'array',
-      label: 'Projects window',
-      defaultValue: DEFAULT_PROJECTS,
-      admin: {
-        description:
-          'Live sites listed in the Projects desktop app (prefilled). Empty list falls back to the bundled defaults.',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Project name shown in the list',
-          },
-        },
-        {
-          name: 'url',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Public URL opened from the Projects window',
-          },
-        },
-        {
-          name: 'summary',
-          type: 'textarea',
-          required: true,
-          admin: {
-            description: 'Short blurb shown in the status bar when selected',
-          },
-        },
-        {
-          name: 'story',
-          type: 'textarea',
-          admin: {
-            description:
-              'The project story shown in the Projects window. Use a blank line between paragraphs. Falls back to the bundled story if empty.',
           },
         },
       ],

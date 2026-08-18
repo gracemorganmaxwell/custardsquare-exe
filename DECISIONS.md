@@ -50,3 +50,19 @@
 **Rationale:** Same machine, two names for loopback. Allowing both unblocks Cloud Agent / Simple Browser preview without exposing extra hosts.
 
 **Trade-offs / consequences:** Any process that can reach the local dev server as 127.0.0.1 can load Next's dev assets. That is already true for `localhost` during `pnpm dev`.
+
+## 2026-08-18 — Projects are a Payload collection
+
+**Decision:** Move live sites out of Site Settings into a `projects` collection. Seed the four defaults on first Payload init. List icons use each site's favicon (bundled under `public/icons/projects/`, overridable with a Media upload).
+
+**Context / problem:** Site Settings arrays on an already-saved global stay empty, so the bundled projects were not editable in admin. The list also used a generic folder icon.
+
+**Options considered:**
+1. Keep Site Settings and hydrate empty arrays in `afterRead`.
+2. Dedicated `projects` collection (same idea as Articles) plus bundled favicons and optional CMS icon upload.
+
+**Chosen option:** Option 2. This supersedes "Projects live in Site Settings, not a collection".
+
+**Rationale:** A collection is the admin list you actually edit. First boot seeds Delta Rootz, Refined K-9, Blue Rose, and Walkies Quest. Empty published set still falls back to `DEFAULT_PROJECTS` on the desktop.
+
+**Trade-offs / consequences:** Issue 051 collection checkbox is done; rich-text case-study pages are still later. Uncheck Published to hide a site. Replace a favicon by uploading Media on that project.

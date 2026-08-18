@@ -733,6 +733,13 @@
   background: rgb(0 0 128 / 8%);
 }
 
+.projects-window__favicon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
 .projects-window__row[aria-current='true'] {
   background: #000080;
   color: #fff;

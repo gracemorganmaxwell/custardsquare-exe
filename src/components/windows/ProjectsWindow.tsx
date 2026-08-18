@@ -44,7 +44,7 @@ export function ProjectsWindow({ projects }: ProjectsWindowProps) {
                 type="button"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" height={16} src="/icons/desktop/projects.png" width={16} />
+                <img alt="" className="projects-window__favicon" height={16} src={project.iconSrc} width={16} />
                 <span className="projects-window__title">{project.title}</span>
                 <span className="projects-window__path">{project.url}</span>
               </button>
@@ -79,7 +79,7 @@ export function ProjectsWindow({ projects }: ProjectsWindowProps) {
                 ))
               ) : (
                 <p className="projects-window__story-copy">
-                  No story yet. Add one in Site Settings → Projects window.
+                  No story yet. Add one in the CMS under Projects.
                 </p>
               )}
             </Win95ScrollArea>
